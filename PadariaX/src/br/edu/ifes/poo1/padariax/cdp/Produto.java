@@ -76,5 +76,7 @@ public class Produto {
     public void setPercentualLucro(int percentualLucro) {
         this.percentualLucro = percentualLucro;
     }
-    
+    public double valorVenda(){
+        return this.valorCusto*(1.0 + this.percentualLucro);
+    }
 }

@@ -3,26 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifes.poo1.padariax.cdp;
+package br.edu.ifes.poo1.padariax.cln.cdp;
 
+import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IPessoaFisica;
 import java.util.Date;
 
 /**
  *
  * @author aleao
  */
-public class PessoaFisica extends Cliente{
+public class PessoaFisica extends Cliente implements IPessoaFisica{
     private String cpf;
 
     
     public PessoaFisica(){
     }
-    
-    
-    public PessoaFisica(String cpf, int codigo, String nome, String endereco, String telefone, Date dataCadastro) {
-        super(codigo, nome, endereco, telefone, dataCadastro);
+
+    public PessoaFisica(int codigo, String nome, String endereco, String telefone, Date dataCadastro, TipoCliente tipo, String cpf) {
+        super(codigo, nome, endereco, telefone, dataCadastro, tipo.F);
         this.cpf = cpf;
     }
+    
+    
+   
 
  
     public String getCpf() {

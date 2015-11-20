@@ -3,24 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifes.poo1.padariax.cdp;
+package br.edu.ifes.poo1.padariax.cln.cdp;
 
+import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IPessoaJuridica;
 import java.util.Date;
 
 /**
  *
  * @author aleao
  */
-public class Fornecedor extends PessoaJuridica{
+public class Fornecedor extends Pessoa implements IPessoaJuridica{
     private String pessoaContato;
+    private String cnpj;
 
     public Fornecedor(){
     }
-    
-    public Fornecedor(String pessoaContato, String cnpj, int inscricaoEstadual, int codigo, String nome, String endereco, String telefone, Date dataCadastro) {
-        super(cnpj, inscricaoEstadual, codigo, nome, endereco, telefone, dataCadastro);
+
+    public Fornecedor(String pessoaContato, String cnpj, int codigo, String nome, String endereco, String telefone) {
+        super(codigo, nome, endereco, telefone);
         this.pessoaContato = pessoaContato;
+        this.cnpj = cnpj;
     }
+
+    
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+       
 
     public String getPessoaContato() {
         return pessoaContato;

@@ -3,30 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifes.poo1.padariax.cdp;
-
-import java.util.Date;
+package br.edu.ifes.poo1.padariax.cln.cdp;
 
 /**
  *
  * @author aleao
  */
-public abstract class Cliente {
+public class Pessoa {
     private int codigo;
     private String nome;
     private String endereco;
     private String telefone;
-    private Date dataCadastro;
-    
-    public Cliente(){        
-    }
 
-    public Cliente(int codigo, String nome, String endereco, String telefone, Date dataCadastro) {
+    public Pessoa(){
+    
+    }
+    
+    public Pessoa(int codigo, String nome, String endereco, String telefone) {
         this.codigo = codigo;
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
-        this.dataCadastro = dataCadastro;
     }
 
     public int getCodigo() {
@@ -59,14 +56,6 @@ public abstract class Cliente {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
     }
     
 }

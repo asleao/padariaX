@@ -5,6 +5,7 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
+import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
 import java.util.Date;
 import java.util.List;
 
@@ -12,40 +13,35 @@ import java.util.List;
  *
  * @author aleao
  */
-public class Venda {
-    private Date dataVenda;
-    private int quantidade;
+public class Venda implements IConta{
+    private Date dataVenda;    
     private Cliente cliente;
-    private List<Produto> listaProduto;
+    private List<Item> listaItens;
     private MeioPagamento meioPagamento;
     
     public Venda(){
     }
 
-    public Venda(Date dataVenda, int quantidade, Cliente cliente, List<Produto> listaProduto, MeioPagamento meioPagamento) {
-        this.dataVenda = dataVenda;
-        this.quantidade = quantidade;
+    public Venda(Date dataVenda, Cliente cliente, MeioPagamento meioPagamento) {
+        this.dataVenda = dataVenda;        
         this.cliente = cliente;
-        this.listaProduto = listaProduto;
         this.meioPagamento = meioPagamento;
     }
-    
-    
 
+    public List<Item> getListaItens() {
+        return listaItens;
+    }
+
+    public void setListaItens(List<Item> listaItens) {
+        this.listaItens = listaItens;
+    }
+   
     public Date getDataVenda() {
         return dataVenda;
     }
 
     public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
     }
 
     public Cliente getCliente() {
@@ -55,15 +51,7 @@ public class Venda {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
-    public List<Produto> getListaProduto() {
-        return listaProduto;
-    }
-
-    public void setListaProduto(List<Produto> listaProduto) {
-        this.listaProduto = listaProduto;
-    }
-
+    
     public MeioPagamento getMeioPagamento() {
         return meioPagamento;
     }
@@ -72,5 +60,20 @@ public class Venda {
         this.meioPagamento = meioPagamento;
     }
     
+    /**
+     * Função responsável por retornar o valor pago na nota fiscal.
+     * Ela busca todos os itens adquiridos e retorna a soma da quantidade
+     * multiplicada pelo valor de custo do produto.
+     * 
+     * @return valorPago.
+     */
+    public double valorPago(){
+        double valorPago = 0;
+        
+        for(Item item: this.listaItens){
+            valorPago += item.valorItem();
+        }
+        return valorPago;
+    }  
     
 }

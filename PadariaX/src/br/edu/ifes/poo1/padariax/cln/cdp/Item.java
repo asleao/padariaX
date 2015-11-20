@@ -9,15 +9,15 @@ package br.edu.ifes.poo1.padariax.cln.cdp;
  *
  * @author aleao
  */
-class CompraItens {
+class Item {
     private Produto produto;
     private int quantidade;
     
-    public CompraItens(){
+    public Item(){
     
     }
 
-    public CompraItens(Produto produto, int quantidade) {
+    public Item(Produto produto, int quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
     }
@@ -39,5 +39,13 @@ class CompraItens {
         this.quantidade = quantidade;
     }
     
-    
+    /**
+     * Função responsável por retornar o valor pago pelo produto.
+     * Ela multiplica a quantidade pelo seu valor de custo.
+     *      * 
+     * @return valorItem.
+     */
+    public double valorItem(){               
+        return  this.getQuantidade()*this.getProduto().getValorCusto();
+    } 
 }

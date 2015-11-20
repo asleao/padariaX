@@ -5,6 +5,7 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
+import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
 import java.util.Date;
 import java.util.List;
 
@@ -12,18 +13,18 @@ import java.util.List;
  *
  * @author aleao
  */
-public class Compra {
+public class Compra implements IConta{
     private int notaFiscal;
     private Fornecedor fornecedor;
     private Date dataCompra;
     private int quantidade;    
-    private List<CompraItens> listaItens;
+    private List<Item> listaItens;
 
     public Compra(){
     
     }
     
-    public Compra(int notaFiscal, Fornecedor fornecedor, Date dataCompra, int quantidade, List<CompraItens> listaItens) {
+    public Compra(int notaFiscal, Fornecedor fornecedor, Date dataCompra, int quantidade, List<Item> listaItens) {
         this.notaFiscal = notaFiscal;
         this.fornecedor = fornecedor;
         this.dataCompra = dataCompra;
@@ -63,11 +64,11 @@ public class Compra {
         this.quantidade = quantidade;
     }
 
-    public List<CompraItens> getListaItens() {
+    public List<Item> getListaItens() {
         return listaItens;
     }
 
-    public void setListaItens(List<CompraItens> listaItens) {
+    public void setListaItens(List<Item> listaItens) {
         this.listaItens = listaItens;
     }
     
@@ -81,8 +82,8 @@ public class Compra {
     public double valorPago(){
         double valorPago = 0;
         
-        for(CompraItens compra: this.listaItens){
-            valorPago += compra.getQuantidade()*compra.getProduto().getValorCusto();
+        for(Item item: this.listaItens){
+            valorPago += item.valorItem();
         }
         return valorPago;
     }    

@@ -5,11 +5,13 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author aleao
  */
-public class Pessoa {
+public class Pessoa implements Serializable{
     private int codigo;
     private String nome;
     private String endereco;

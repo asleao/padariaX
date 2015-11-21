@@ -6,13 +6,13 @@
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IPessoaJuridica;
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  *
  * @author aleao
  */
-public class Fornecedor extends Pessoa implements IPessoaJuridica{
+public class Fornecedor extends Pessoa implements IPessoaJuridica,Serializable{
     private String pessoaContato;
     private String cnpj;
 

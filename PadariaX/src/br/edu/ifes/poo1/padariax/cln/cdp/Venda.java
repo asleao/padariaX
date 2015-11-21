@@ -6,6 +6,7 @@
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author aleao
  */
-public class Venda implements IConta{
+public class Venda implements IConta,Serializable{
     private Date dataVenda;    
     private Cliente cliente;
     private List<Item> listaItens;

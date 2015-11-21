@@ -5,11 +5,13 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author aleao
  */
-class Item {
+class Item implements Serializable{
     private Produto produto;
     private int quantidade;
     

@@ -32,9 +32,7 @@ public class Fornecedor extends Pessoa implements IPessoaJuridica,Serializable{
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
-    }
-
-       
+    }       
 
     public String getPessoaContato() {
         return pessoaContato;
@@ -43,5 +41,11 @@ public class Fornecedor extends Pessoa implements IPessoaJuridica,Serializable{
     public void setPessoaContato(String pessoaContato) {
         this.pessoaContato = pessoaContato;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+ this.cnpj+ ";" + this.pessoaContato;
+    }
+    
     
 }

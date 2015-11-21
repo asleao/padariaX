@@ -59,5 +59,11 @@ public class Pessoa implements Serializable{
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    @Override
+    public String toString() {
+        return this.codigo +";"+ this.nome +";"+ this.endereco +";"+ this.telefone+";";
+    }
+    
     
 }

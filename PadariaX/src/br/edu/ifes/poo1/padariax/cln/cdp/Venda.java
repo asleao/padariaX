@@ -14,17 +14,18 @@ import java.util.List;
  *
  * @author aleao
  */
-public class Venda implements IConta,Serializable{
-    private Date dataVenda;    
+public class Venda implements IConta, Serializable {
+
+    private Date dataVenda;
     private Cliente cliente;
     private List<Item> listaItens;
     private MeioPagamento meioPagamento;
-    
-    public Venda(){
+
+    public Venda() {
     }
 
     public Venda(Date dataVenda, Cliente cliente, MeioPagamento meioPagamento) {
-        this.dataVenda = dataVenda;        
+        this.dataVenda = dataVenda;
         this.cliente = cliente;
         this.meioPagamento = meioPagamento;
     }
@@ -36,7 +37,7 @@ public class Venda implements IConta,Serializable{
     public void setListaItens(List<Item> listaItens) {
         this.listaItens = listaItens;
     }
-   
+
     public Date getDataVenda() {
         return dataVenda;
     }
@@ -52,7 +53,7 @@ public class Venda implements IConta,Serializable{
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
+
     public MeioPagamento getMeioPagamento() {
         return meioPagamento;
     }
@@ -60,21 +61,44 @@ public class Venda implements IConta,Serializable{
     public void setMeioPagamento(MeioPagamento meioPagamento) {
         this.meioPagamento = meioPagamento;
     }
-    
+
     /**
-     * Função responsável por retornar o valor pago na nota fiscal.
-     * Ela busca todos os itens adquiridos e retorna a soma da quantidade
-     * multiplicada pelo valor de custo do produto.
-     * 
+     * Função responsável por retornar o valor pago na nota fiscal. Ela busca
+     * todos os itens adquiridos e retorna a soma da quantidade multiplicada
+     * pelo valor de custo do produto.
+     *
      * @return valorPago.
      */
-    public double valorPago(){
+    public double valorPago() {
         double valorPago = 0;
-        
-        for(Item item: this.listaItens){
+
+        for (Item item : this.listaItens) {
             valorPago += item.valorItem();
         }
         return valorPago;
-    }  
-    
+    }
+
+    /**
+     * Função responsável por exportar as vendas feitas no formato definido. O
+     * codigo do cliente estara preenchido somente quando o pagamento for do
+     * tipo 'F' (Fiado), nos demais casos este campo estara vazio.
+     *
+     */
+    public void exportaVendas() {
+        if (this.meioPagamento.equals("F")) {
+            for (Item item : this.listaItens) {
+                System.out.println(this.cliente.getCodigo()+ ";" + this.dataVenda
+                                  + ";" + item.getProduto().getCodigo() 
+                                  + ";" + item.getQuantidade());
+            }
+        } else {
+            for (Item item : this.listaItens) {
+                System.out.println("  "+ ";" + this.dataVenda
+                                  + ";" + item.getProduto().getCodigo() 
+                                  + ";" + item.getQuantidade());
+            }
+        }
+
+    }
+
 }

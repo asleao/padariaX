@@ -24,10 +24,6 @@ public class PessoaFisica extends Cliente implements IPessoaFisica{
         this.cpf = cpf;
     }
     
-    
-   
-
- 
     public String getCpf() {
         return cpf;
     }
@@ -35,4 +31,11 @@ public class PessoaFisica extends Cliente implements IPessoaFisica{
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + this.cpf;
+    }
+    
+    
 }

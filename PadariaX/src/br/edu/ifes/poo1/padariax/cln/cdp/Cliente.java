@@ -25,8 +25,6 @@ public abstract class Cliente extends Pessoa{
         this.dataCadastro = dataCadastro;
         this.tipo = tipo;
     }
-
-    
     
 
     public Date getDataCadastro() {
@@ -36,5 +34,11 @@ public abstract class Cliente extends Pessoa{
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + this.dataCadastro +";"+ this.tipo+";";
+    }
+    
     
 }

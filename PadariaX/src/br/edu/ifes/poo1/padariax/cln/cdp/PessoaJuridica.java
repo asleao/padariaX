@@ -25,8 +25,7 @@ public class PessoaJuridica extends Cliente implements IPessoaJuridica{
         this.cnpj = cnpj;
         this.inscricaoEstadual = inscricaoEstadual;
     }
-    
-    
+        
      
     public String getCnpj() {
         return cnpj;
@@ -43,5 +42,11 @@ public class PessoaJuridica extends Cliente implements IPessoaJuridica{
     public void setInscricaoEstadual(int inscricaoEstadual) {
         this.inscricaoEstadual = inscricaoEstadual;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+this.cnpj +";"+ this.inscricaoEstadual;
+    }
+    
     
 }

@@ -14,22 +14,21 @@ import java.util.List;
  *
  * @author aleao
  */
-public class Compra implements IConta,Serializable{
+public class Compra implements IConta, Serializable {
+
     private int notaFiscal;
     private Fornecedor fornecedor;
     private Date dataCompra;
-    private int quantidade;    
     private List<Item> listaItens;
 
-    public Compra(){
-    
+    public Compra() {
+
     }
-    
-    public Compra(int notaFiscal, Fornecedor fornecedor, Date dataCompra, int quantidade, List<Item> listaItens) {
+
+    public Compra(int notaFiscal, Fornecedor fornecedor, Date dataCompra, List<Item> listaItens) {
         this.notaFiscal = notaFiscal;
         this.fornecedor = fornecedor;
         this.dataCompra = dataCompra;
-        this.quantidade = quantidade;
         this.listaItens = listaItens;
     }
 
@@ -57,14 +56,6 @@ public class Compra implements IConta,Serializable{
         this.dataCompra = dataCompra;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public List<Item> getListaItens() {
         return listaItens;
     }
@@ -72,21 +63,33 @@ public class Compra implements IConta,Serializable{
     public void setListaItens(List<Item> listaItens) {
         this.listaItens = listaItens;
     }
-    
+
     /**
-     * Função responsável por retornar o valor pago na nota fiscal.
-     * Ela busca todos os itens adquiridos e retorna a soma da quantidade
-     * multiplicada pelo valor de custo do produto.
-     * 
+     * Função responsável por retornar o valor pago na nota fiscal. Ela busca
+     * todos os itens adquiridos e retorna a soma da quantidade multiplicada
+     * pelo valor de custo do produto.
+     *
      * @return valorPago.
      */
-    public double valorPago(){
+    public double valorPago() {
         double valorPago = 0;
-        
-        for(Item item: this.listaItens){
+
+        for (Item item : this.listaItens) {
             valorPago += item.valorItem();
         }
         return valorPago;
-    }    
-    
+    }
+
+    /**
+     * Função responsável por exportar as compras feitas no formato definido.
+     * 
+     */
+    public void exportaCompras() {
+        for(Item item: this.listaItens){
+            System.out.println(this.notaFiscal + ";" + this.fornecedor.getCodigo() 
+                    + ";" + this.dataCompra+";"+item.getProduto().getCodigo()+";"
+                    +item.getQuantidade());
+        }    
+    }
+
 }

@@ -5,11 +5,13 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author aleao
  */
-public class Produto {
+public class Produto implements Serializable{
     private int codigo;
     private String descricao;
     private int estoqueMinimo;
@@ -79,4 +81,11 @@ public class Produto {
     public double valorVenda(){
         return this.valorCusto*(1.0 + this.percentualLucro);
     }
+
+    @Override
+    public String toString() {
+        return this.codigo + ";" + this.descricao + ";" + this.estoqueMinimo + ";" + this.estoqueAtual + ";" + this.valorCusto + ";" + percentualLucro;
+    }
+    
+    
 }

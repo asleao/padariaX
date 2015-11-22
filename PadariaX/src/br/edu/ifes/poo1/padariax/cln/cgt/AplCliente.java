@@ -5,10 +5,15 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
+import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
+import java.util.List;
+
 /**
  *
  * @author aleao
  */
-public class AplCliente {
+public class AplCliente{
+
+    
     
 }

@@ -9,7 +9,8 @@ package br.edu.ifes.poo1.padariax.cln.cdp;
  *
  * @author aleao
  */
-public class Arquivo {
+public class Arquivo{
+
     private String caminho;
     private String nome;
 
@@ -34,5 +35,9 @@ public class Arquivo {
         this.nome = nome;
     }
     
-    
+    @Override
+    public String toString() {
+        return this.caminho + this.nome;
+    }
+
 }

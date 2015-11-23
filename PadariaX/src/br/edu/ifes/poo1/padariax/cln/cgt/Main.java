@@ -7,7 +7,6 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
-import br.edu.ifes.poo1.padariax.cln.cdp.PessoaFisica;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
@@ -28,7 +27,9 @@ public class Main {
      * @throws java.text.ParseException
      */
     public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
-        Arquivo arquivo = new Arquivo("/home/aleao/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "clientes.csv");
+//        Arquivo arquivo = new Arquivo("/home/aleao/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "clientes.csv");
+        Arquivo arquivo = new Arquivo("/media/aleao/Dados/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "clientes.csv");
+        
         AplCliente aplCliente = new AplCliente();
 
 

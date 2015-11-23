@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author aleao
  */
-public class Pessoa implements Serializable{
+public abstract class Pessoa implements Serializable{
     private int codigo;
     private String nome;
     private String endereco;

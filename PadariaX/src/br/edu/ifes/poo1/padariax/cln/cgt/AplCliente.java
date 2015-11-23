@@ -6,47 +6,79 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
+import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.PessoaFisica;
+import br.edu.ifes.poo1.padariax.cln.cdp.PessoaJuridica;
 import br.edu.ifes.poo1.padariax.cln.cdp.TipoCliente;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author aleao
  */
-public class AplCliente extends AplArquivo{
+public class AplCliente extends AplArquivo {
 
     private AplArquivo aplArquivo;
-    
-    public AplCliente(){
+
+    public AplCliente() {
         this.aplArquivo = new AplArquivo();
     }
 
-    public List<PessoaFisica> cadastroPessoaFisica(Arquivo file) throws ParseException {
-        List<PessoaFisica> listaPessoaFisica = new ArrayList<>();    
+    /**
+     * Função responsável por transformar as linhas lidas
+     * do arquivo em uma lista de Clientes. Esta lista possui
+     * tanto clientes PessoaFisica quanto PessoaJurídica.
+     * @param file - Arquivo
+     * @return listaCliente - lista de clientes
+     * @throws ParseException 
+     */
+    public List<Cliente> cadastroCliente(Arquivo file) throws ParseException {
+        List<Cliente> listaCliente = new ArrayList<>();
         List<String> listaImportada = aplArquivo.importar(file);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         for (String linha : listaImportada) {
             Scanner sc = new Scanner(linha);
-            PessoaFisica pessoa = new PessoaFisica();
-            sc.useDelimiter(";");
-                        
-            pessoa.setCodigo(Integer.parseInt(sc.next()));
-            pessoa.setNome(sc.next());
-            pessoa.setEndereco(sc.next());
-            pessoa.setTelefone(sc.next());
-            pessoa.setDataCadastro(sdf.parse(sc.next()));            
-            pessoa.setTipo(TipoCliente.valueOf(sc.next()));
-            pessoa.setCpf(sc.next());
+            sc.useDelimiter(";");            
             
-            listaPessoaFisica.add(pessoa);
-        }
+            Pattern pattern = Pattern.compile("(\\;)F(\\;)");
+            Matcher matcher = pattern.matcher(linha);
 
-        return listaPessoaFisica;
+            if (matcher.find()) {
+                PessoaFisica pessoaFisica = new PessoaFisica();
+
+                pessoaFisica.setCodigo(Integer.parseInt(sc.next()));
+                pessoaFisica.setNome(sc.next());
+                pessoaFisica.setEndereco(sc.next());
+                pessoaFisica.setTelefone(sc.next());
+                pessoaFisica.setDataCadastro(sdf.parse(sc.next()));
+                pessoaFisica.setTipo(TipoCliente.valueOf(sc.next()));
+                pessoaFisica.setCpf(sc.next());
+
+                listaCliente.add(pessoaFisica);
+            } else{                
+                PessoaJuridica pessoaJuridica = new PessoaJuridica();
+
+                pessoaJuridica.setCodigo(Integer.parseInt(sc.next()));
+                pessoaJuridica.setNome(sc.next());
+                pessoaJuridica.setEndereco(sc.next());
+                pessoaJuridica.setTelefone(sc.next());
+                pessoaJuridica.setDataCadastro(sdf.parse(sc.next()));
+                pessoaJuridica.setTipo(TipoCliente.valueOf(sc.next()));
+                pessoaJuridica.setCnpj(sc.next());
+                pessoaJuridica.setInscricaoEstadual(Integer.parseInt(sc.next()));
+
+                listaCliente.add(pessoaJuridica);
+            }
+        }
+        return listaCliente;
     }
+
 }

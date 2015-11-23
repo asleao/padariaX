@@ -14,15 +14,15 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Classe responsavel por implementar as funcoes
- * de manipulacao de arquivos.
+ * Classe responsável por implementar as funções
+ * de manipulação de arquivos.
  * @author aleao
  */
 public class AplArquivo {
     
     /**
-     * Este metodo e responsavel por importar um arquivo
-     * de um diretorio e passar cada linha para uma lista
+     * Este método e responsável por importar um arquivo
+     * de um diretório e passar cada linha para uma lista
      * de String.
      * @param file - Arquivo com o nome e caminho
      * @return listaImportada - Lista com as linhas do arquivo

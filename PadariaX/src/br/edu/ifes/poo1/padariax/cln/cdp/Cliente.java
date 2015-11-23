@@ -35,6 +35,15 @@ public abstract class Cliente extends Pessoa{
         this.dataCadastro = dataCadastro;
     }
 
+    public TipoCliente getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoCliente tipo) {
+        this.tipo = tipo;
+    }
+   
+    
     @Override
     public String toString() {
         return super.toString() + this.dataCadastro +";"+ this.tipo+";";

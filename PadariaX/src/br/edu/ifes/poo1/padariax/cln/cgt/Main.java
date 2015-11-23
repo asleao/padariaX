@@ -6,14 +6,12 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
-import java.io.BufferedReader;
+import br.edu.ifes.poo1.padariax.cln.cdp.PessoaFisica;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.Reader;
+import java.text.ParseException;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  *
@@ -25,14 +23,18 @@ public class Main {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.FileNotFoundException
+     * @throws java.text.ParseException
      */
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
         Arquivo arquivo = new Arquivo("/home/aleao/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "clientes.csv");
-        AplArquivo apl =  new AplArquivo();
+        AplCliente aplCliente = new AplCliente();
 
-        List<String> lista = apl.importar(arquivo);         
-        for(String s: lista){
-            System.out.println(s);
+
+        List<PessoaFisica> lista1 = aplCliente.cadastroPessoaFisica(arquivo);
+
+        for (PessoaFisica pessoa : lista1) {
+            System.out.println(pessoa.toString());
         }
     }
 

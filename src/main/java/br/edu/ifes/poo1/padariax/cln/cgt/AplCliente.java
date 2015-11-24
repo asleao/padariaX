@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  *
  * @author aleao
  */
-public class AplCliente extends AplArquivo {
+public class AplCliente {
 
     private AplArquivo aplArquivo;
 

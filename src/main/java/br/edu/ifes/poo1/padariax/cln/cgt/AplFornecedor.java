@@ -18,9 +18,11 @@ import java.util.Scanner;
 public class AplFornecedor {
 
     private AplArquivo aplArquivo;
-
+    private List<Fornecedor> listaFornecedor;
+    
     public AplFornecedor() {
         this.aplArquivo = new AplArquivo();
+        listaFornecedor = new ArrayList();
     }
 
     /**
@@ -29,8 +31,7 @@ public class AplFornecedor {
      * @param file - caminnho do arquivo
      * @return listaFornecedor - Lista de Fornecedores
      */
-    public List<Fornecedor> cadastroFornecedor(Arquivo file) {
-        List<Fornecedor> listaFornecedor = new ArrayList();
+    public List<Fornecedor> cadastroFornecedor(Arquivo file) {        
         List<String> listaImportada = aplArquivo.importar(file);
 
         for (String linha : listaImportada) {
@@ -57,5 +58,18 @@ public class AplFornecedor {
             e.printStackTrace();
         }        
         return fornecedor;
+    }
+    
+    /**
+     * Função responsável por buscar um fornecedor
+     * a partir do seu código.
+     * @param codigo 
+     * @return Objeto Fornecedor
+     */
+    public Fornecedor buscaFornecedor(int codigo){
+        if(listaFornecedor.contains(codigo)){
+            System.out.println("existe");
+        }
+        return listaFornecedor.get(0);
     }
 }

@@ -20,7 +20,28 @@ import static org.junit.Assert.*;
  * @author aleao
  */
 public class AplFornecedorTest {
-    
-    
+
+    private AplArquivo aplArquivo;
+    private Arquivo arquivo;
+    private AplFornecedor aplFornecedor;
+
+    @Before
+    public void setUp() {
+        this.arquivo = new Arquivo("/home/aleao/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "fornecedores.csv");
+        aplArquivo = new AplArquivo();
+        aplFornecedor = new AplFornecedor();
+    }
+
+    @Test
+    public void testCadastroFornecedor(){
+        List<String> listaArquivo = aplArquivo.importar(arquivo);
+        List<Fornecedor> listaFornecedor = aplFornecedor.cadastroFornecedor(arquivo);
+        
+        aplFornecedor.imprimeFornecedor(listaFornecedor);
+               
+        aplFornecedor.buscaFornecedor(1);
+        
+        assertEquals(listaFornecedor.size(),listaArquivo.size());   
+    }
     
 }

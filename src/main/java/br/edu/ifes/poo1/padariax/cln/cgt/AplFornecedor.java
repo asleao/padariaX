@@ -19,7 +19,7 @@ public class AplFornecedor {
 
     private AplArquivo aplArquivo;
     private List<Fornecedor> listaFornecedor;
-    
+
     public AplFornecedor() {
         this.aplArquivo = new AplArquivo();
         listaFornecedor = new ArrayList();
@@ -28,10 +28,11 @@ public class AplFornecedor {
     /**
      * Função responsável por transformar as linhas lidas do arquivo em uma
      * lista de Fornecedores.
+     *
      * @param file - caminnho do arquivo
      * @return listaFornecedor - Lista de Fornecedores
      */
-    public List<Fornecedor> cadastroFornecedor(Arquivo file) {        
+    public List<Fornecedor> cadastroFornecedor(Arquivo file) {
         List<String> listaImportada = aplArquivo.importar(file);
 
         for (String linha : listaImportada) {
@@ -56,20 +57,36 @@ public class AplFornecedor {
             fornecedor.setPessoaContato(sc.next());
         } catch (Exception e) {
             e.printStackTrace();
-        }        
+        }
         return fornecedor;
     }
-    
+
     /**
-     * Função responsável por buscar um fornecedor
-     * a partir do seu código.
-     * @param codigo 
+     * Função responsável por buscar um fornecedor a partir do seu código.
+     *
+     * @param codigo
      * @return Objeto Fornecedor
      */
-    public Fornecedor buscaFornecedor(int codigo){
-        if(listaFornecedor.contains(codigo)){
-            System.out.println("existe");
+    public Fornecedor buscaFornecedor(int codigo) {
+        Fornecedor fornecedorEncontrado = new Fornecedor();
+        
+        for (Fornecedor fornecedor : listaFornecedor) {
+            if (fornecedor.getCodigo() == codigo) {
+                fornecedorEncontrado = fornecedor;
+            }
         }
-        return listaFornecedor.get(0);
+
+        return fornecedorEncontrado;
+    }
+
+    /**
+     * Método responsável por imprimir todos os fornecedores cadastrados.
+     *
+     * @param listaFornecedor
+     */
+    public void imprimeFornecedor(List<Fornecedor> listaFornecedor) {
+        for (Fornecedor fornecedor : listaFornecedor) {
+            System.out.println(fornecedor.toString());
+        }
     }
 }

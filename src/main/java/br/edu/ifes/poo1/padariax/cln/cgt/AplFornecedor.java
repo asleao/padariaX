@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
+import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,11 +18,11 @@ import java.util.Scanner;
  */
 public class AplFornecedor {
 
-    private AplArquivo aplArquivo;
+    private Utilitario aplArquivo;
     private List<Fornecedor> listaFornecedor;
 
     public AplFornecedor() {
-        this.aplArquivo = new AplArquivo();
+        this.aplArquivo = new Utilitario();
         listaFornecedor = new ArrayList();
     }
 

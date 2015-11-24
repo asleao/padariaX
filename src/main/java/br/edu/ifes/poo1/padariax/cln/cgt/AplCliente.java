@@ -5,11 +5,13 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
+
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.PessoaFisica;
 import br.edu.ifes.poo1.padariax.cln.cdp.PessoaJuridica;
 import br.edu.ifes.poo1.padariax.cln.cdp.TipoCliente;
+import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,10 +26,10 @@ import java.util.regex.Pattern;
  */
 public class AplCliente {
 
-    private AplArquivo aplArquivo;
+    private Utilitario util;
 
     public AplCliente() {
-        this.aplArquivo = new AplArquivo();
+        this.util = new Utilitario();
     }
 
     /**
@@ -41,7 +43,7 @@ public class AplCliente {
      */
     public List<Cliente> cadastroCliente(Arquivo file) {
         List<Cliente> listaCliente = new ArrayList();
-        List<String> listaImportada = aplArquivo.importar(file);
+        List<String> listaImportada = util.importar(file);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         for (String linha : listaImportada) {

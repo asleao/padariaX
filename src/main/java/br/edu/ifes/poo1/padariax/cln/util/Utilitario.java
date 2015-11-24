@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifes.poo1.padariax.cln.cgt;
+package br.edu.ifes.poo1.padariax.cln.util;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import java.io.IOException;
@@ -14,12 +14,11 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Classe responsável por implementar as funções
- * de manipulação de arquivos.
+ *
  * @author aleao
  */
-
-public class AplArquivo {
+public class Utilitario {
+    
     
     /**
      * Este método e responsável por importar um arquivo
@@ -43,5 +42,17 @@ public class AplArquivo {
         }
 
         return listaImportada;
+    }
+    /**
+     * Método responsável por ler uma lista generica
+     * de objetos e imprimir no console.
+     * @param listaObjeto 
+     */
+    public void imprime(List<Object> listaObjeto){
+        Object objeto = new Object();
+        
+        for(Object obj:listaObjeto){
+            System.out.println(obj.toString());
+        }
     }
 }

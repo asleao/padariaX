@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
+import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,10 +18,10 @@ import java.util.Scanner;
  */
 public class AplProduto {
 
-    private AplArquivo aplArquivo;
+    private Utilitario aplArquivo;
 
     public AplProduto() {
-        this.aplArquivo = new AplArquivo();
+        this.aplArquivo = new Utilitario();
     }
 
     /**

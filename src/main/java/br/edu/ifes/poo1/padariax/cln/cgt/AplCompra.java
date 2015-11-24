@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
+import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,10 +19,10 @@ import java.util.Scanner;
  * @author aleao
  */
 public class AplCompra {
-    private AplArquivo aplArquivo;
+    private Utilitario aplArquivo;
     
     public AplCompra(){
-        this.aplArquivo= new AplArquivo();
+        this.aplArquivo= new Utilitario();
     }
     
     /**

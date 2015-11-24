@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +40,7 @@ public class AplCliente extends AplArquivo {
      * @throws ParseException
      */
     public List<Cliente> cadastroCliente(Arquivo file) {
-        List<Cliente> listaCliente = new ArrayList<>();
+        List<Cliente> listaCliente = new ArrayList();
         List<String> listaImportada = aplArquivo.importar(file);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -51,36 +50,63 @@ public class AplCliente extends AplArquivo {
 
             try {
                 if (ehPessoaFisica(linha)) {
-                    PessoaFisica pessoaFisica = new PessoaFisica();
-
-                    pessoaFisica.setCodigo(Integer.parseInt(sc.next()));
-                    pessoaFisica.setNome(sc.next());
-                    pessoaFisica.setEndereco(sc.next());
-                    pessoaFisica.setTelefone(sc.next());
-                    pessoaFisica.setDataCadastro(sdf.parse(sc.next()));
-                    pessoaFisica.setTipo(TipoCliente.valueOf(sc.next()));
-                    pessoaFisica.setCpf(sc.next());
-
-                    listaCliente.add(pessoaFisica);
+                    listaCliente.add(criaPessoaFisica(sc, sdf));
                 } else {
-                    PessoaJuridica pessoaJuridica = new PessoaJuridica();
-
-                    pessoaJuridica.setCodigo(Integer.parseInt(sc.next()));
-                    pessoaJuridica.setNome(sc.next());
-                    pessoaJuridica.setEndereco(sc.next());
-                    pessoaJuridica.setTelefone(sc.next());
-                    pessoaJuridica.setDataCadastro(sdf.parse(sc.next()));
-                    pessoaJuridica.setTipo(TipoCliente.valueOf(sc.next()));
-                    pessoaJuridica.setCnpj(sc.next());
-                    pessoaJuridica.setInscricaoEstadual(Integer.parseInt(sc.next()));
-
-                    listaCliente.add(pessoaJuridica);
+                    listaCliente.add(criaPessoaJuridica(sc, sdf));
                 }
-            } catch (NumberFormatException | ParseException e) {
+            } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
         return listaCliente;
+    }
+
+    /**
+     * TODO: criar javadoc
+     * @param sc
+     * @param sdf
+     * @return 
+     */
+    private PessoaJuridica criaPessoaJuridica(Scanner sc, SimpleDateFormat sdf) {
+        PessoaJuridica pessoaJuridica = new PessoaJuridica();
+        try {
+            pessoaJuridica.setCodigo(Integer.parseInt(sc.next()));
+            pessoaJuridica.setNome(sc.next());
+            pessoaJuridica.setEndereco(sc.next());
+            pessoaJuridica.setTelefone(sc.next());
+            pessoaJuridica.setDataCadastro(sdf.parse(sc.next()));
+            pessoaJuridica.setTipo(TipoCliente.valueOf(sc.next()));
+            pessoaJuridica.setCnpj(sc.next());
+            pessoaJuridica.setInscricaoEstadual(Integer.parseInt(sc.next()));
+        } catch (NumberFormatException | ParseException e) {
+        }
+
+        return pessoaJuridica;
+    }
+    
+
+    /**
+     * TODO: criar javadoc
+     * @param sc
+     * @param sdf
+     * @return 
+     */
+
+    private PessoaFisica criaPessoaFisica(Scanner sc, SimpleDateFormat sdf) {
+        PessoaFisica pessoaFisica = new PessoaFisica();
+        try {
+            pessoaFisica.setCodigo(Integer.parseInt(sc.next()));
+            pessoaFisica.setNome(sc.next());
+            pessoaFisica.setEndereco(sc.next());
+            pessoaFisica.setTelefone(sc.next());
+            pessoaFisica.setDataCadastro(sdf.parse(sc.next()));
+            pessoaFisica.setTipo(TipoCliente.valueOf(sc.next()));
+            pessoaFisica.setCpf(sc.next());
+        } catch (NumberFormatException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        return pessoaFisica;
     }
 
     /**

@@ -18,6 +18,7 @@ import java.util.Scanner;
  * de manipulação de arquivos.
  * @author aleao
  */
+
 public class AplArquivo {
     
     /**
@@ -25,8 +26,8 @@ public class AplArquivo {
      * de um diretório e passar cada linha para uma lista
      * de String.
      * @param file - Arquivo com o nome e caminho
-     * @return listaImportada - Lista com as linhas do arquivo
-     */
+     * @return listaImportada - Lista com as linhas do arquivo    
+     */    
     public List<String> importar(Arquivo file) {
         List<String> listaImportada = new ArrayList<>();
 

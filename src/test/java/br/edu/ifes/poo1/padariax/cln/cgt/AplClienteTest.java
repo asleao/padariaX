@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
 /**
  *
  * @author aleao
@@ -22,15 +23,14 @@ public class AplClienteTest {
     private AplCliente aplCliente;
     private Utilitario util;
     private Arquivo arquivo;
-
+    
     public AplClienteTest() {
-
+        
     }
 
     @Before
-    public void setUp() {
-//        this.arquivo = new Arquivo("/home/aleao/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "clientes.csv");        
-        this.arquivo = new Arquivo("/media/aleao/Dados/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "clientes.csv");
+    public void setUp() {        
+        this.arquivo = new Arquivo("././././src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "clientes.csv");
         util = new Utilitario();
         this.aplCliente = new AplCliente();
     }

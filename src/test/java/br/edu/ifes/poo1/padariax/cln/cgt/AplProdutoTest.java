@@ -25,8 +25,7 @@ public class AplProdutoTest {
 
     @Before
     public void setUp() {
-//        this.arquivo = new Arquivo("/home/aleao/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "produtos.csv");
-        this.arquivo = new Arquivo("/media/aleao/Dados/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "produtos.csv");
+        this.arquivo = new Arquivo("././././src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "produtos.csv");
         util = new Utilitario();
         aplProduto = new AplProduto();
     }

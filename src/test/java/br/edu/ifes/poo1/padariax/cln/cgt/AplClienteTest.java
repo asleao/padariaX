@@ -8,10 +8,7 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -47,6 +44,9 @@ public class AplClienteTest {
     public void testCadastroCliente() {                               
         List<String> listaArquivo = aplArquivo.importar(arquivo);
         List<Cliente> listaCliente = aplCliente.cadastroCliente(arquivo);
+        
+        aplCliente.imprimeCliente(listaCliente);
+        
         assertEquals(listaCliente.size(),listaArquivo.size());        
     }
     

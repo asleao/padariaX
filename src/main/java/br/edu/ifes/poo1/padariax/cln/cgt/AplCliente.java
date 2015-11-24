@@ -122,4 +122,10 @@ public class AplCliente extends AplArquivo {
         return matcher.find();
     }
 
+    
+    public void imprimeCliente(List<Cliente> listaCliente) {
+        for(Cliente cliente:listaCliente){
+            System.out.println(cliente.toString());
+        }
+    }
 }

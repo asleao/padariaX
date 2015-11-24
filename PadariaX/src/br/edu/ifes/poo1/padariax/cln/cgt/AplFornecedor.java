@@ -23,6 +23,12 @@ public class AplFornecedor {
         this.aplArquivo = new AplArquivo();
     }
 
+    /**
+     * Função responsável por transformar as linhas lidas do arquivo em uma
+     * lista de Fornecedores.
+     * @param file - caminnho do arquivo
+     * @return listaFornecedor - Lista de Fornecedores
+     */
     public List<Fornecedor> cadastroFornecedor(Arquivo file) {
         List<Fornecedor> listaFornecedor = new ArrayList();
         List<String> listaImportada = aplArquivo.importar(file);

@@ -35,7 +35,7 @@ public class AplCliente extends AplArquivo {
      * lista de Clientes. Esta lista possui tanto clientes PessoaFisica quanto
      * PessoaJurídica.
      *
-     * @param file - Arquivo
+     * @param file - Caminho do arquivo
      * @return listaCliente - lista de clientes
      * @throws ParseException
      */

@@ -25,7 +25,7 @@ public class AplFornecedorTest {
 
     @Before
     public void setUp() {
-        this.arquivo = new Arquivo("././././src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "fornecedores.csv");
+        this.arquivo = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "fornecedores.csv");
         util = new Utilitario();
         aplFornecedor = new AplFornecedor();
     }

@@ -30,7 +30,7 @@ public class AplClienteTest {
 
     @Before
     public void setUp() {        
-        this.arquivo = new Arquivo("././././src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "clientes.csv");
+        this.arquivo = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "clientes.csv");
         util = new Utilitario();
         this.aplCliente = new AplCliente();
     }

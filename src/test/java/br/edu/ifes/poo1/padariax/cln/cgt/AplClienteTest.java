@@ -21,38 +21,33 @@ import static org.junit.Assert.*;
  */
 public class AplClienteTest {
     
+    private AplCliente aplCliente;
+    private AplArquivo aplArquivo;
+    private Arquivo arquivo;    
+           
+    
     public AplClienteTest() {
+        
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+   
     
     @Before
     public void setUp() {
+        this.arquivo = new Arquivo("/home/aleao/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "clientes.csv");        
+        aplArquivo = new AplArquivo();        
+        this.aplCliente = new AplCliente();
     }
     
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of cadastroCliente method, of class AplCliente.
      */
     @Test
-    public void testCadastroCliente() {
-        System.out.println("cadastroCliente");
-        Arquivo file = null;
-        AplCliente instance = new AplCliente();
-        List<Cliente> expResult = null;
-        List<Cliente> result = instance.cadastroCliente(file);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCadastroCliente() {                               
+        List<String> listaArquivo = aplArquivo.importar(arquivo);
+        List<Cliente> listaCliente = aplCliente.cadastroCliente(arquivo);
+        assertEquals(listaCliente.size(),listaArquivo.size());        
     }
     
 }

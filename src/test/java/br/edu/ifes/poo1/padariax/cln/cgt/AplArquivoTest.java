@@ -20,38 +20,6 @@ import static org.junit.Assert.*;
  */
 public class AplArquivoTest {
     
-    public AplArquivoTest() {
-    }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of importar method, of class AplArquivo.
-     */
-    @Test
-    public void testImportar() {
-        System.out.println("importar");
-        Arquivo file = null;
-        AplArquivo instance = new AplArquivo();
-        List<String> expResult = null;
-        List<String> result = instance.importar(file);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }

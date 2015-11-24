@@ -21,38 +21,6 @@ import static org.junit.Assert.*;
  */
 public class AplFornecedorTest {
     
-    public AplFornecedorTest() {
-    }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of cadastroFornecedor method, of class AplFornecedor.
-     */
-    @Test
-    public void testCadastroFornecedor() {
-        System.out.println("cadastroFornecedor");
-        Arquivo file = null;
-        AplFornecedor instance = new AplFornecedor();
-        List<Fornecedor> expResult = null;
-        List<Fornecedor> result = instance.cadastroFornecedor(file);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }

@@ -6,12 +6,14 @@
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  *
  * @author aleao
  */
-public class Produto implements Serializable{
+public class Produto implements Serializable, Comparator {
+
     private int codigo;
     private String descricao;
     private int estoqueMinimo;
@@ -19,9 +21,9 @@ public class Produto implements Serializable{
     private double valorCusto;
     private int percentualLucro;
 
-    public Produto(){
+    public Produto() {
     }
-    
+
     public Produto(int codigo, String descricao, int estoqueMinimo, int estoqueAtual, double valorCusto, int percentualLucro) {
         this.codigo = codigo;
         this.descricao = descricao;
@@ -78,8 +80,9 @@ public class Produto implements Serializable{
     public void setPercentualLucro(int percentualLucro) {
         this.percentualLucro = percentualLucro;
     }
-    public double valorVenda(){
-        return this.valorCusto*(1.0 + this.percentualLucro);
+
+    public double valorVenda() {
+        return this.valorCusto * (1.0 + this.percentualLucro);
     }
 
     @Override
@@ -87,5 +90,9 @@ public class Produto implements Serializable{
         return this.codigo + ";" + this.descricao + ";" + this.estoqueMinimo + ";" + this.estoqueAtual + ";" + this.valorCusto + ";" + percentualLucro;
     }
     
-    
+    @Override
+    public int compare(Object o1, Object o2) {
+        return (((Produto) o1).codigo
+                - ((Produto) o2).codigo);
+    }
 }

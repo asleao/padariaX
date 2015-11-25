@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author aleao
  */
-public class Venda implements IConta, Serializable {
+public class Venda implements IConta, Serializable,Comparator {
 
     private Date dataVenda;
     private Cliente cliente;
@@ -100,5 +101,13 @@ public class Venda implements IConta, Serializable {
         }
 
     }
+
+    @Override
+    public int compare(Object o1, Object o2) {
+         return (((Cliente) o1).getCodigo()
+                - ((Cliente) o2).getCodigo());
+    }
+    
+    
 
 }

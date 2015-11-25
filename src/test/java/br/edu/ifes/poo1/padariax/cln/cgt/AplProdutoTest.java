@@ -8,7 +8,10 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -33,11 +36,19 @@ public class AplProdutoTest {
     @Test
     public void testCadastroProduto() {
         List<String> listaArquivo = util.importar(arquivo);
-        List<Produto> listaProduto = aplProduto.cadastroProduto(arquivo);
+        Map mapaProduto = aplProduto.cadastroProduto(arquivo);
+        
+        List<Produto> listaProduto = ordenaMap(mapaProduto);
+        
+        util.imprime(listaProduto);
 
-        aplProduto.imprimeProduto(listaProduto);
+        assertEquals(mapaProduto.size(), listaArquivo.size());
+    }
 
-        assertEquals(listaProduto.size(), listaArquivo.size());
+    private List<Produto> ordenaMap(Map mapaProduto) {
+        List<Produto> listaProduto = new ArrayList(mapaProduto.values());
+        Collections.sort(listaProduto,new Produto());
+        return listaProduto;
     }
 
 }

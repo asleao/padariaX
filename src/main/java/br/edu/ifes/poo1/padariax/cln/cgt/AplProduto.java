@@ -6,10 +6,13 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
+import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -19,52 +22,48 @@ import java.util.Scanner;
 public class AplProduto {
 
     private Utilitario aplArquivo;
+    private Map mapaProduto;
+    private Produto produto;
 
     public AplProduto() {
         this.aplArquivo = new Utilitario();
+        this.mapaProduto = new HashMap();
     }
 
     /**
-     * Função responsável por transformar as linhas lidas do arquivo em uma
-     * lista de Produto.
+     * Função responsável por transformar as linhas lidas do arquivo em um
+     * Map de Produto.
      *
      * @param file - caminnho do arquivo
-     * @return listaFornecedor - Lista de Fornecedores
+     * @return listaFornecedor - Map de Fornecedores
      */
-    public List<Produto> cadastroProduto(Arquivo file) {
-        List<Produto> listaProduto = new ArrayList();
+    public Map cadastroProduto(Arquivo file) {        
         List<String> listaImportada = aplArquivo.importar(file);
 
         for (String linha : listaImportada) {
-            listaProduto.add(criaFornecedor(linha));
+            produto = criaProduto(linha);
+            mapaProduto.put(produto.getCodigo(),produto);
         }
-        return listaProduto;
+        return mapaProduto;
     }
 
-    private Produto criaFornecedor(String linha) {
-        Produto produto = new Produto();
-
+    private Produto criaProduto(String linha) {
+        Produto produtoLocal = new Produto();
         try {
             Scanner sc = new Scanner(linha);
             sc.useDelimiter(";");
             
-            produto.setCodigo(Integer.parseInt(sc.next()));
-            produto.setDescricao(sc.next());
-            produto.setEstoqueMinimo(Integer.parseInt(sc.next()));
-            produto.setEstoqueAtual(Integer.parseInt(sc.next()));            
-            produto.setValorCusto(Double.parseDouble(sc.next().replace(",",".")));
-            produto.setPercentualLucro(Integer.parseInt(sc.next()));
+            produtoLocal.setCodigo(Integer.parseInt(sc.next()));
+            produtoLocal.setDescricao(sc.next());
+            produtoLocal.setEstoqueMinimo(Integer.parseInt(sc.next()));
+            produtoLocal.setEstoqueAtual(Integer.parseInt(sc.next()));            
+            produtoLocal.setValorCusto(Double.parseDouble(sc.next().replace(",",".")));
+            produtoLocal.setPercentualLucro(Integer.parseInt(sc.next()));
             
             
         } catch (Exception e) {
         }
 
-        return produto;
-    }
-    
-    public void imprimeProduto(List<Produto> listaProduto) {
-        for(Produto produto:listaProduto){
-            System.out.println(produto.toString());
-        }
+        return produtoLocal;
     }
 }

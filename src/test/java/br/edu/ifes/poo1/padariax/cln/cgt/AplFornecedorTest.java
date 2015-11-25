@@ -6,7 +6,11 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
+import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
+import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.junit.Before;
@@ -35,10 +39,16 @@ public class AplFornecedorTest {
         List<String> listaArquivo = util.importar(arquivo);
         Map mapaFornecedor = aplFornecedor.cadastroFornecedor(arquivo);
 
-          util.imprime(mapaFornecedor.values());
-//        aplFornecedor.buscaFornecedor(1);
+        List<Fornecedor> listaFornecedor = ordenaMap(mapaFornecedor);
+        util.imprime(mapaFornecedor.values());
 
+//        aplFornecedor.buscaFornecedor(1);
         assertEquals(mapaFornecedor.size(), listaArquivo.size());
     }
 
+    private List<Fornecedor> ordenaMap(Map mapaFornecedor) {
+        List<Fornecedor> listaFornecedor = new ArrayList(mapaFornecedor.values());
+        Collections.sort(listaFornecedor);
+        return listaFornecedor;
+    }
 }

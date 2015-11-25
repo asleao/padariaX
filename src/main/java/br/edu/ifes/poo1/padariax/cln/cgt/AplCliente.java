@@ -14,7 +14,6 @@ import br.edu.ifes.poo1.padariax.cln.cdp.TipoCliente;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

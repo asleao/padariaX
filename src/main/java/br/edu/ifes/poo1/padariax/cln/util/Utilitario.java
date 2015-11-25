@@ -6,12 +6,15 @@
 package br.edu.ifes.poo1.padariax.cln.util;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
+import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -55,5 +58,6 @@ public class Utilitario {
         for(Object obj:listaObjeto){
             System.out.println(obj.toString());
         }
-    }
+    }    
+    
 }

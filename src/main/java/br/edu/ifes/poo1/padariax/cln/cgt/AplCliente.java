@@ -49,7 +49,6 @@ public class AplCliente {
      */
     public Map cadastroCliente(Arquivo file) {        
         List<String> listaImportada = util.importar(file);
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 
         for (String linha : listaImportada) {
@@ -97,7 +96,7 @@ public class AplCliente {
     
 
     /**
-     * TODO: Função responsável por setar os atributos de um objeto
+     * Função responsável por setar os atributos de um objeto
      * PessoaFisica que foram lidos da linha do arquivo.
      * @param sc
      * @param sdf
@@ -128,7 +127,7 @@ public class AplCliente {
      * @param linha - linha do arquivo.
      * @return boolean contendo true ou false
      */
-    private boolean ehPessoaFisica(String linha) {
+    private static boolean ehPessoaFisica(String linha) {
         Pattern pattern = Pattern.compile("(\\;)F(\\;)");
         Matcher matcher = pattern.matcher(linha);
         return matcher.find();

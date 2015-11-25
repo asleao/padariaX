@@ -48,7 +48,7 @@ public class AplCompra {
         return listaCompra;
     }
 
-    private Compra criaProduto(Scanner sc, SimpleDateFormat sdf) {
+    private static Compra criaProduto(Scanner sc, SimpleDateFormat sdf) {
         Compra compra =  new Compra();
         
         try {

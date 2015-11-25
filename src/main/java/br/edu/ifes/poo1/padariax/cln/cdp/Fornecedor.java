@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @author aleao
  */
-public class Fornecedor extends Pessoa implements IPessoaJuridica,Serializable{
+public class Fornecedor extends Pessoa implements IPessoaJuridica,Serializable,Comparable{
     private String pessoaContato;
     private String cnpj;
 
@@ -47,5 +47,9 @@ public class Fornecedor extends Pessoa implements IPessoaJuridica,Serializable{
         return super.toString()+ this.cnpj+ ";" + this.pessoaContato;
     }
     
+    @Override
+    public int compareTo(Object o) {
+       return cnpj.compareTo(((Fornecedor)o).cnpj);     
+    }
     
 }

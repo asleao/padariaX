@@ -48,5 +48,9 @@ public class PessoaJuridica extends Cliente implements IPessoaJuridica{
         return super.toString()+this.cnpj +";"+ this.inscricaoEstadual;
     }
     
+    @Override
+    public int compareTo(Object o) {
+       return cnpj.compareTo(((PessoaJuridica)o).cnpj);     
+    }
     
 }

@@ -6,9 +6,9 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
-import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -33,13 +33,12 @@ public class AplFornecedorTest {
     @Test
     public void testCadastroFornecedor() {
         List<String> listaArquivo = util.importar(arquivo);
-        List<Fornecedor> listaFornecedor = aplFornecedor.cadastroFornecedor(arquivo);
+        Map mapaFornecedor = aplFornecedor.cadastroFornecedor(arquivo);
 
-        aplFornecedor.imprimeFornecedor(listaFornecedor);
+          util.imprime(mapaFornecedor.values());
+//        aplFornecedor.buscaFornecedor(1);
 
-        aplFornecedor.buscaFornecedor(1);
-
-        assertEquals(listaFornecedor.size(), listaArquivo.size());
+        assertEquals(mapaFornecedor.size(), listaArquivo.size());
     }
 
 }

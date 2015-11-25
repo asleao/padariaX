@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -48,7 +49,7 @@ public class Utilitario {
      * de objetos e imprimir no console.
      * @param listaObjeto 
      */
-    public void imprime(List<Object> listaObjeto){
+    public void imprime(Collection<?> listaObjeto){
         Object objeto = new Object();
         
         for(Object obj:listaObjeto){

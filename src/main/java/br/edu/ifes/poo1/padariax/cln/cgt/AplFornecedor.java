@@ -8,8 +8,9 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -19,11 +20,11 @@ import java.util.Scanner;
 public class AplFornecedor {
 
     private Utilitario aplArquivo;
-    private List<Fornecedor> listaFornecedor;
+    private Map mapaFornecedor;
 
     public AplFornecedor() {
         this.aplArquivo = new Utilitario();
-        listaFornecedor = new ArrayList();
+        mapaFornecedor = new HashMap();
     }
 
     /**
@@ -33,14 +34,15 @@ public class AplFornecedor {
      * @param file - caminnho do arquivo
      * @return listaFornecedor - Lista de Fornecedores
      */
-    public List<Fornecedor> cadastroFornecedor(Arquivo file) {
+    public Map cadastroFornecedor(Arquivo file) {
         List<String> listaImportada = aplArquivo.importar(file);
 
         for (String linha : listaImportada) {
-            listaFornecedor.add(criaFornecedor(linha));
+            Fornecedor fornecedor = criaFornecedor(linha);
+            mapaFornecedor.put(fornecedor.getCodigo(),fornecedor);
         }
 
-        return listaFornecedor;
+        return mapaFornecedor;
     }
 
     private Fornecedor criaFornecedor(String linha) {
@@ -68,26 +70,16 @@ public class AplFornecedor {
      * @param codigo
      * @return Objeto Fornecedor
      */
-    public Fornecedor buscaFornecedor(int codigo) {
-        Fornecedor fornecedorEncontrado = new Fornecedor();
-        
-        for (Fornecedor fornecedor : listaFornecedor) {
-            if (fornecedor.getCodigo() == codigo) {
-                fornecedorEncontrado = fornecedor;
-            }
-        }
-
-        return fornecedorEncontrado;
-    }
-
-    /**
-     * Método responsável por imprimir todos os fornecedores cadastrados.
-     *
-     * @param listaFornecedor
-     */
-    public void imprimeFornecedor(List<Fornecedor> listaFornecedor) {
-        for (Fornecedor fornecedor : listaFornecedor) {
-            System.out.println(fornecedor.toString());
-        }
-    }
+//    public Fornecedor buscaFornecedor(int codigo) {
+//        Fornecedor fornecedorEncontrado = new Fornecedor();
+//        
+//        for (Fornecedor fornecedor : listaFornecedor) {
+//            if (fornecedor.getCodigo() == codigo) {
+//                fornecedorEncontrado = fornecedor;
+//            }
+//        }
+//
+//        return fornecedorEncontrado;
+//    }
+    
 }

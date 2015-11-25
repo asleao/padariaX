@@ -36,6 +36,11 @@ public class PessoaFisica extends Cliente implements IPessoaFisica{
     public String toString() {
         return super.toString() + this.cpf;
     }
+
+    @Override
+    public int compareTo(Object o) {
+       return cpf.compareTo(((PessoaFisica)o).cpf);     
+    }
     
     
 }

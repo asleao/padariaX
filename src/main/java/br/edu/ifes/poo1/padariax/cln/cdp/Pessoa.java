@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author aleao
  */
-public abstract class Pessoa implements Serializable{
+public abstract class Pessoa implements Serializable,Comparable{
     private int codigo;
     private String nome;
     private String endereco;
@@ -64,6 +64,4 @@ public abstract class Pessoa implements Serializable{
     public String toString() {
         return this.codigo +";"+ this.nome +";"+ this.endereco +";"+ this.telefone+";";
     }
-    
-    
 }

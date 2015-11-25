@@ -12,10 +12,12 @@ import br.edu.ifes.poo1.padariax.cln.cdp.PessoaFisica;
 import br.edu.ifes.poo1.padariax.cln.cdp.PessoaJuridica;
 import br.edu.ifes.poo1.padariax.cln.cdp.TipoCliente;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,24 +29,29 @@ import java.util.regex.Pattern;
 public class AplCliente {
 
     private Utilitario util;
+    private Map mapaCliente;
+    private Cliente cliente;
+    private DateFormat dateFormat;
 
     public AplCliente() {
-        this.util = new Utilitario();
+        this.util = new Utilitario();        
+        this.mapaCliente = new HashMap();   
+        this.dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
     }
 
     /**
      * Função responsável por transformar as linhas lidas do arquivo em uma
-     * lista de Clientes. Esta lista possui tanto clientes PessoaFisica quanto
+     * Map de Clientes. Este map possui tanto clientes PessoaFisica quanto
      * PessoaJurídica.
      *
      * @param file - Caminho do arquivo
-     * @return listaCliente - lista de clientes
+     * @return listaCliente - mapa de clientes
      * @throws ParseException
      */
-    public List<Cliente> cadastroCliente(Arquivo file) {
-        List<Cliente> listaCliente = new ArrayList();
+    public Map cadastroCliente(Arquivo file) {        
         List<String> listaImportada = util.importar(file);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 
         for (String linha : listaImportada) {
             Scanner sc = new Scanner(linha);
@@ -52,31 +59,34 @@ public class AplCliente {
 
             try {
                 if (ehPessoaFisica(linha)) {
-                    listaCliente.add(criaPessoaFisica(sc, sdf));
+                    cliente = criaPessoaFisica(sc);
+                    mapaCliente.put(cliente.getCodigo(),cliente);
                 } else {
-                    listaCliente.add(criaPessoaJuridica(sc, sdf));
+                    cliente = criaPessoaJuridica(sc);
+                    mapaCliente.put(cliente.getCodigo(),cliente);
                 }
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
-        return listaCliente;
+        return mapaCliente;
     }
 
     /**
-     * TODO: criar javadoc
+     * Função responsável por setar os atributos de um objeto
+     * PessoaJuridica que foram lidos da linha do arquivo.
      * @param sc
      * @param sdf
      * @return 
      */
-    private PessoaJuridica criaPessoaJuridica(Scanner sc, SimpleDateFormat sdf) {
+    private PessoaJuridica criaPessoaJuridica(Scanner sc) {
         PessoaJuridica pessoaJuridica = new PessoaJuridica();
         try {
             pessoaJuridica.setCodigo(Integer.parseInt(sc.next()));
             pessoaJuridica.setNome(sc.next());
             pessoaJuridica.setEndereco(sc.next());
             pessoaJuridica.setTelefone(sc.next());
-            pessoaJuridica.setDataCadastro(sdf.parse(sc.next()));
+            pessoaJuridica.setDataCadastro(dateFormat.parse(sc.next()));
             pessoaJuridica.setTipo(TipoCliente.valueOf(sc.next()));
             pessoaJuridica.setCnpj(sc.next());
             pessoaJuridica.setInscricaoEstadual(Integer.parseInt(sc.next()));
@@ -88,20 +98,21 @@ public class AplCliente {
     
 
     /**
-     * TODO: criar javadoc
+     * TODO: Função responsável por setar os atributos de um objeto
+     * PessoaFisica que foram lidos da linha do arquivo.
      * @param sc
      * @param sdf
      * @return 
      */
 
-    private PessoaFisica criaPessoaFisica(Scanner sc, SimpleDateFormat sdf) {
+    private PessoaFisica criaPessoaFisica(Scanner sc) {
         PessoaFisica pessoaFisica = new PessoaFisica();
         try {
             pessoaFisica.setCodigo(Integer.parseInt(sc.next()));
             pessoaFisica.setNome(sc.next());
             pessoaFisica.setEndereco(sc.next());
             pessoaFisica.setTelefone(sc.next());
-            pessoaFisica.setDataCadastro(sdf.parse(sc.next()));
+            pessoaFisica.setDataCadastro(dateFormat.parse(sc.next()));
             pessoaFisica.setTipo(TipoCliente.valueOf(sc.next()));
             pessoaFisica.setCpf(sc.next());
         } catch (NumberFormatException | ParseException e) {
@@ -112,7 +123,7 @@ public class AplCliente {
     }
 
     /**
-     * Método responsável por verificar se a linha do arquivo é de uma
+     * Função responsável por verificar se a linha do arquivo é de uma
      * PessoaFisica ou PessoaJuridica.
      *
      * @param linha - linha do arquivo.
@@ -122,12 +133,5 @@ public class AplCliente {
         Pattern pattern = Pattern.compile("(\\;)F(\\;)");
         Matcher matcher = pattern.matcher(linha);
         return matcher.find();
-    }
-
-    
-    public void imprimeCliente(List<Cliente> listaCliente) {
-        for(Cliente cliente:listaCliente){
-            System.out.println(cliente.toString());
-        }
     }
 }

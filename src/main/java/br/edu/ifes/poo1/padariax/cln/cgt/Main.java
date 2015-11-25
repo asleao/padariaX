@@ -7,7 +7,6 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
-import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
@@ -36,17 +35,17 @@ public class Main {
         AplFornecedor aplFornecedor = new AplFornecedor();
 
 
-        List<Cliente> lista1 = aplCliente.cadastroCliente(arquivo);
-        List<Fornecedor> listaFornecedor = aplFornecedor.cadastroFornecedor(arquivo);
+//        List<Cliente> lista1 = aplCliente.cadastroCliente(arquivo);
+//        List<Fornecedor> listaFornecedor = aplFornecedor.cadastroFornecedor(arquivo);
         
 
 //        for (Cliente pessoa : lista1) {
 //            System.out.println(pessoa.toString());
 //        }
 
-        for(Fornecedor f:listaFornecedor){
-            System.out.println(f.toString());
-        }
+//        for(Fornecedor f:listaFornecedor){
+//            System.out.println(f.toString());
+//        }
     }
 
 }

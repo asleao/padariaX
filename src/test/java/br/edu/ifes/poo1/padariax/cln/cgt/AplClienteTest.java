@@ -6,9 +6,9 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
-import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -41,11 +41,11 @@ public class AplClienteTest {
     @Test
     public void testCadastroCliente() {
         List<String> listaArquivo = util.importar(arquivo);
-        List<Cliente> listaCliente = aplCliente.cadastroCliente(arquivo);
+        Map mapaCliente = aplCliente.cadastroCliente(arquivo);
 
-        aplCliente.imprimeCliente(listaCliente);
+        util.imprime(mapaCliente.values());
 
-        assertEquals(listaCliente.size(), listaArquivo.size());
+        assertEquals(mapaCliente.size(), listaArquivo.size());
     }
 
 }

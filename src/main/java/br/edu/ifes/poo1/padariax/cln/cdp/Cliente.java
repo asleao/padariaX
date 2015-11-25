@@ -5,7 +5,9 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -17,13 +19,13 @@ public abstract class Cliente extends Pessoa{
     private TipoCliente tipo;
     
     
-    public Cliente(){        
+    public Cliente(){                
     }
 
     public Cliente( int codigo, String nome, String endereco, String telefone, Date dataCadastro, TipoCliente tipo) {
         super(codigo, nome, endereco, telefone);
         this.dataCadastro = dataCadastro;
-        this.tipo = tipo;
+        this.tipo = tipo;         
     }
     
 
@@ -46,7 +48,9 @@ public abstract class Cliente extends Pessoa{
     
     @Override
     public String toString() {
-        return super.toString() + this.dataCadastro +";"+ this.tipo+";";
+        Locale ptBR = new Locale("pt", "BR");
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,ptBR);
+        return super.toString() + df.format(this.dataCadastro) +";"+ this.tipo+";";
     }
     
     

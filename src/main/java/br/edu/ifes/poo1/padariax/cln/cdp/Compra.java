@@ -72,6 +72,7 @@ public class Compra implements IConta, Serializable,Comparator {
      *
      * @return valorPago.
      */
+    @Override
     public double valorPago() {
         double valorPago = 0;
 
@@ -95,8 +96,8 @@ public class Compra implements IConta, Serializable,Comparator {
 
     @Override
     public int compare(Object o1, Object o2) {
-        return (((Compra) o1).notaFiscal
-                - ((Compra) o2).notaFiscal);
+        return ((Compra) o1).notaFiscal
+                - ((Compra) o2).notaFiscal;
     }
     
     

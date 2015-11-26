@@ -60,7 +60,7 @@ public class AplCompra {
             if (mapaCompra.containsKey(notaFiscal)) {
                 Compra compraExistente = (Compra) mapaCompra.get(notaFiscal);
 
-//                Pattern pattern = Pattern.compile("(\\;).(\\;){2}");
+//                Pattern pattern = Pattern.compile("^.[0-9]+;[0-9]+;[0-9]+/[0-9]+/[0-9]+;");
 //                sc.skip(pattern);
                 sc.next();
                 sc.next();

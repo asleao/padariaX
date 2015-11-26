@@ -50,15 +50,19 @@ public class AplCompraTest {
         Map mapaCompra = aplCompra.cadastroCompra(arquivoCompra);
         List<Compra> listaCompra = new ArrayList(mapaCompra.values());
         
-        Collections.sort(listaCompra, new Compra());
+        Collections.sort(listaCompra, new Compra());        
+
+        imprimeCompra(listaCompra);
         
-//        util.imprime(listaCompra);
+        Assert.assertNotNull((listaCompra));
+        Assert.assertEquals(4, listaCompra.size());
+        
+        
+    }
+
+    private void imprimeCompra(List<Compra> listaCompra) {
         for(Compra c:listaCompra){
             c.exportaCompras();
         }
-        
-        Assert.assertNotNull((listaCompra));
-        
-        
     }
 }

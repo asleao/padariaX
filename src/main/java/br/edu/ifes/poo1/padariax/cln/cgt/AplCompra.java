@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  */
 public class AplCompra {
 
-    private Utilitario aplArquivo;
+    private Utilitario util;
     private Map mapaCompra;
     private Compra compra;
     private DateFormat dateFormat;
@@ -34,7 +34,7 @@ public class AplCompra {
     private Map mapaProduto;
 
     public AplCompra(Map mapaFornecedor, Map mapaProduto) {
-        this.aplArquivo = new Utilitario();
+        this.util = new Utilitario();
         this.mapaCompra = new HashMap();
         this.dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         this.mapaFornecedor = mapaFornecedor;
@@ -50,7 +50,7 @@ public class AplCompra {
      * @throws ParseException
      */
     public Map cadastroCompra(Arquivo file) {
-        List<String> listaImportada = aplArquivo.importar(file);
+        List<String> listaImportada = util.importar(file);
 
         for (String linha : listaImportada) {;
             Scanner sc = new Scanner(linha);

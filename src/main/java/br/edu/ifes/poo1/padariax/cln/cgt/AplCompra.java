@@ -56,44 +56,49 @@ public class AplCompra {
             Scanner sc = new Scanner(linha);
             sc.useDelimiter(";");
             int notaFiscal = Integer.parseInt(sc.next());
-            if (mapaCompra.containsValue(notaFiscal)) {
-                Compra compra = (Compra) mapaCompra.get(notaFiscal);
+           
+            if (mapaCompra.containsKey(notaFiscal)) {
+                Compra compraExistente = (Compra) mapaCompra.get(notaFiscal);
 
-                Pattern pattern = Pattern.compile("(\\;).(\\;){2}");
-                sc.skip(pattern);
+//                Pattern pattern = Pattern.compile("(\\;).(\\;){2}");
+//                sc.skip(pattern);
+                sc.next();
+                sc.next();
 
                 Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
                 Item item = new Item(produto, Integer.parseInt(sc.next()));
                 
-                compra.getListaItens().add(item);
+                compraExistente.getListaItens().add(item);
+                mapaCompra.put(compraExistente.getNotaFiscal(), compraExistente);
 
             } else {
-                Compra compra = criaCompra(sc);
+                Compra compraNova = criaCompra(sc,notaFiscal);
+                mapaCompra.put(compraNova.getNotaFiscal(), compraNova);
             }
 
-            mapaCompra.put(compra.getNotaFiscal(), compra);
+            
         }
 
         return mapaCompra;
     }
 
-    private Compra criaCompra(Scanner sc) {
-        Compra compra = new Compra();
+    private Compra criaCompra(Scanner sc, int notaFiscal) {
+        Compra compraLocal = new Compra();
         List<Item> listaItem = new ArrayList();
         try {
-            compra.setNotaFiscal(Integer.parseInt(sc.next()));
+            compraLocal.setNotaFiscal(notaFiscal);            
             Fornecedor fornecedor = (Fornecedor) mapaFornecedor.get(Integer.parseInt(sc.next()));
-            compra.setFornecedor(fornecedor);
-            compra.setDataCompra(dateFormat.parse(sc.next()));
+            compraLocal.setFornecedor(fornecedor);
+            compraLocal.setDataCompra(dateFormat.parse(sc.next()));
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
             Item item = new Item(produto, Integer.parseInt(sc.next()));
             listaItem.add(item);
-            compra.setListaItens(listaItem);
+            compraLocal.setListaItens(listaItem);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return compra;
+        return compraLocal;
     }
 }

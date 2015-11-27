@@ -54,7 +54,7 @@ public class AplCompraTest {
 
         imprimeCompra(listaCompra);
         
-        Assert.assertNotNull((listaCompra));
+        Assert.assertNotNull(listaCompra);
         Assert.assertEquals(4, listaCompra.size());
         
         

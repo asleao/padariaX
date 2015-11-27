@@ -58,24 +58,23 @@ public class AplVenda {
             sc.useDelimiter(";");
             int cliente = Integer.parseInt(sc.next());
 
-            if (mapaVenda.containsKey(cliente) && cliente != 0) {
+            if (mapaVenda.containsKey(cliente)) {
 
                 Venda vendaExistente = (Venda) mapaVenda.get(cliente);
 
 //                Pattern pattern = Pattern.compile("^.[0-9]+;[0-9]+;[0-9]+/[0-9]+/[0-9]+;");
 //                sc.skip(pattern);
-                sc.next();
-                sc.next();
+                sc.next();                
 
                 Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
                 Item item = new Item(produto, Integer.parseInt(sc.next()));
 
                 vendaExistente.getListaItens().add(item);
-                mapaVenda.put(vendaExistente.getCliente(), vendaExistente);
+                mapaVenda.put(vendaExistente.getCliente().getCodigo(), vendaExistente);
 
             } else if (cliente != 0) {
                 Venda vendaNova = criaVenda(sc, cliente);
-                mapaVenda.put(vendaNova.getCliente(), vendaNova);
+                mapaVenda.put(vendaNova.getCliente().getCodigo(), vendaNova);
             } 
         }
 
@@ -125,6 +124,7 @@ public class AplVenda {
     private Venda criaVenda(Scanner sc, int clienteArquivo) {
         Venda VendaLocal = new Venda();
         List<Item> listaItem = new ArrayList();
+        
         try {
             Cliente cliente = (Cliente) mapaCliente.get(clienteArquivo);
             VendaLocal.setCliente(cliente);

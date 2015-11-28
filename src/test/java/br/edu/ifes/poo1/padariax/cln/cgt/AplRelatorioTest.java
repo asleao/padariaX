@@ -6,6 +6,7 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
+import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.util.Collections;
@@ -78,14 +79,14 @@ public class AplRelatorioTest {
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente)
                                   , aplProduto.cadastroProduto(arquivoProduto));
         List<Venda> listaTotalReceber = aplVenda.cadastroVenda(arquivoVenda);
-//        List<String> listaTotalPagar = aplRelatorio.totalReceberPorCliente(mapaCompra);
+        List<String> listaTotalPagar = aplRelatorio.totalReceberPorCliente(listaTotalReceber);
         
-//        Collections.sort(listaTotalPagar);
+        Collections.sort(listaTotalPagar);
         
-        util.imprime(listaTotalReceber);
+        util.imprime(listaTotalPagar);
         
         
-        assertNotNull(listaTotalReceber);
+        assertNotNull(listaTotalPagar);
         
     }
     

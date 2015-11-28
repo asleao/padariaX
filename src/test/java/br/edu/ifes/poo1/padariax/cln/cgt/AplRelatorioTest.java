@@ -12,16 +12,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import org.junit.Assert;
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author aleao
  */
-public class AplCompraTest {
-
+public class AplRelatorioTest {
+    
     private Utilitario util;
     private Arquivo arquivo;
     private AplCompra aplCompra;
@@ -30,7 +31,9 @@ public class AplCompraTest {
     private Arquivo arquivoFornecedor;
     private Arquivo arquivoProduto;
     private Arquivo arquivoCompra;
-
+    private AplRelatorio aplRelatorio;
+       
+    
     @Before
     public void setUp() {
         this.arquivoFornecedor = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "fornecedores.csv");
@@ -39,29 +42,29 @@ public class AplCompraTest {
         this.util = new Utilitario();
         this.aplFornecedor = new AplFornecedor();
         this.aplProduto = new AplProduto();
+        this.aplRelatorio = new AplRelatorio();
     }
+    
+   
 
+    /**
+     * Test of totalPagarFornecedor method, of class AplRelatorio.
+     */
     @Test
-    public void testCadastroCompra() {      
-        List<String> listaArquivo = util.importar(arquivoCompra);
+    public void testTotalPagarFornecedor() {
+       List<String> listaArquivo = util.importar(arquivoCompra);
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor)
                                   , aplProduto.cadastroProduto(arquivoProduto));
         Map mapaCompra = aplCompra.cadastroCompra(arquivoCompra);
-        List<Compra> listaCompra = new ArrayList(mapaCompra.values());
+        List<String> listaTotalPagar = aplRelatorio.totalPagarFornecedor(mapaCompra);
         
-        Collections.sort(listaCompra, new Compra());        
-
-        imprimeCompra(listaCompra);
+        Collections.sort(listaTotalPagar);
         
-        Assert.assertNotNull(listaCompra);
-        Assert.assertEquals(4, listaCompra.size());
+        util.imprime(listaTotalPagar);
         
+        
+        assertNotNull(listaTotalPagar);
         
     }
-
-    private void imprimeCompra(List<Compra> listaCompra) {
-        for(Compra c:listaCompra){
-            c.exportaCompras();
-        }
-    }
+    
 }

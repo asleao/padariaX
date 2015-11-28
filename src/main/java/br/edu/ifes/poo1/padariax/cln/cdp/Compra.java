@@ -74,7 +74,7 @@ public class Compra implements IConta, Serializable,Comparator {
      */
     @Override
     public double valorPago() {
-        double valorPago = 0;
+        Double valorPago = new Double(new Long(0));
 
         for (Item item : this.listaItens) {
             valorPago += item.valorItem();
@@ -98,6 +98,13 @@ public class Compra implements IConta, Serializable,Comparator {
     public int compare(Object o1, Object o2) {
         return ((Compra) o1).notaFiscal
                 - ((Compra) o2).notaFiscal;
+    }
+
+    @Override
+    public String toString() {
+        return  this.fornecedor.getNome() + ";" + this.fornecedor.getCnpj()+ ";"+
+                this.fornecedor.getPessoaContato() + ";" + 
+                this.fornecedor.getTelefone()+ ";" +"R$ "+valorPago();
     }
     
     

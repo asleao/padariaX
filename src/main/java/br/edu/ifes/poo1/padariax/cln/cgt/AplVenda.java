@@ -32,6 +32,7 @@ public class AplVenda {
     private Map mapaCliente;
     private Map mapaProduto;   
     private List<Venda> listaVenda;
+    private List<Venda> listaVendaNaoFiado;
 
     public AplVenda(Map mapaCliente, Map mapaProduto) {
         this.util = new Utilitario();
@@ -40,6 +41,7 @@ public class AplVenda {
         this.dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         this.mapaCliente = mapaCliente;
         this.mapaProduto = mapaProduto;
+        this.listaVendaNaoFiado = new ArrayList();
     }
 
     /**
@@ -50,13 +52,24 @@ public class AplVenda {
      * @return listaCliente - Map de Vendas
      * @throws ParseException
      */
-    public Map cadastroVendaFiado(Arquivo file) {
+    public List<Venda> cadastroVenda(Arquivo file) {
         List<String> listaImportada = util.importar(file);
+        
 
         for (String linha : listaImportada) {;
             Scanner sc = new Scanner(linha);
             sc.useDelimiter(";");
-            int cliente = Integer.parseInt(sc.next());
+            String registro = sc.next();
+            int cliente = 0;
+            int ehData = registro.indexOf("/");
+            
+            if(ehData > 0){
+                Venda vendaNova = criaVenda(sc,registro);
+                listaVendaNaoFiado.add(vendaNova);
+            } else {
+                cliente = Integer.parseInt(registro);
+            }
+            
 
             if (mapaVenda.containsKey(cliente)) {
 
@@ -76,35 +89,16 @@ public class AplVenda {
                 Venda vendaNova = criaVenda(sc, cliente);
                 mapaVenda.put(vendaNova.getCliente().getCodigo(), vendaNova);
             } 
+            
+            if(!sc.hasNext()){
+               listaVenda = vendasCadastradas(mapaVenda,listaVendaNaoFiado);
+            }
         }
-
-        return mapaVenda;
-    }
-    
-    /**
-     * Função responsável por transformar as linhas lidas do arquivo em uma Map
-     * de Venda para vendas Fiado.
-     *
-     * @param file - Caminho do arquivo
-     * @return listaCliente - Map de Vendas
-     * @throws ParseException
-     */
-    public List<Venda> cadastroVendaNaoFiado(Arquivo file) {
-        List<String> listaImportada = util.importar(file);
-
-        for (String linha : listaImportada) {;
-            Scanner sc = new Scanner(linha);
-            sc.useDelimiter(";");
-            int cliente = Integer.parseInt(sc.next());
-
-            if (cliente != 0) {
-                Venda vendaNova = criaVenda(sc, cliente);
-                listaVenda.add(vendaNova);
-            } 
-        }
-
+        
         return listaVenda;
     }
+    
+    
 
     /**
      * Função responsável por retornar todas vendas importadas do arquivo.
@@ -121,6 +115,7 @@ public class AplVenda {
         }
         return listaTodasVendas;
     }
+    
     private Venda criaVenda(Scanner sc, int clienteArquivo) {
         Venda VendaLocal = new Venda();
         List<Item> listaItem = new ArrayList();
@@ -129,6 +124,25 @@ public class AplVenda {
             Cliente cliente = (Cliente) mapaCliente.get(clienteArquivo);
             VendaLocal.setCliente(cliente);
             VendaLocal.setDataVenda(dateFormat.parse(sc.next()));
+            Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
+            Item item = new Item(produto, Integer.parseInt(sc.next()));
+            listaItem.add(item);
+            VendaLocal.setListaItens(listaItem);
+            VendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return VendaLocal;
+    }
+
+    private Venda criaVenda(Scanner sc,String dataVenda) {
+        Venda VendaLocal = new Venda();
+        List<Item> listaItem = new ArrayList();
+        
+        try {            
+            VendaLocal.setDataVenda(dateFormat.parse(dataVenda));
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
             Item item = new Item(produto, Integer.parseInt(sc.next()));
             listaItem.add(item);

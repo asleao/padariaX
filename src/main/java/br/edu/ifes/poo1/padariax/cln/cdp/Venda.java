@@ -7,9 +7,11 @@ package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -86,15 +88,18 @@ public class Venda implements IConta, Serializable,Comparator {
      *
      */
     public void exportaVendas() {
+        Locale ptBR = new Locale("pt", "BR");
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,ptBR);
+        
         if (this.meioPagamento.equals("F")) {
             for (Item item : this.listaItens) {
-                System.out.println(this.cliente.getCodigo()+ ";" + this.dataVenda
+                System.out.println(this.cliente.getCodigo()+ ";" +df.format(this.dataVenda)
                                   + ";" + item.getProduto().getCodigo() 
                                   + ";" + item.getQuantidade());
             }
         } else {
             for (Item item : this.listaItens) {
-                System.out.println("  "+ ";" + this.dataVenda
+                System.out.println( ";" + df.format(this.dataVenda)
                                   + ";" + item.getProduto().getCodigo() 
                                   + ";" + item.getQuantidade());
             }

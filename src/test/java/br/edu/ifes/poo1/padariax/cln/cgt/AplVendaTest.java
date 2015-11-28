@@ -45,16 +45,22 @@ public class AplVendaTest {
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente),
                                 aplProduto.cadastroProduto(arquivoProduto));
         
-        Map compraFiado = aplVenda.cadastroVendaFiado(arquivoVenda);
-        List<Venda> vendaNormal = aplVenda.cadastroVendaNaoFiado(arquivoVenda);
+        List<Venda>  todasVendas = aplVenda.cadastroVenda(arquivoVenda);
+//        List<Venda> vendaNormal = aplVenda.cadastroVendaNaoFiado(arquivoVenda);
         
-        List<Venda> todasVendas = aplVenda.vendasCadastradas(compraFiado, vendaNormal);
+//        List<Venda> todasVendas = aplVenda.vendasCadastradas(compraFiado, vendaNormal);
         
-        util.imprime(todasVendas);
+//        util.imprime(compraFiado);
+        imprimeVenda(todasVendas);
         
         Assert.assertNotNull(todasVendas);
         
     }
    
+     private void imprimeVenda(List<Venda> listaVenda) {
+        for(Venda v:listaVenda){
+            v.exportaVendas();
+        }
+    }
     
 }

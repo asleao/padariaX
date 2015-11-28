@@ -5,10 +5,12 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp.interfaces;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author aleao
  */
 public interface IConta {
-    public double valorPago();
+    public BigDecimal valorPago();
 }

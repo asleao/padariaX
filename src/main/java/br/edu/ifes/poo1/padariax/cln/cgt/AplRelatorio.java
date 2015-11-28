@@ -6,7 +6,6 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
-import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

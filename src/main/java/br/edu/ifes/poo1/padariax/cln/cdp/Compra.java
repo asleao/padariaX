@@ -7,6 +7,8 @@ package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -73,13 +75,15 @@ public class Compra implements IConta, Serializable,Comparator {
      * @return valorPago.
      */
     @Override
-    public double valorPago() {
-        Double valorPago = new Double(new Long(0));
-
+    public BigDecimal valorPago() {
+        Double valorPago = new Double(new Long(0));       
+        
         for (Item item : this.listaItens) {
             valorPago += item.valorItem();
         }
-        return valorPago;
+        BigDecimal totalPago = new BigDecimal(valorPago);        
+        
+        return totalPago.setScale(2, BigDecimal.ROUND_DOWN);
     }
 
     /**

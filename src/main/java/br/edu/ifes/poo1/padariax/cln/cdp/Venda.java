@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.Comparator;
 import java.util.Date;
@@ -66,19 +67,21 @@ public class Venda implements IConta, Serializable,Comparator {
     }
 
     /**
-     * Função responsável por retornar o valor pago na nota fiscal. Ela busca
-     * todos os itens adquiridos e retorna a soma da quantidade multiplicada
+     * Função responsável por retornar o valor pago na venda. Ela busca
+     * todos os itens vendidos e retorna a soma da quantidade multiplicada
      * pelo valor de custo do produto.
      *
      * @return valorPago.
      */
-    public double valorPago() {
-        double valorPago = 0;
-
+    @Override
+    public BigDecimal valorPago() {
+        Double valorPago = new Double(new Long(0));       
+        
         for (Item item : this.listaItens) {
             valorPago += item.valorItem();
-        }
-        return valorPago;
+        }              
+        
+        return new BigDecimal(valorPago).setScale(2, BigDecimal.ROUND_DOWN);
     }
 
     /**

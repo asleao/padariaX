@@ -81,9 +81,8 @@ public class Compra implements IConta, Serializable,Comparator {
         for (Item item : this.listaItens) {
             valorPago += item.valorItem();
         }
-        BigDecimal totalPago = new BigDecimal(valorPago);        
-        
-        return totalPago.setScale(2, BigDecimal.ROUND_DOWN);
+              
+        return new BigDecimal(valorPago).setScale(2, BigDecimal.ROUND_DOWN);
     }
 
     /**

@@ -18,7 +18,7 @@ import java.util.Locale;
  *
  * @author aleao
  */
-public class Venda implements IConta, Serializable,Comparator {
+public class Venda implements IConta, Serializable, Comparator {
 
     private Date dataVenda;
     private Cliente cliente;
@@ -67,20 +67,20 @@ public class Venda implements IConta, Serializable,Comparator {
     }
 
     /**
-     * Função responsável por retornar o valor pago na venda. Ela busca
-     * todos os itens vendidos e retorna a soma da quantidade multiplicada
-     * pelo valor de custo do produto.
+     * Função responsável por retornar o valor pago na venda. Ela busca todos os
+     * itens vendidos e retorna a soma da quantidade multiplicada pelo valor de
+     * custo do produto.
      *
      * @return valorPago.
      */
     @Override
     public BigDecimal valorPago() {
-        Double valorPago = new Double(new Long(0));       
-        
+        Double valorPago = new Double(new Long(0));
+
         for (Item item : this.listaItens) {
-            valorPago += item.valorItem();
-        }              
-        
+            valorPago += item.valorVendaItem();
+        }
+
         return new BigDecimal(valorPago).setScale(2, BigDecimal.ROUND_DOWN);
     }
 
@@ -92,19 +92,19 @@ public class Venda implements IConta, Serializable,Comparator {
      */
     public void exportaVendas() {
         Locale ptBR = new Locale("pt", "BR");
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,ptBR);
-        
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, ptBR);
+
         if (this.meioPagamento.equals(MeioPagamento.F)) {
             for (Item item : this.listaItens) {
-                System.out.println(this.cliente.getCodigo()+ ";" +df.format(this.dataVenda)
-                                  + ";" + item.getProduto().getCodigo() 
-                                  + ";" + item.getQuantidade());
+                System.out.println(this.cliente.getCodigo() + ";" + df.format(this.dataVenda)
+                        + ";" + item.getProduto().getCodigo()
+                        + ";" + item.getQuantidade());
             }
         } else {
             for (Item item : this.listaItens) {
-                System.out.println( ";" + df.format(this.dataVenda)
-                                  + ";" + item.getProduto().getCodigo() 
-                                  + ";" + item.getQuantidade());
+                System.out.println(";" + df.format(this.dataVenda)
+                        + ";" + item.getProduto().getCodigo()
+                        + ";" + item.getQuantidade());
             }
         }
 
@@ -112,10 +112,23 @@ public class Venda implements IConta, Serializable,Comparator {
 
     @Override
     public int compare(Object o1, Object o2) {
-         return (((Cliente) o1).getCodigo()
+        return (((Cliente) o1).getCodigo()
                 - ((Cliente) o2).getCodigo());
     }
-    
-    
+
+    @Override
+    public String toString() {
+        Locale ptBR = new Locale("pt", "BR");
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, ptBR);
+        String toString = "";
+
+        if (this.meioPagamento.equals(MeioPagamento.F)) {
+            toString = this.cliente.getNome() + ";" + this.cliente.getTipo() + ";"
+                    + this.cliente.toString() + ";" + this.cliente.getTelefone() + ";"
+                    + df.format(this.cliente.getDataCadastro()) + ";"
+                    + valorPago();
+        }
+        return toString;
+    }
 
 }

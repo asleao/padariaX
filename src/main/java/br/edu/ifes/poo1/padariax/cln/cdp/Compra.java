@@ -79,7 +79,7 @@ public class Compra implements IConta, Serializable,Comparator {
         Double valorPago = new Double(new Long(0));       
         
         for (Item item : this.listaItens) {
-            valorPago += item.valorItem();
+            valorPago += item.valorCompraItem();
         }
               
         return new BigDecimal(valorPago).setScale(2, BigDecimal.ROUND_DOWN);

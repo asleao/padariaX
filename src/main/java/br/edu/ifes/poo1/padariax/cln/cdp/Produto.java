@@ -81,8 +81,8 @@ public class Produto implements Serializable, Comparator {
         this.percentualLucro = percentualLucro;
     }
 
-    public double valorVenda() {
-        return this.valorCusto * (1.0 + this.percentualLucro);
+    public double valorVenda() {        
+        return this.valorCusto * (1.0 + ((double)this.percentualLucro/100));
     }
 
     @Override

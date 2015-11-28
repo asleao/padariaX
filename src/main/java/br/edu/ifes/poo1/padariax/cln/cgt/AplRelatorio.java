@@ -6,6 +6,7 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
+import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,24 +16,34 @@ import java.util.Map;
  * @author aleao
  */
 public class AplRelatorio {
+
     private AplFornecedor aplFornecedor;
-    
+
     /**
      *
      * @param mapaCompras
      * @return
      */
-    public List<String> totalPagarFornecedor(Map mapaCompras){
+    public List<String> totalPagarFornecedor(Map mapaCompras) {
         List<String> listaTotalPagar = new ArrayList();
         List<Compra> listaCompras = new ArrayList(mapaCompras.values());
-        
-        for(Compra compra: listaCompras){
+
+        for (Compra compra : listaCompras) {
             listaTotalPagar.add(compra.toString());
-        }        
-        
+        }
+
         return listaTotalPagar;
     }
-    
-    
-    
+
+    public List<String> totalReceberPorCliente(Map mapaVendas) {
+        List<String> listaTotalReceber = new ArrayList();
+        List<Venda> listaVendas = new ArrayList(mapaVendas.values());
+        
+        for (Venda venda : listaVendas) {
+            listaTotalReceber.add(venda.toString());
+        }
+        
+        return listaTotalReceber;
+    }
+
 }

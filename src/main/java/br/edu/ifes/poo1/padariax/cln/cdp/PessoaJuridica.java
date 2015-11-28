@@ -45,7 +45,7 @@ public class PessoaJuridica extends Cliente implements IPessoaJuridica{
 
     @Override
     public String toString() {
-        return super.toString()+this.cnpj +";"+ this.inscricaoEstadual;
+        return this.cnpj;
     }
     
     @Override

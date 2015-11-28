@@ -47,7 +47,11 @@ public class Item implements Serializable{
      *      * 
      * @return valorItem.
      */
-    public double valorItem(){               
+    public double valorCompraItem(){               
         return  this.getQuantidade()*this.getProduto().getValorCusto();
+    } 
+    
+    public double valorVendaItem(){          
+        return  this.getQuantidade()*this.produto.valorVenda();
     } 
 }

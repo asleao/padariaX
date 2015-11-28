@@ -91,7 +91,7 @@ public class Venda implements IConta, Serializable,Comparator {
         Locale ptBR = new Locale("pt", "BR");
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,ptBR);
         
-        if (this.meioPagamento.equals("F")) {
+        if (this.meioPagamento.equals(MeioPagamento.F)) {
             for (Item item : this.listaItens) {
                 System.out.println(this.cliente.getCodigo()+ ";" +df.format(this.dataVenda)
                                   + ";" + item.getProduto().getCodigo() 

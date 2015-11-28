@@ -46,15 +46,10 @@ public class AplVendaTest {
                                 aplProduto.cadastroProduto(arquivoProduto));
         
         List<Venda>  todasVendas = aplVenda.cadastroVenda(arquivoVenda);
-//        List<Venda> vendaNormal = aplVenda.cadastroVendaNaoFiado(arquivoVenda);
-        
-//        List<Venda> todasVendas = aplVenda.vendasCadastradas(compraFiado, vendaNormal);
-        
-//        util.imprime(compraFiado);
+
         imprimeVenda(todasVendas);
         
-        Assert.assertNotNull(todasVendas);
-        
+        Assert.assertNotNull(todasVendas);        
     }
    
      private void imprimeVenda(List<Venda> listaVenda) {

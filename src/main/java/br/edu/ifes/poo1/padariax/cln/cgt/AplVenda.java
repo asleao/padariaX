@@ -56,7 +56,7 @@ public class AplVenda {
         List<String> listaImportada = util.importar(file);
         
 
-        for (String linha : listaImportada) {;
+        for (String linha : listaImportada) {
             Scanner sc = new Scanner(linha);
             sc.useDelimiter(";");
             String registro = sc.next();
@@ -103,6 +103,8 @@ public class AplVenda {
     /**
      * Função responsável por retornar todas vendas importadas do arquivo.
      *
+     * @param mapaVendasFiado
+     * @param listaVendasNaoFiado
      * @param file - Caminho do arquivo
      * @return listaCliente - Map de Vendas
      * @throws ParseException

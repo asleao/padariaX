@@ -87,7 +87,7 @@ public class Produto implements Serializable, Comparator {
 
     @Override
     public String toString() {
-        return this.codigo + ";" + this.descricao + ";" + this.estoqueMinimo + ";" + this.estoqueAtual + ";" + this.valorCusto + ";" + percentualLucro;
+        return this.codigo + ";" + this.descricao ;
     }
     
     @Override

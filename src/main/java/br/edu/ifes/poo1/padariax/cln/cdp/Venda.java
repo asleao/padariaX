@@ -9,16 +9,17 @@ import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  *
  * @author aleao
  */
-public class Venda implements IConta, Serializable, Comparator {
+public class Venda implements IConta, Serializable{
 
     private Date dataVenda;
     private Cliente cliente;
@@ -108,13 +109,7 @@ public class Venda implements IConta, Serializable, Comparator {
             }
         }
 
-    }
-
-    @Override
-    public int compare(Object o1, Object o2) {
-        return (((Cliente) o1).getCodigo()
-                - ((Cliente) o2).getCodigo());
-    }
+    }      
 
     @Override
     public String toString() {
@@ -129,6 +124,7 @@ public class Venda implements IConta, Serializable, Comparator {
                     + valorPago();
         }
         return toString;
-    }
+    }    
+   
 
 }

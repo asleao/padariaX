@@ -32,6 +32,10 @@ public class AplVenda {
     private Map mapaProduto;
     private List<Venda> listaVenda;
     private List<Venda> listaVendaNaoFiado;
+    
+    public AplVenda(){
+    
+    }
 
     public AplVenda(Map mapaCliente, Map mapaProduto) {
         this.util = new Utilitario();
@@ -47,10 +51,10 @@ public class AplVenda {
      * Função responsável por transformar as linhas lidas do arquivo em uma List
      * de Venda. Ela cria um Map para vendas Fiado e um List para vendas não
      * fiado. Quando o objeto scanner lê o último registro, os 2 tipos de vendas
-     * são unidos em uma única lista. 
+     * são unidos em uma única lista.
      *
      * @param file - Caminho do arquivo
-     * @return listaCliente - List de Vendas     
+     * @return listaCliente - List de Vendas
      */
     public List<Venda> cadastroVenda(Arquivo file) {
         List<String> listaImportada = util.importar(file);
@@ -59,14 +63,14 @@ public class AplVenda {
             Scanner sc = new Scanner(linha);
             sc.useDelimiter(";");
             String registro = sc.next();
-            int cliente = 0;            
+            int cliente = 0;
 
             if (ehData(registro)) {
                 importaVendaNaoFiado(sc, registro);
             } else {
                 cliente = Integer.parseInt(registro);
                 importaVendaFiado(cliente, sc);
-            }            
+            }
 
             if (ehUltimoRegistro(sc)) {
                 listaVenda = vendasCadastradas(mapaVenda, listaVendaNaoFiado);
@@ -77,30 +81,33 @@ public class AplVenda {
     }
 
     /**
-     * Função responsável por verificar se o scanner encontra-se no último 
+     * Função responsável por verificar se o scanner encontra-se no último
      * registro do arquivo.
+     *
      * @param sc
-     * @return 
+     * @return
      */
     private static boolean ehUltimoRegistro(Scanner sc) {
         return !sc.hasNext();
     }
 
     /**
-     * Função responsável por verificar se o registro lido do arquivo, é uma 
+     * Função responsável por verificar se o registro lido do arquivo, é uma
      * data.
+     *
      * @param registro
-     * @return 
+     * @return
      */
-    private boolean ehData(String registro) {               
+    private boolean ehData(String registro) {
         return registro.indexOf("/") > 0;
     }
 
     /**
-     * Função responsável por adicionar a venda lida do arquivo na lista de vendas
-     * não fiado.
+     * Função responsável por adicionar a venda lida do arquivo na lista de
+     * vendas não fiado.
+     *
      * @param sc
-     * @param registro 
+     * @param registro
      */
     private void importaVendaNaoFiado(Scanner sc, String registro) {
         Venda vendaNova = criaVendaNaoFiado(sc, registro);
@@ -110,9 +117,10 @@ public class AplVenda {
     /**
      * Função responsável por adicionar a venda lida do arquivo no Map de vendas
      * fiado.
+     *
      * @param cliente
      * @param sc
-     * @throws NumberFormatException 
+     * @throws NumberFormatException
      */
     private void importaVendaFiado(int cliente, Scanner sc) throws NumberFormatException {
         if (mapaVenda.containsKey(cliente)) {
@@ -208,5 +216,31 @@ public class AplVenda {
         }
 
         return VendaLocal;
+    }
+
+    /**
+     * Funcao responsavel por informar a quantidade de vendida passando um
+     * produto como parametro.
+     */
+    public int retornaQuantidadeProdutoVendida(List<Venda> listaVendas, Produto produto) {
+        int quantidadeVendida = 0;
+        Map mapaProduto = new HashMap();
+
+        for (Venda venda : listaVendas) {
+            for (Item item : venda.getListaItens()) {
+                if (mapaProduto.containsKey(item.getProduto().getCodigo())) {
+                    
+                    quantidadeVendida += item.getQuantidade();
+
+                    mapaProduto.put(item.getProduto(), quantidadeVendida);
+
+                } else if (item.getProduto().getCodigo() == produto.getCodigo()) {
+                    quantidadeVendida = item.getQuantidade();
+                    mapaProduto.put(item.getProduto().getCodigo(), quantidadeVendida);
+                }
+            }
+        }
+
+        return quantidadeVendida;
     }
 }

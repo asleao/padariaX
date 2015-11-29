@@ -6,9 +6,10 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
-import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
+import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -46,9 +47,9 @@ public class AplRelatorioTest {
         this.arquivoVenda = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "vendas.csv");
         this.util = new Utilitario();
         this.aplFornecedor = new AplFornecedor();
-        this.aplProduto = new AplProduto();
-        this.aplRelatorio = new AplRelatorio();
+        this.aplProduto = new AplProduto();        
         this.aplCliente = new AplCliente();
+        this.aplRelatorio = new AplRelatorio();
     }
     
    
@@ -62,6 +63,7 @@ public class AplRelatorioTest {
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor)
                                   , aplProduto.cadastroProduto(arquivoProduto));
         Map mapaCompra = aplCompra.cadastroCompra(arquivoCompra);
+        
         List<String> listaTotalPagar = aplRelatorio.totalPagarFornecedor(mapaCompra);
         
         Collections.sort(listaTotalPagar);
@@ -78,6 +80,7 @@ public class AplRelatorioTest {
        List<String> listaArquivo = util.importar(arquivoVenda);
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente)
                                   , aplProduto.cadastroProduto(arquivoProduto));
+        
         List<Venda> listaTotalReceber = aplVenda.cadastroVenda(arquivoVenda);
         List<String> listaTotalPagar = aplRelatorio.totalReceberPorCliente(listaTotalReceber);
         
@@ -87,6 +90,29 @@ public class AplRelatorioTest {
         
         
         assertNotNull(listaTotalPagar);
+        
+    }
+    
+    @Test
+    public void testVendasLucroPorProduto() {
+        
+        Map mapaProduto = aplProduto.cadastroProduto(arquivoProduto);
+        List<Produto> listaProduto = new ArrayList(mapaProduto.values());
+        
+        aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente)
+                                  , aplProduto.cadastroProduto(arquivoProduto));
+        
+        
+        List<Venda> listaTotalReceber = aplVenda.cadastroVenda(arquivoVenda);
+        
+        List<String> listaTotalLucro = aplRelatorio.vendasLucroPorProduto(listaTotalReceber,listaProduto);
+       
+//        Collections.sort(listaTotalLucro);
+        
+        util.imprime(listaTotalLucro);
+        
+        
+        assertNotNull(listaTotalLucro);
         
     }
     

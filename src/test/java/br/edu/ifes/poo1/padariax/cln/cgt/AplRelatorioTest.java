@@ -75,13 +75,13 @@ public class AplRelatorioTest {
         List<String> listaArquivo = util.importar(arquivoVenda);
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
 
-        List<Venda> listaTotalReceber = aplVenda.cadastroVenda(arquivoVenda);
-        List<String> listaTotalPagar = aplRelatorio.totalReceberPorCliente(listaTotalReceber);
+        List<Venda> listaVendas = aplVenda.cadastroVenda(arquivoVenda);
+        List<String> listaTotalReceber = aplRelatorio.totalReceberPorCliente(listaVendas);
 
-        Collections.sort(listaTotalPagar);
+        Collections.sort(listaTotalReceber);
 
-//        util.imprime(listaTotalPagar);
-        assertNotNull(listaTotalPagar);
+//        util.imprime(listaTotalReceber);
+        assertNotNull(listaTotalReceber);
 
     }
 
@@ -93,9 +93,9 @@ public class AplRelatorioTest {
 
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
 
-        List<Venda> listaTotalReceber = aplVenda.cadastroVenda(arquivoVenda);
+        List<Venda> listaVendas = aplVenda.cadastroVenda(arquivoVenda);
 
-        List<String> listaTotalLucro = aplRelatorio.vendasLucroPorProduto(listaTotalReceber, listaProduto);
+        List<String> listaTotalLucro = aplRelatorio.vendasLucroPorProduto(listaVendas, listaProduto);
 
 //        Collections.sort(listaTotalLucro);
 //        util.imprime(listaTotalLucro);
@@ -108,9 +108,9 @@ public class AplRelatorioTest {
 
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
 
-        List<Venda> listaTotalReceber = aplVenda.cadastroVenda(arquivoVenda);
+        List<Venda> listaVendas = aplVenda.cadastroVenda(arquivoVenda);
 
-        List<String> listaTotalLucro = aplRelatorio.vendasLucroPorMeioPagamento(listaTotalReceber);
+        List<String> listaTotalLucro = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
 
 //        Collections.sort(listaTotalLucro);
 //        util.imprime(listaTotalLucro);

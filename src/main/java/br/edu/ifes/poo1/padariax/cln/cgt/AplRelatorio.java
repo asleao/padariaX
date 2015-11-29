@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
 import br.edu.ifes.poo1.padariax.cln.cdp.Item;
+import br.edu.ifes.poo1.padariax.cln.cdp.MeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import java.math.BigDecimal;
@@ -71,6 +72,17 @@ public class AplRelatorio {
 
             listaLucro.add(produto.toString() + "; R$" + new BigDecimal(receitaBruta).setScale(2, BigDecimal.ROUND_DOWN)
                     + "; R$" + new BigDecimal(lucro).setScale(2, BigDecimal.ROUND_DOWN));
+        }
+
+        return listaLucro;
+    }
+
+    public List<String> vendasLucroPorMeioPagamento(List<Venda> listaVendas) {
+        List<String> listaLucro = new ArrayList();
+
+        for (MeioPagamento meio : MeioPagamento.values()) {
+            listaLucro.add(meio + "; R$" +new BigDecimal(aplVenda.receitaBrutaPorMeioPagamento(listaVendas, meio)).setScale(2, BigDecimal.ROUND_DOWN)
+                    + "; R$" + new BigDecimal(aplVenda.lucroPorMeioPagamento(listaVendas, meio)).setScale(2, BigDecimal.ROUND_DOWN));
         }
 
         return listaLucro;

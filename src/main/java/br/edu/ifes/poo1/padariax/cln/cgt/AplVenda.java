@@ -32,9 +32,9 @@ public class AplVenda {
     private Map mapaProduto;
     private List<Venda> listaVenda;
     private List<Venda> listaVendaNaoFiado;
-    
-    public AplVenda(){
-    
+
+    public AplVenda() {
+
     }
 
     public AplVenda(Map mapaCliente, Map mapaProduto) {
@@ -229,7 +229,7 @@ public class AplVenda {
         for (Venda venda : listaVendas) {
             for (Item item : venda.getListaItens()) {
                 if (mapaProduto.containsKey(item.getProduto().getCodigo())) {
-                    
+
                     quantidadeVendida += item.getQuantidade();
 
                     mapaProduto.put(item.getProduto(), quantidadeVendida);
@@ -242,5 +242,48 @@ public class AplVenda {
         }
 
         return quantidadeVendida;
+    }
+
+    /**
+     * Funcao responsavel por informar a receita bruta de vendida passando um meio
+     * de pagamento como parametro.
+     */
+    public double receitaBrutaPorMeioPagamento(List<Venda> listaVendas, MeioPagamento meioPagamento) {
+        double receitaBruta = 0;
+        Map mapaProduto = new HashMap();
+        
+        for (Venda venda : listaVendas) {
+            if (meioPagamento.equals(venda.getMeioPagamento())) {
+                for (Item item : venda.getListaItens()) {                     
+                        receitaBruta += item.getQuantidade()*item.getProduto().valorVenda();
+                        mapaProduto.put(item.getProduto().getCodigo(), receitaBruta);
+                    
+                }
+            }
+        }
+
+        return receitaBruta;
+    }
+    
+    /**
+     * Funcao responsavel por informar a lucro vendido passando um meio
+     * de pagamento como parametro.
+     */
+    public double lucroPorMeioPagamento(List<Venda> listaVendas, MeioPagamento meioPagamento) {
+        double lucro = 0;
+        Map mapaProduto = new HashMap();
+        
+        for (Venda venda : listaVendas) {
+            if (meioPagamento.equals(venda.getMeioPagamento())) {
+                for (Item item : venda.getListaItens()) {                     
+                        lucro += item.getQuantidade()*item.getProduto().getValorCusto();
+                        mapaProduto.put(item.getProduto().getCodigo(), lucro);                    
+                }
+            }
+        }
+            
+        double receitaBruta = receitaBrutaPorMeioPagamento(listaVendas,meioPagamento);
+                
+        return receitaBruta - lucro;
     }
 }

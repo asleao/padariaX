@@ -10,6 +10,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
 import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Item;
+import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -32,6 +32,9 @@ public class AplCompra {
     private DateFormat dateFormat;
     private Map mapaFornecedor;
     private Map mapaProduto;
+    
+    public AplCompra(){
+    }
 
     public AplCompra(Map mapaFornecedor, Map mapaProduto) {
         this.util = new Utilitario();
@@ -85,13 +88,16 @@ public class AplCompra {
     private Compra criaCompra(Scanner sc, int notaFiscal) {
         Compra compraLocal = new Compra();
         List<Item> listaItem = new ArrayList();
+        int quantidade = 0;
         try {
             compraLocal.setNotaFiscal(notaFiscal);            
             Fornecedor fornecedor = (Fornecedor) mapaFornecedor.get(Integer.parseInt(sc.next()));
             compraLocal.setFornecedor(fornecedor);
             compraLocal.setDataCompra(dateFormat.parse(sc.next()));
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
-            Item item = new Item(produto, Integer.parseInt(sc.next()));
+            quantidade = Integer.parseInt(sc.next());
+            produto.setEstoqueAtual(produto.getEstoqueAtual()+ quantidade);
+            Item item = new Item(produto, quantidade);
             listaItem.add(item);
             compraLocal.setListaItens(listaItem);
 
@@ -100,5 +106,32 @@ public class AplCompra {
         }
 
         return compraLocal;
+    }
+    
+    
+    /**
+     * Funcao responsavel por informar a quantidade de comprada passando um
+     * produto como parametro.
+     */
+    public int retornaQuantidadeProdutoComprada(List<Compra> listaCompra, Produto produto) {
+        int quantidadeComprada = 0;
+        Map mapaProduto = new HashMap();
+
+        for (Compra compraLocal : listaCompra) {
+            for (Item item : compraLocal.getListaItens()) {
+                if (mapaProduto.containsKey(item.getProduto().getCodigo())) {
+
+                    quantidadeComprada += item.getQuantidade();
+
+                    mapaProduto.put(item.getProduto(), quantidadeComprada);
+
+                } else if (item.getProduto().getCodigo() == produto.getCodigo()) {
+                    quantidadeComprada = item.getQuantidade();
+                    mapaProduto.put(item.getProduto().getCodigo(), quantidadeComprada);
+                }
+            }
+        }
+
+        return quantidadeComprada;
     }
 }

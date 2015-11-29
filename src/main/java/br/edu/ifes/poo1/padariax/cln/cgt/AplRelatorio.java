@@ -6,17 +6,13 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
-import br.edu.ifes.poo1.padariax.cln.cdp.Item;
 import br.edu.ifes.poo1.padariax.cln.cdp.MeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -26,9 +22,11 @@ public class AplRelatorio {
 
     private AplFornecedor aplFornecedor;
     private AplVenda aplVenda;
+    private AplCompra aplCompra;
 
     public AplRelatorio() {
         this.aplVenda = new AplVenda();
+        this.aplCompra = new AplCompra();
     }
 
     /**
@@ -81,10 +79,36 @@ public class AplRelatorio {
         List<String> listaLucro = new ArrayList();
 
         for (MeioPagamento meio : MeioPagamento.values()) {
-            listaLucro.add(meio + "; R$" +new BigDecimal(aplVenda.receitaBrutaPorMeioPagamento(listaVendas, meio)).setScale(2, BigDecimal.ROUND_DOWN)
+            listaLucro.add(meio + "; R$" + new BigDecimal(aplVenda.receitaBrutaPorMeioPagamento(listaVendas, meio)).setScale(2, BigDecimal.ROUND_DOWN)
                     + "; R$" + new BigDecimal(aplVenda.lucroPorMeioPagamento(listaVendas, meio)).setScale(2, BigDecimal.ROUND_DOWN));
         }
 
         return listaLucro;
+    }
+
+    /**
+     * Imprime balanco do estoque mensal
+     */
+    public List<String> balancoMensal(List<Venda> listaVendas, List<Compra> listaCompras, List<Produto> listaProduto) {
+        List<String> listaBalanco = new ArrayList();
+
+        for (Produto produto : listaProduto) {
+            String observacoes = "";
+            int quantidadeVendida = 0;
+            int quantidadeComprada = 0;
+            quantidadeVendida = aplVenda.retornaQuantidadeProdutoVendida(listaVendas, produto);
+            quantidadeComprada = aplCompra.retornaQuantidadeProdutoComprada(listaCompras, produto);
+
+            produto.setEstoqueAtual(produto.getEstoqueAtual() + quantidadeComprada - quantidadeVendida);
+
+            if (produto.getEstoqueAtual() < produto.getEstoqueMinimo()) {
+                observacoes = "COMPRAR MAIS";
+            }
+
+            listaBalanco.add(produto.getCodigo() + ";" + produto.getDescricao() + ";"
+                    + produto.getEstoqueAtual() + ";" + observacoes);
+        }
+
+        return listaBalanco;
     }
 }

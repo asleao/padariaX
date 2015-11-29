@@ -6,6 +6,7 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
+import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
@@ -22,13 +23,13 @@ import static org.junit.Assert.*;
  * @author aleao
  */
 public class AplRelatorioTest {
-    
+
     private Utilitario util;
     private Arquivo arquivo;
     private AplCompra aplCompra;
-    private AplVenda aplVenda;   
+    private AplVenda aplVenda;
     private AplProduto aplProduto;
-    private AplFornecedor aplFornecedor;    
+    private AplFornecedor aplFornecedor;
     private AplCliente aplCliente;
     private Arquivo arquivoFornecedor;
     private Arquivo arquivoProduto;
@@ -36,8 +37,7 @@ public class AplRelatorioTest {
     private Arquivo arquivoVenda;
     private Arquivo arquivoCliente;
     private AplRelatorio aplRelatorio;
-       
-    
+
     @Before
     public void setUp() {
         this.arquivoCliente = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "clientes.csv");
@@ -47,93 +47,94 @@ public class AplRelatorioTest {
         this.arquivoVenda = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "vendas.csv");
         this.util = new Utilitario();
         this.aplFornecedor = new AplFornecedor();
-        this.aplProduto = new AplProduto();        
+        this.aplProduto = new AplProduto();
         this.aplCliente = new AplCliente();
         this.aplRelatorio = new AplRelatorio();
     }
-    
-   
 
     /**
      * Test of totalPagarFornecedor method, of class AplRelatorio.
      */
     @Test
     public void testTotalPagarFornecedor() {
-       List<String> listaArquivo = util.importar(arquivoCompra);
-        aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor)
-                                  , aplProduto.cadastroProduto(arquivoProduto));
+        List<String> listaArquivo = util.importar(arquivoCompra);
+        aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor), aplProduto.cadastroProduto(arquivoProduto));
         Map mapaCompra = aplCompra.cadastroCompra(arquivoCompra);
-        
+
         List<String> listaTotalPagar = aplRelatorio.totalPagarFornecedor(mapaCompra);
-        
+
         Collections.sort(listaTotalPagar);
-        
+
 //        util.imprime(listaTotalPagar);
-        
-        
         assertNotNull(listaTotalPagar);
-        
+
     }
-    
+
     @Test
     public void testTotalReceberPorCliente() {
-       List<String> listaArquivo = util.importar(arquivoVenda);
-        aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente)
-                                  , aplProduto.cadastroProduto(arquivoProduto));
-        
+        List<String> listaArquivo = util.importar(arquivoVenda);
+        aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
+
         List<Venda> listaTotalReceber = aplVenda.cadastroVenda(arquivoVenda);
         List<String> listaTotalPagar = aplRelatorio.totalReceberPorCliente(listaTotalReceber);
-        
+
         Collections.sort(listaTotalPagar);
-        
+
 //        util.imprime(listaTotalPagar);
-        
-        
         assertNotNull(listaTotalPagar);
-        
+
     }
-    
+
     @Test
     public void testVendasLucroPorProduto() {
-        
+
         Map mapaProduto = aplProduto.cadastroProduto(arquivoProduto);
         List<Produto> listaProduto = new ArrayList(mapaProduto.values());
-        
-        aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente)
-                                  , aplProduto.cadastroProduto(arquivoProduto));
-        
-        
+
+        aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
+
         List<Venda> listaTotalReceber = aplVenda.cadastroVenda(arquivoVenda);
-        
-        List<String> listaTotalLucro = aplRelatorio.vendasLucroPorProduto(listaTotalReceber,listaProduto);
-       
+
+        List<String> listaTotalLucro = aplRelatorio.vendasLucroPorProduto(listaTotalReceber, listaProduto);
+
 //        Collections.sort(listaTotalLucro);
-        
 //        util.imprime(listaTotalLucro);
-        
-        
         assertNotNull(listaTotalLucro);
-        
+
     }
-    
-     @Test
-    public void testVendasLucroPorMeioPagamento() {                    
-        
-        aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente)
-                                  , aplProduto.cadastroProduto(arquivoProduto));
-        
-        
+
+    @Test
+    public void testVendasLucroPorMeioPagamento() {
+
+        aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
+
         List<Venda> listaTotalReceber = aplVenda.cadastroVenda(arquivoVenda);
-        
+
         List<String> listaTotalLucro = aplRelatorio.vendasLucroPorMeioPagamento(listaTotalReceber);
-       
+
 //        Collections.sort(listaTotalLucro);
-        
-        util.imprime(listaTotalLucro);
-        
-        
+//        util.imprime(listaTotalLucro);
         assertNotNull(listaTotalLucro);
-        
+
     }
-    
+
+    @Test
+    public void testBalancoMensal() {
+         Map mapaProduto = aplProduto.cadastroProduto(arquivoProduto);
+        List<Produto> listaProduto = new ArrayList(mapaProduto.values());
+
+        aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
+        aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor), aplProduto.cadastroProduto(arquivoProduto));
+
+        Map mapaCompras = aplCompra.cadastroCompra(arquivoCompra);
+        List<Compra> listaCompras = new ArrayList(mapaCompras.values());
+        List<Venda> listaVendas = aplVenda.cadastroVenda(arquivoVenda);
+
+        List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas,listaCompras,listaProduto);
+
+//        Collections.sort(listaTotalLucro);
+        util.imprime(listaBalanco);
+        assertNotNull(listaBalanco);
+
+    }
 }

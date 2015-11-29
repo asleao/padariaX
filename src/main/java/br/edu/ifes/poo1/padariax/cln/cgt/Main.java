@@ -6,12 +6,13 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
-import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
+import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -27,25 +28,25 @@ public class Main {
      * @throws java.text.ParseException
      */
     public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
-        Arquivo arquivo = new Arquivo("/home/aleao/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "clientes.csv");
-//        Arquivo arquivo = new Arquivo("/media/aleao/Dados/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "clientes.csv");
-//        Arquivo arquivo = new Arquivo("/media/aleao/Dados/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/01/in/", "fornecedores.csv");
-        
-        AplCliente aplCliente = new AplCliente();
+        Arquivo arquivoCompras = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "compras.csv");
+        Arquivo arquivoFornecedor = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "fornecedores.csv");
+        Arquivo arquivoProduto = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "produtos.csv");
+        Arquivo destinoCompras = new Arquivo("/home/aleao/Documents/", "compras.csv");
+
+        AplRelatorio aplRelatorio = new AplRelatorio();
         AplFornecedor aplFornecedor = new AplFornecedor();
+        AplProduto aplProduto = new AplProduto();
+        Utilitario util = new Utilitario();
 
+        AplCompra aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor), aplProduto.cadastroProduto(arquivoProduto));
+        Map mapaCompras = aplCompra.cadastroCompra(arquivoCompras);
 
-//        List<Cliente> lista1 = aplCliente.cadastroCliente(arquivo);
-//        List<Fornecedor> listaFornecedor = aplFornecedor.cadastroFornecedor(arquivo);
-        
+        try {
+            util.exportar(aplRelatorio.totalPagarFornecedor(mapaCompras), destinoCompras);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-//        for (Cliente pessoa : lista1) {
-//            System.out.println(pessoa.toString());
-//        }
-
-//        for(Fornecedor f:listaFornecedor){
-//            System.out.println(f.toString());
-//        }
     }
 
 }

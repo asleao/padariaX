@@ -6,15 +6,15 @@
 package br.edu.ifes.poo1.padariax.cln.util;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
-import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -22,23 +22,22 @@ import java.util.Scanner;
  * @author aleao
  */
 public class Utilitario {
-    
-    
+
     /**
-     * Este método e responsável por importar um arquivo
-     * de um diretório e passar cada linha para uma lista
-     * de String.
+     * Este método e responsável por importar um arquivo de um diretório e
+     * passar cada linha para uma lista de String.
+     *
      * @param file - Arquivo com o nome e caminho
-     * @return listaImportada - Lista com as linhas do arquivo    
-     */    
+     * @return listaImportada - Lista com as linhas do arquivo
+     */
     public List<String> importar(Arquivo file) {
         List<String> listaImportada = new ArrayList<>();
 
         Path path = Paths.get(file.toString());
 
-        try (Scanner scanner = new Scanner(path, "Utf-8")) { 
+        try (Scanner scanner = new Scanner(path, "Utf-8")) {
             scanner.nextLine();
-            while (scanner.hasNextLine()) {                
+            while (scanner.hasNextLine()) {
                 listaImportada.add(scanner.nextLine());
             }
         } catch (IOException ex) {
@@ -47,17 +46,36 @@ public class Utilitario {
 
         return listaImportada;
     }
+
     /**
-     * Método responsável por ler uma lista generica
-     * de objetos e imprimir no console.
-     * @param listaObjeto 
+     * Método responsável por ler uma lista generica de objetos e imprimir no
+     * console.
+     *
+     * @param listaObjeto
      */
-    public void imprime(Collection<?> listaObjeto){
+    public void imprime(Collection<?> listaObjeto) {
         Object objeto = new Object();
-        
-        for(Object obj:listaObjeto){
+
+        for (Object obj : listaObjeto) {
             System.out.println(obj.toString());
         }
-    }    
-    
+    }
+
+    /**
+     * Funcao responsavel por escrever uma lista de String em um arquivo em
+     * determinado local.
+     * @param lista
+     * @param destino
+     * @throws java.io.FileNotFoundException
+     */
+    public void exportar(List<String> lista, Arquivo destino) throws FileNotFoundException {
+        File file = new File(destino.toString());
+        file.getParentFile().mkdirs();
+        
+        PrintWriter pw = new PrintWriter(file);
+        
+        for(String s: lista){
+            pw.write(s);
+        }        
+    }
 }

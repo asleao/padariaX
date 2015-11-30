@@ -64,8 +64,6 @@ public class AplRelatorioTest {
 
         List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(mapaCompra);
 
-        Collections.sort(listaTotalPagar);
-
 //        util.imprime(listaTotalPagar);
         assertNotNull(listaTotalPagar);
 
@@ -82,8 +80,6 @@ public class AplRelatorioTest {
         
         
         List<String> listaTotalReceber = aplRelatorio.aReceberPorCliente(listaVendas,listaCliente);
-
-        Collections.sort(listaTotalReceber);
 
         util.imprime(listaTotalReceber);
         

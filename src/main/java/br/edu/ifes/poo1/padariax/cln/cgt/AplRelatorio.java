@@ -71,6 +71,9 @@ public class AplRelatorio {
      * Utilizar um for na lista de todos os produtos existentes e multiplicar
      * pela quantidade vendida do produto. O lucro e o valor total vendido menos
      * o valor total de custo do produto.
+     * @param listaVendas
+     * @param listaProduto
+     * @return 
      */
     public List<String> vendasLucroPorProduto(List<Venda> listaVendas, List<Produto> listaProduto) {
         List<String> listaLucro = new ArrayList();

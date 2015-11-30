@@ -63,7 +63,7 @@ public class AplVenda {
             Scanner sc = new Scanner(linha);
             sc.useDelimiter(";");
             String registro = sc.next();
-            int cliente = 0;
+            int cliente;
 
             if (ehData(registro)) {
                 importaVendaNaoFiado(sc, registro);
@@ -205,7 +205,7 @@ public class AplVenda {
     private Venda criaVendaNaoFiado(Scanner sc, String dataVenda) {
         Venda VendaLocal = new Venda();
         List<Item> listaItem = new ArrayList();
-        int quantidade = 0;
+        int quantidade;
 
         try {
             VendaLocal.setDataVenda(dateFormat.parse(dataVenda));
@@ -227,22 +227,25 @@ public class AplVenda {
     /**
      * Funcao responsavel por informar a quantidade de vendida passando um
      * produto como parametro.
+     * @param listaVendas
+     * @param produto
+     * @return 
      */
     public int retornaQuantidadeProdutoVendida(List<Venda> listaVendas, Produto produto) {
         int quantidadeVendida = 0;
-        Map mapaProduto = new HashMap();
+        Map mapProduto = new HashMap();
 
         for (Venda venda : listaVendas) {
             for (Item item : venda.getListaItens()) {
-                if (mapaProduto.containsKey(item.getProduto().getCodigo())) {
+                if (mapProduto.containsKey(item.getProduto().getCodigo())) {
 
                     quantidadeVendida += item.getQuantidade();
 
-                    mapaProduto.put(item.getProduto(), quantidadeVendida);
+                    mapProduto.put(item.getProduto(), quantidadeVendida);
 
                 } else if (item.getProduto().getCodigo() == produto.getCodigo()) {
                     quantidadeVendida = item.getQuantidade();
-                    mapaProduto.put(item.getProduto().getCodigo(), quantidadeVendida);
+                    mapProduto.put(item.getProduto().getCodigo(), quantidadeVendida);
                 }
             }
         }
@@ -253,16 +256,19 @@ public class AplVenda {
     /**
      * Funcao responsavel por informar a receita bruta de vendida passando um meio
      * de pagamento como parametro.
+     * @param listaVendas
+     * @param meioPagamento
+     * @return 
      */
     public double receitaBrutaPorMeioPagamento(List<Venda> listaVendas, MeioPagamento meioPagamento) {
         double receitaBruta = 0;
-        Map mapaProduto = new HashMap();
+        Map mapProduto = new HashMap();
         
         for (Venda venda : listaVendas) {
             if (meioPagamento.equals(venda.getMeioPagamento())) {
                 for (Item item : venda.getListaItens()) {                     
                         receitaBruta += item.getQuantidade()*item.getProduto().valorVenda();
-                        mapaProduto.put(item.getProduto().getCodigo(), receitaBruta);
+                        mapProduto.put(item.getProduto().getCodigo(), receitaBruta);
                     
                 }
             }
@@ -274,16 +280,19 @@ public class AplVenda {
     /**
      * Funcao responsavel por informar a lucro vendido passando um meio
      * de pagamento como parametro.
+     * @param listaVendas
+     * @param meioPagamento
+     * @return 
      */
     public double lucroPorMeioPagamento(List<Venda> listaVendas, MeioPagamento meioPagamento) {
         double lucro = 0;
-        Map mapaProduto = new HashMap();
+        Map mapProduto = new HashMap();
         
         for (Venda venda : listaVendas) {
             if (meioPagamento.equals(venda.getMeioPagamento())) {
                 for (Item item : venda.getListaItens()) {                     
                         lucro += item.getQuantidade()*item.getProduto().getValorCusto();
-                        mapaProduto.put(item.getProduto().getCodigo(), lucro);                    
+                        mapProduto.put(item.getProduto().getCodigo(), lucro);                    
                 }
             }
         }

@@ -6,10 +6,7 @@
 package br.edu.ifes.poo1.padariax.cln.util;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -54,8 +51,7 @@ public class Utilitario {
      * @param listaObjeto
      */
     public void imprime(Collection<?> listaObjeto) {
-        Object objeto = new Object();
-
+        
         for (Object obj : listaObjeto) {
             System.out.println(obj.toString());
         }

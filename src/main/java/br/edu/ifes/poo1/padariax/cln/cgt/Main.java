@@ -42,7 +42,7 @@ public class Main {
         Map mapaCompras = aplCompra.cadastroCompra(arquivoCompras);
 
         try {
-            util.exportar(aplRelatorio.totalPagarFornecedor(mapaCompras), destinoCompras);
+            util.exportar(aplRelatorio.aPagarFornecedor(mapaCompras), destinoCompras);
         } catch (Exception e) {
             e.printStackTrace();
         }

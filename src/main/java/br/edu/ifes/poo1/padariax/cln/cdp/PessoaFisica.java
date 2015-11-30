@@ -6,23 +6,26 @@
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IPessoaFisica;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
  * @author aleao
  */
-public class PessoaFisica extends Cliente implements IPessoaFisica{
+public class PessoaFisica extends Cliente implements IPessoaFisica {
+
     private String cpf;
 
-    
-    public PessoaFisica(){
+    public PessoaFisica() {
     }
 
     public PessoaFisica(int codigo, String nome, String endereco, String telefone, Date dataCadastro, String cpf) {
         super(codigo, nome, endereco, telefone, dataCadastro, TipoCliente.F);
         this.cpf = cpf;
     }
+
     @Override
     public String getCpf() {
         return cpf;
@@ -34,13 +37,14 @@ public class PessoaFisica extends Cliente implements IPessoaFisica{
 
     @Override
     public String toString() {
-        return super.toString()+this.cpf;
+        Locale ptBR = new Locale("pt", "BR");
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, ptBR);
+        return super.toString() + ";" + this.cpf+ ";" + super.getTelefone() + ";" +df.format(super.getDataCadastro());
     }
 
     @Override
     public int compareTo(Object o) {
-       return super.getNome().compareTo(((PessoaFisica)o).getNome());     
+        return super.getNome().compareTo(((PessoaFisica) o).getNome());
     }
-    
-    
+
 }

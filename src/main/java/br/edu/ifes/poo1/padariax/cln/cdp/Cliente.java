@@ -47,10 +47,8 @@ public abstract class Cliente extends Pessoa{
    
     
     @Override
-    public String toString() {
-        Locale ptBR = new Locale("pt", "BR");
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,ptBR);
-        return super.toString() + df.format(this.dataCadastro) +";"+ this.tipo+";";
+    public String toString() {       
+        return this.getNome()+";"+this.getTipo();
     }
     
     

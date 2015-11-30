@@ -66,7 +66,7 @@ public class AplRelatorioTest {
 
         Collections.sort(listaTotalPagar);
 
-        util.imprime(listaTotalPagar);
+//        util.imprime(listaTotalPagar);
         assertNotNull(listaTotalPagar);
 
     }
@@ -85,7 +85,7 @@ public class AplRelatorioTest {
 
         Collections.sort(listaTotalReceber);
 
-//        util.imprime(listaTotalReceber);
+        util.imprime(listaTotalReceber);
         
         assertNotNull(listaTotalReceber);
 

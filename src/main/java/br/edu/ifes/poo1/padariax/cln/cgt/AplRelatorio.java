@@ -11,6 +11,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.MeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.AReceberCliente;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,12 +54,16 @@ public class AplRelatorio {
     }
 
     public List<String> aReceberPorCliente(List<Venda> listaVendas,List<Cliente> listaClientes) {
-        List<String> listaTotalReceber = new ArrayList();
+        
+        List<AReceberCliente> listaReceber = new ArrayList();
 
         for (Cliente cliente : listaClientes) {
-            listaTotalReceber.add(cliente.toString()+";"+aplVenda.retornaValorAReceber(listaVendas, cliente));
+            listaReceber.add(new AReceberCliente(cliente, aplVenda.retornaValorAReceber(listaVendas, cliente)));
         }
+        
+        Collections.sort(listaReceber);
 
+        List<String> listaTotalReceber = new ArrayList(listaReceber);
         return listaTotalReceber;
     }
 

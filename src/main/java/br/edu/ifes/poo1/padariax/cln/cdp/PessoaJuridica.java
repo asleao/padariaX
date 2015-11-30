@@ -6,7 +6,9 @@
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IPessoaJuridica;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -46,7 +48,9 @@ public class PessoaJuridica extends Cliente implements IPessoaJuridica{
 
     @Override
     public String toString() {
-        return super.toString()+this.cnpj;
+        Locale ptBR = new Locale("pt", "BR");
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, ptBR);
+        return super.toString() + ";" + this.cnpj+ ";" + super.getTelefone() + ";" +df.format(super.getDataCadastro());
     }
     
     @Override

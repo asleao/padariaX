@@ -5,6 +5,7 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp.relatorios;
 
+import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import java.math.BigDecimal;
 
@@ -12,22 +13,22 @@ import java.math.BigDecimal;
  *
  * @author aleao
  */
-public class APagarFornecedor implements Comparable<APagarFornecedor> {
+public class AReceberCliente implements Comparable<AReceberCliente> {
 
-    private Fornecedor fornecedor;
+    private Cliente cliente;
     private BigDecimal totalPagar;
 
-    public APagarFornecedor(Fornecedor fornecedor, BigDecimal totalPagar) {
-        this.fornecedor = fornecedor;
+    public AReceberCliente(Cliente cliente, BigDecimal totalPagar) {
+        this.cliente = cliente;
         this.totalPagar = totalPagar;
     }
 
-    public Fornecedor getFornecedor() {
-        return fornecedor;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public BigDecimal getTotalPagar() {
@@ -39,12 +40,12 @@ public class APagarFornecedor implements Comparable<APagarFornecedor> {
     }
 
     @Override
-    public int compareTo(APagarFornecedor obj) {
-        return this.fornecedor.getNome().compareTo(((APagarFornecedor) obj).getFornecedor().getNome());
+    public int compareTo(AReceberCliente obj) {
+        return this.cliente.getNome().compareTo(((AReceberCliente) obj).getCliente().getNome());
     }
 
     @Override
     public String toString() {
-        return this.fornecedor.toString() + ";R$ " + this.totalPagar.toString().replace(".", ",");
+        return this.cliente.toString() + ";R$ " + this.totalPagar.toString().replace(".", ",");
     }
 }

@@ -39,7 +39,7 @@ public class AplFornecedor {
 
         for (String linha : listaImportada) {
             Fornecedor fornecedor = criaFornecedor(linha);
-            mapaFornecedor.put(fornecedor.getCodigo(),fornecedor);
+            mapaFornecedor.put(fornecedor.getCodigo(), fornecedor);
         }
 
         return mapaFornecedor;
@@ -48,8 +48,8 @@ public class AplFornecedor {
     private Fornecedor criaFornecedor(String linha) {
         Fornecedor fornecedor = new Fornecedor();
 
-        try {
-            Scanner sc = new Scanner(linha);
+        try (Scanner sc = new Scanner(linha)) {
+
             sc.useDelimiter(";");
 
             fornecedor.setCodigo(Integer.parseInt(sc.next()));
@@ -63,23 +63,5 @@ public class AplFornecedor {
         }
         return fornecedor;
     }
-
-    /**
-     * Função responsável por buscar um fornecedor a partir do seu código.
-     *
-     * @param codigo
-     * @return Objeto Fornecedor
-     */
-//    public Fornecedor buscaFornecedor(int codigo) {
-//        Fornecedor fornecedorEncontrado = new Fornecedor();
-//        
-//        for (Fornecedor fornecedor : listaFornecedor) {
-//            if (fornecedor.getCodigo() == codigo) {
-//                fornecedorEncontrado = fornecedor;
-//            }
-//        }
-//
-//        return fornecedorEncontrado;
-//    }
     
 }

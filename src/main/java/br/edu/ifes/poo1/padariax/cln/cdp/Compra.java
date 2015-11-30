@@ -8,7 +8,6 @@ package br.edu.ifes.poo1.padariax.cln.cdp;
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;

@@ -65,14 +65,14 @@ public class AplRelatorioTest {
 
         Collections.sort(listaTotalPagar);
 
-//        util.imprime(listaTotalPagar);
+        util.imprime(listaTotalPagar);
         assertNotNull(listaTotalPagar);
 
     }
 
     @Test
     public void testTotalReceberPorCliente() {
-        List<String> listaArquivo = util.importar(arquivoVenda);
+        
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
 
         List<Venda> listaVendas = aplVenda.cadastroVenda(arquivoVenda);
@@ -80,7 +80,8 @@ public class AplRelatorioTest {
 
         Collections.sort(listaTotalReceber);
 
-//        util.imprime(listaTotalReceber);
+        util.imprime(listaTotalReceber);
+        
         assertNotNull(listaTotalReceber);
 
     }
@@ -97,8 +98,9 @@ public class AplRelatorioTest {
 
         List<String> listaTotalLucro = aplRelatorio.vendasLucroPorProduto(listaVendas, listaProduto);
 
-//        Collections.sort(listaTotalLucro);
-//        util.imprime(listaTotalLucro);
+        Collections.sort(listaTotalLucro);
+        util.imprime(listaTotalLucro);
+        
         assertNotNull(listaTotalLucro);
 
     }
@@ -112,8 +114,9 @@ public class AplRelatorioTest {
 
         List<String> listaTotalLucro = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
 
-//        Collections.sort(listaTotalLucro);
-//        util.imprime(listaTotalLucro);
+        Collections.sort(listaTotalLucro);
+        util.imprime(listaTotalLucro);
+        
         assertNotNull(listaTotalLucro);
 
     }
@@ -132,7 +135,8 @@ public class AplRelatorioTest {
 
         List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas,listaCompras,listaProduto);
 
-//        Collections.sort(listaTotalLucro);
+        Collections.sort(listaBalanco);
+        
         util.imprime(listaBalanco);
         assertNotNull(listaBalanco);
 

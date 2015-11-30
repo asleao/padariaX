@@ -19,8 +19,7 @@ import java.util.Map;
  * @author aleao
  */
 public class AplRelatorio {
-
-    private AplFornecedor aplFornecedor;
+    
     private AplVenda aplVenda;
     private AplCompra aplCompra;
 
@@ -94,10 +93,9 @@ public class AplRelatorio {
 
         for (Produto produto : listaProduto) {
             String observacoes = "";
-            int quantidadeVendida = 0;
-            int quantidadeComprada = 0;
-            quantidadeVendida = aplVenda.retornaQuantidadeProdutoVendida(listaVendas, produto);
-            quantidadeComprada = aplCompra.retornaQuantidadeProdutoComprada(listaCompras, produto);
+
+            int quantidadeVendida = aplVenda.retornaQuantidadeProdutoVendida(listaVendas, produto);
+            int quantidadeComprada = aplCompra.retornaQuantidadeProdutoComprada(listaCompras, produto);
 
             produto.setEstoqueAtual(produto.getEstoqueAtual() + quantidadeComprada - quantidadeVendida);
 

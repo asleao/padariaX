@@ -65,17 +65,9 @@ public class Utilitario {
      * Funcao responsavel por escrever uma lista de String em um arquivo em
      * determinado local.
      * @param lista
-     * @param destino
-     * @throws java.io.FileNotFoundException
+     * @param destino     
      */
-    public void exportar(List<String> lista, Arquivo destino) throws FileNotFoundException {
-        File file = new File(destino.toString());
-        file.getParentFile().mkdirs();
-        
-        PrintWriter pw = new PrintWriter(file);
-        
-        for(String s: lista){
-            pw.write(s);
-        }        
+    public void exportar(List<String> lista, Arquivo destino) {
+       //Implementar metodo.
     }
 }

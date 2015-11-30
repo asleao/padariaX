@@ -25,7 +25,7 @@ public class Fornecedor extends Pessoa implements IPessoaJuridica,Serializable,C
         this.cnpj = cnpj;
     }
 
-    
+    @Override
     public String getCnpj() {
         return cnpj;
     }

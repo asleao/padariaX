@@ -19,11 +19,11 @@ public class PessoaFisica extends Cliente implements IPessoaFisica{
     public PessoaFisica(){
     }
 
-    public PessoaFisica(int codigo, String nome, String endereco, String telefone, Date dataCadastro, TipoCliente tipo, String cpf) {
-        super(codigo, nome, endereco, telefone, dataCadastro, tipo.F);
+    public PessoaFisica(int codigo, String nome, String endereco, String telefone, Date dataCadastro, String cpf) {
+        super(codigo, nome, endereco, telefone, dataCadastro, TipoCliente.F);
         this.cpf = cpf;
     }
-    
+    @Override
     public String getCpf() {
         return cpf;
     }

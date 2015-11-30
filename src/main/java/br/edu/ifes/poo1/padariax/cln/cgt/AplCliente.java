@@ -5,7 +5,6 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
-
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.PessoaFisica;
@@ -33,23 +32,22 @@ public class AplCliente {
     private DateFormat dateFormat;
 
     public AplCliente() {
-        this.util = new Utilitario();        
-        this.mapaCliente = new HashMap();   
+        this.util = new Utilitario();
+        this.mapaCliente = new HashMap();
         this.dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
     }
 
     /**
-     * Função responsável por transformar as linhas lidas do arquivo em uma
-     * Map de Clientes. Este map possui tanto clientes PessoaFisica quanto
+     * Função responsável por transformar as linhas lidas do arquivo em uma Map
+     * de Clientes. Este map possui tanto clientes PessoaFisica quanto
      * PessoaJurídica.
      *
      * @param file - Caminho do arquivo
      * @return listaCliente - mapa de clientes
      * @throws ParseException
      */
-    public Map cadastroCliente(Arquivo file) {        
+    public Map cadastroCliente(Arquivo file) {
         List<String> listaImportada = util.importar(file);
-
 
         for (String linha : listaImportada) {
             Scanner sc = new Scanner(linha);
@@ -58,10 +56,10 @@ public class AplCliente {
             try {
                 if (ehPessoaFisica(linha)) {
                     cliente = criaPessoaFisica(sc);
-                    mapaCliente.put(cliente.getCodigo(),cliente);
+                    mapaCliente.put(cliente.getCodigo(), cliente);
                 } else {
                     cliente = criaPessoaJuridica(sc);
-                    mapaCliente.put(cliente.getCodigo(),cliente);
+                    mapaCliente.put(cliente.getCodigo(), cliente);
                 }
             } catch (NumberFormatException e) {
                 e.printStackTrace();
@@ -71,11 +69,12 @@ public class AplCliente {
     }
 
     /**
-     * Função responsável por setar os atributos de um objeto
-     * PessoaJuridica que foram lidos da linha do arquivo.
+     * Função responsável por setar os atributos de um objeto PessoaJuridica que
+     * foram lidos da linha do arquivo.
+     *
      * @param sc
      * @param sdf
-     * @return 
+     * @return
      */
     private PessoaJuridica criaPessoaJuridica(Scanner sc) {
         PessoaJuridica pessoaJuridica = new PessoaJuridica();
@@ -89,20 +88,20 @@ public class AplCliente {
             pessoaJuridica.setCnpj(sc.next());
             pessoaJuridica.setInscricaoEstadual(Integer.parseInt(sc.next()));
         } catch (NumberFormatException | ParseException e) {
+            e.printStackTrace();
         }
 
         return pessoaJuridica;
     }
-    
 
     /**
-     * Função responsável por setar os atributos de um objeto
-     * PessoaFisica que foram lidos da linha do arquivo.
+     * Função responsável por setar os atributos de um objeto PessoaFisica que
+     * foram lidos da linha do arquivo.
+     *
      * @param sc
      * @param sdf
-     * @return 
+     * @return
      */
-
     private PessoaFisica criaPessoaFisica(Scanner sc) {
         PessoaFisica pessoaFisica = new PessoaFisica();
         try {

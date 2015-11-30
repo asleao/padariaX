@@ -10,7 +10,6 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
 import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Item;
-import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,13 +26,12 @@ import java.util.Scanner;
 public class AplCompra {
 
     private Utilitario util;
-    private Map mapaCompra;
-    private Compra compra;
+    private Map mapaCompra;    
     private DateFormat dateFormat;
     private Map mapaFornecedor;
     private Map mapaProduto;
-    
-    public AplCompra(){
+
+    public AplCompra() {
     }
 
     public AplCompra(Map mapaFornecedor, Map mapaProduto) {
@@ -41,7 +39,7 @@ public class AplCompra {
         this.mapaCompra = new HashMap();
         this.dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         this.mapaFornecedor = mapaFornecedor;
-        this.mapaProduto = mapaProduto;        
+        this.mapaProduto = mapaProduto;
     }
 
     /**
@@ -59,7 +57,7 @@ public class AplCompra {
             Scanner sc = new Scanner(linha);
             sc.useDelimiter(";");
             int notaFiscal = Integer.parseInt(sc.next());
-           
+
             if (mapaCompra.containsKey(notaFiscal)) {
                 Compra compraExistente = (Compra) mapaCompra.get(notaFiscal);
 
@@ -70,16 +68,15 @@ public class AplCompra {
 
                 Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
                 Item item = new Item(produto, Integer.parseInt(sc.next()));
-                
+
                 compraExistente.getListaItens().add(item);
                 mapaCompra.put(compraExistente.getNotaFiscal(), compraExistente);
 
             } else {
-                Compra compraNova = criaCompra(sc,notaFiscal);
+                Compra compraNova = criaCompra(sc, notaFiscal);
                 mapaCompra.put(compraNova.getNotaFiscal(), compraNova);
             }
 
-            
         }
 
         return mapaCompra;
@@ -88,15 +85,15 @@ public class AplCompra {
     private Compra criaCompra(Scanner sc, int notaFiscal) {
         Compra compraLocal = new Compra();
         List<Item> listaItem = new ArrayList();
-        int quantidade = 0;
+        int quantidade;
         try {
-            compraLocal.setNotaFiscal(notaFiscal);            
+            compraLocal.setNotaFiscal(notaFiscal);
             Fornecedor fornecedor = (Fornecedor) mapaFornecedor.get(Integer.parseInt(sc.next()));
             compraLocal.setFornecedor(fornecedor);
             compraLocal.setDataCompra(dateFormat.parse(sc.next()));
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
             quantidade = Integer.parseInt(sc.next());
-            produto.setEstoqueAtual(produto.getEstoqueAtual()+ quantidade);
+            produto.setEstoqueAtual(produto.getEstoqueAtual() + quantidade);
             Item item = new Item(produto, quantidade);
             listaItem.add(item);
             compraLocal.setListaItens(listaItem);
@@ -107,27 +104,26 @@ public class AplCompra {
 
         return compraLocal;
     }
-    
-    
+
     /**
      * Funcao responsavel por informar a quantidade de comprada passando um
      * produto como parametro.
      */
     public int retornaQuantidadeProdutoComprada(List<Compra> listaCompra, Produto produto) {
         int quantidadeComprada = 0;
-        Map mapaProduto = new HashMap();
+        Map mapProduto = new HashMap();
 
         for (Compra compraLocal : listaCompra) {
             for (Item item : compraLocal.getListaItens()) {
-                if (mapaProduto.containsKey(item.getProduto().getCodigo())) {
+                if (mapProduto.containsKey(item.getProduto().getCodigo())) {
 
                     quantidadeComprada += item.getQuantidade();
 
-                    mapaProduto.put(item.getProduto(), quantidadeComprada);
+                    mapProduto.put(item.getProduto(), quantidadeComprada);
 
                 } else if (item.getProduto().getCodigo() == produto.getCodigo()) {
                     quantidadeComprada = item.getQuantidade();
-                    mapaProduto.put(item.getProduto().getCodigo(), quantidadeComprada);
+                    mapProduto.put(item.getProduto().getCodigo(), quantidadeComprada);
                 }
             }
         }

@@ -92,7 +92,7 @@ public class Produto implements Serializable, Comparator {
     
     @Override
     public int compare(Object o1, Object o2) {
-        return (((Produto) o1).codigo
-                - ((Produto) o2).codigo);
+        return ((Produto) o1).codigo
+                - ((Produto) o2).codigo;
     }
 }

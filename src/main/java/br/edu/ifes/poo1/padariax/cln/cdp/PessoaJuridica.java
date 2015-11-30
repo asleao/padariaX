@@ -20,13 +20,14 @@ public class PessoaJuridica extends Cliente implements IPessoaJuridica{
     public PessoaJuridica(){
     }
 
-    public PessoaJuridica(int codigo, String nome, String endereco, String telefone, Date dataCadastro, TipoCliente tipo, String cnpj, int inscricaoEstadual) {
-        super(codigo, nome, endereco, telefone, dataCadastro, tipo.J);
+    public PessoaJuridica(int codigo, String nome, String endereco, String telefone, Date dataCadastro, String cnpj, int inscricaoEstadual) {
+        super(codigo, nome, endereco, telefone, dataCadastro, TipoCliente.J);
         this.cnpj = cnpj;
         this.inscricaoEstadual = inscricaoEstadual;
     }
         
      
+    @Override
     public String getCnpj() {
         return cnpj;
     }

@@ -29,37 +29,37 @@ public class AplProduto {
     }
 
     /**
-     * Função responsável por transformar as linhas lidas do arquivo em um
-     * Map de Produto.
+     * Função responsável por transformar as linhas lidas do arquivo em um Map
+     * de Produto.
      *
      * @param file - caminnho do arquivo
      * @return listaFornecedor - Map de Fornecedores
      */
-    public Map cadastroProduto(Arquivo file) {        
+    public Map cadastroProduto(Arquivo file) {
         List<String> listaImportada = aplArquivo.importar(file);
 
         for (String linha : listaImportada) {
             produto = criaProduto(linha);
-            mapaProduto.put(produto.getCodigo(),produto);
+            mapaProduto.put(produto.getCodigo(), produto);
         }
         return mapaProduto;
     }
 
     private Produto criaProduto(String linha) {
         Produto produtoLocal = new Produto();
-        try {
-            Scanner sc = new Scanner(linha);
+        try (Scanner sc = new Scanner(linha)) {
+
             sc.useDelimiter(";");
-            
+
             produtoLocal.setCodigo(Integer.parseInt(sc.next()));
             produtoLocal.setDescricao(sc.next());
             produtoLocal.setEstoqueMinimo(Integer.parseInt(sc.next()));
-            produtoLocal.setEstoqueAtual(Integer.parseInt(sc.next()));            
-            produtoLocal.setValorCusto(Double.parseDouble(sc.next().replace(",",".")));
+            produtoLocal.setEstoqueAtual(Integer.parseInt(sc.next()));
+            produtoLocal.setValorCusto(Double.parseDouble(sc.next().replace(",", ".")));
             produtoLocal.setPercentualLucro(Integer.parseInt(sc.next()));
-            
-            
+
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return produtoLocal;

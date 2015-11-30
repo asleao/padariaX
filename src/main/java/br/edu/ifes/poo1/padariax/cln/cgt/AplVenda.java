@@ -99,7 +99,7 @@ public class AplVenda {
      * @return
      */
     private boolean ehData(String registro) {
-        return registro.indexOf("/") > 0;
+        return registro.contains("/");
     }
 
     /**

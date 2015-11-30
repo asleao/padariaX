@@ -5,6 +5,7 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
+import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
 import br.edu.ifes.poo1.padariax.cln.cdp.MeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
@@ -44,11 +45,11 @@ public class AplRelatorio {
         return listaTotalPagar;
     }
 
-    public List<String> totalReceberPorCliente(List<Venda> listaVendas) {
+    public List<String> totalReceberPorCliente(List<Venda> listaVendas,List<Cliente> listaClientes) {
         List<String> listaTotalReceber = new ArrayList();
 
-        for (Venda venda : listaVendas) {
-            listaTotalReceber.add(venda.toString());
+        for (Cliente cliente : listaClientes) {
+            listaTotalReceber.add(cliente.toString()+";"+aplVenda.retornaValorAReceber(listaVendas, cliente));
         }
 
         return listaTotalReceber;

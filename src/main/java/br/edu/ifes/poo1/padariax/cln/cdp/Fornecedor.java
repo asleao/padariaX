@@ -49,7 +49,7 @@ public class Fornecedor extends Pessoa implements IPessoaJuridica,Serializable,C
     
     @Override
     public int compareTo(Object o) {
-       return cnpj.compareTo(((Fornecedor)o).cnpj);     
+       return super.getNome().compareTo(((Fornecedor)o).getNome());     
     }
     
 }

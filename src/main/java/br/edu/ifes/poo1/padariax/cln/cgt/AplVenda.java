@@ -12,6 +12,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.MeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -300,5 +301,24 @@ public class AplVenda {
         double receitaBruta = receitaBrutaPorMeioPagamento(listaVendas,meioPagamento);
                 
         return receitaBruta - lucro;
+    }
+    
+    /**
+     * Funcao responsavel por retornar valor a Receber passando um objeto
+     * cliente como parametro.
+     * @param listaVenda
+     * @param cliente
+     * @return 
+     */
+    public BigDecimal retornaValorAReceber(List<Venda> listaVenda, Cliente cliente) {
+        double valorReceber = 0;
+        Map mapProduto = new HashMap();
+
+        for (Venda vendaLocal : listaVenda) {            
+            if ((cliente == vendaLocal.getCliente())) {
+                valorReceber = vendaLocal.valorPago().doubleValue();
+            }
+        }
+        return new BigDecimal(valorReceber).setScale(2, BigDecimal.ROUND_DOWN);
     }
 }

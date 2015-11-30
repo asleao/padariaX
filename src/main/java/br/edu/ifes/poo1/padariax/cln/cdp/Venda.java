@@ -117,7 +117,7 @@ public class Venda implements IConta, Serializable{
 
         if (this.meioPagamento.equals(MeioPagamento.F)) {
             toString = this.cliente.getNome() + ";" + this.cliente.getTipo() + ";"
-                    + this.cliente.toString() + ";" + this.cliente.getTelefone() + ";"
+                    + this.cliente.getTipo() + ";" + this.cliente.getTelefone() + ";"
                     + df.format(this.cliente.getDataCadastro()) + ";"
                     + valorPago();
         }

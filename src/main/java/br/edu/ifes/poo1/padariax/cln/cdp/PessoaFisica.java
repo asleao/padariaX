@@ -34,7 +34,7 @@ public class PessoaFisica extends Cliente implements IPessoaFisica{
 
     @Override
     public String toString() {
-        return this.cpf;
+        return super.toString()+this.cpf;
     }
 
     @Override

@@ -53,7 +53,7 @@ public class AplCompra {
     public Map cadastroCompra(Arquivo file) {
         List<String> listaImportada = util.importar(file);
 
-        for (String linha : listaImportada) {;
+        for (String linha : listaImportada) {
             Scanner sc = new Scanner(linha);
             sc.useDelimiter(";");
             int notaFiscal = Integer.parseInt(sc.next());

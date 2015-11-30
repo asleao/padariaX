@@ -122,7 +122,7 @@ public class AplVenda {
      * @param sc
      * @throws NumberFormatException
      */
-    private void importaVendaFiado(int cliente, Scanner sc) throws NumberFormatException {
+    private void importaVendaFiado(int cliente, Scanner sc)  {
         if (mapaVenda.containsKey(cliente)) {
 
             Venda vendaExistente = (Venda) mapaVenda.get(cliente);

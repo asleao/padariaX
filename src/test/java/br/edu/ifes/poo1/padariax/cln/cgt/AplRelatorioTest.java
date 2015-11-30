@@ -62,7 +62,7 @@ public class AplRelatorioTest {
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor), aplProduto.cadastroProduto(arquivoProduto));
         Map mapaCompra = aplCompra.cadastroCompra(arquivoCompra);
 
-        List<String> listaTotalPagar = aplRelatorio.totalPagarFornecedor(mapaCompra);
+        List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(mapaCompra);
 
         Collections.sort(listaTotalPagar);
 
@@ -81,11 +81,11 @@ public class AplRelatorioTest {
         List<Venda> listaVendas = aplVenda.cadastroVenda(arquivoVenda);
         
         
-        List<String> listaTotalReceber = aplRelatorio.totalReceberPorCliente(listaVendas,listaCliente);
+        List<String> listaTotalReceber = aplRelatorio.aReceberPorCliente(listaVendas,listaCliente);
 
         Collections.sort(listaTotalReceber);
 
-        util.imprime(listaTotalReceber);
+//        util.imprime(listaTotalReceber);
         
         assertNotNull(listaTotalReceber);
 
@@ -104,7 +104,7 @@ public class AplRelatorioTest {
         List<String> listaTotalLucro = aplRelatorio.vendasLucroPorProduto(listaVendas, listaProduto);
 
         Collections.sort(listaTotalLucro);
-        util.imprime(listaTotalLucro);
+//        util.imprime(listaTotalLucro);
         
         assertNotNull(listaTotalLucro);
 
@@ -120,7 +120,7 @@ public class AplRelatorioTest {
         List<String> listaTotalLucro = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
 
         Collections.sort(listaTotalLucro);
-        util.imprime(listaTotalLucro);
+//        util.imprime(listaTotalLucro);
         
         assertNotNull(listaTotalLucro);
 
@@ -142,7 +142,7 @@ public class AplRelatorioTest {
 
         Collections.sort(listaBalanco);
         
-        util.imprime(listaBalanco);
+//        util.imprime(listaBalanco);
         assertNotNull(listaBalanco);
 
     }

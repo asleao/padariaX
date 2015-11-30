@@ -51,7 +51,7 @@ public class PessoaJuridica extends Cliente implements IPessoaJuridica{
     
     @Override
     public int compareTo(Object o) {
-       return cnpj.compareTo(((PessoaJuridica)o).cnpj);     
+       return super.getNome().compareTo(((PessoaJuridica)o).getNome());     
     }
     
 }

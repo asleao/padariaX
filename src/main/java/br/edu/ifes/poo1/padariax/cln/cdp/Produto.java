@@ -5,14 +5,13 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  *
  * @author aleao
  */
-public class Produto implements  Comparator {
+public class Produto {
 
     private int codigo;
     private String descricao;
@@ -88,11 +87,5 @@ public class Produto implements  Comparator {
     @Override
     public String toString() {
         return this.codigo + ";" + this.descricao ;
-    }
-    
-    @Override
-    public int compare(Object o1, Object o2) {
-        return ((Produto) o1).codigo
-                - ((Produto) o2).codigo;
     }
 }

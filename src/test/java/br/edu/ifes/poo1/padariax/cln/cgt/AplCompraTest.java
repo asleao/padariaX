@@ -49,7 +49,7 @@ public class AplCompraTest {
         Map mapaCompra = aplCompra.cadastroCompra(arquivoCompra);
         List<Compra> listaCompra = new ArrayList(mapaCompra.values());
         
-        Collections.sort(listaCompra, new Compra());        
+//        Collections.sort(listaCompra);        
 
         imprimeCompra(listaCompra);
         

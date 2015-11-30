@@ -39,7 +39,7 @@ public class PessoaFisica extends Cliente implements IPessoaFisica{
 
     @Override
     public int compareTo(Object o) {
-       return cpf.compareTo(((PessoaFisica)o).cpf);     
+       return super.getNome().compareTo(((PessoaFisica)o).getNome());     
     }
     
     

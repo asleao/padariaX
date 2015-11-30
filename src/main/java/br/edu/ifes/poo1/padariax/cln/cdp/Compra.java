@@ -6,7 +6,6 @@
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IConta;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Date;
@@ -16,7 +15,7 @@ import java.util.List;
  *
  * @author aleao
  */
-public class Compra implements IConta,Comparator {
+public class Compra implements IConta {
 
     private int notaFiscal;
     private Fornecedor fornecedor;
@@ -95,12 +94,7 @@ public class Compra implements IConta,Comparator {
                     +item.getQuantidade());
         }    
     }
-
-    @Override
-    public int compare(Object o1, Object o2) {
-        return ((Compra) o1).notaFiscal
-                - ((Compra) o2).notaFiscal;
-    }
+    
 
     @Override
     public String toString() {

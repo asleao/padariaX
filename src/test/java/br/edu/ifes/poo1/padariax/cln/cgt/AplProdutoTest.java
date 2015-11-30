@@ -47,7 +47,7 @@ public class AplProdutoTest {
 
     private List<Produto> ordenaMap(Map mapaProduto) {
         List<Produto> listaProduto = new ArrayList(mapaProduto.values());
-        Collections.sort(listaProduto,new Produto());
+//        Collections.sort(listaProduto,new Produto());
         return listaProduto;
     }
 

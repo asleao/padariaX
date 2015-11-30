@@ -6,13 +6,12 @@
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.interfaces.IPessoaJuridica;
-import java.io.Serializable;
 
 /**
  *
  * @author aleao
  */
-public class Fornecedor extends Pessoa implements IPessoaJuridica,Comparable{
+public class Fornecedor extends Pessoa implements IPessoaJuridica{
     private String pessoaContato;
     private String cnpj;
 
@@ -44,7 +43,7 @@ public class Fornecedor extends Pessoa implements IPessoaJuridica,Comparable{
 
     @Override
     public String toString() {
-        return super.toString()+ this.cnpj+ ";" + this.pessoaContato;
+        return super.getNome()+";"+ this.cnpj+";"+ this.pessoaContato+";"+ super.getTelefone() ;
     }
     
     @Override

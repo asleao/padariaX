@@ -10,8 +10,10 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
 import br.edu.ifes.poo1.padariax.cln.cdp.MeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -34,18 +36,23 @@ public class AplRelatorio {
      * @param mapaCompras
      * @return
      */
-    public List<String> totalPagarFornecedor(Map mapaCompras) {
-        List<String> listaTotalPagar = new ArrayList();
+    public List<String> aPagarFornecedor(Map mapaCompras) {
+        List<APagarFornecedor> listaAPagar = new ArrayList();
+        
         List<Compra> listaCompras = new ArrayList(mapaCompras.values());
 
         for (Compra compra : listaCompras) {
-            listaTotalPagar.add(compra.toString());
+            listaAPagar.add(new APagarFornecedor(compra.getFornecedor(),compra.valorPago()));
         }
-
+        
+        Collections.sort(listaAPagar);
+        
+        List<String> listaTotalPagar = new ArrayList(listaAPagar);
+        
         return listaTotalPagar;
     }
 
-    public List<String> totalReceberPorCliente(List<Venda> listaVendas,List<Cliente> listaClientes) {
+    public List<String> aReceberPorCliente(List<Venda> listaVendas,List<Cliente> listaClientes) {
         List<String> listaTotalReceber = new ArrayList();
 
         for (Cliente cliente : listaClientes) {

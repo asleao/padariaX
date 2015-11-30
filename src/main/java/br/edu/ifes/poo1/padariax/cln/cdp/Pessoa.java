@@ -5,8 +5,6 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
-import java.io.Serializable;
-
 /**
  *
  * @author aleao
@@ -62,6 +60,6 @@ public abstract class Pessoa implements Comparable{
 
     @Override
     public String toString() {
-        return this.codigo +";"+ this.nome +";"+ this.endereco +";"+ this.telefone+";";
+        return this.codigo +";"+ this.nome;
     }
 }

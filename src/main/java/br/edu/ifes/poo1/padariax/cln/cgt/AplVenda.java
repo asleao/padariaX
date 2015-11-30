@@ -311,11 +311,10 @@ public class AplVenda {
      * @return 
      */
     public BigDecimal retornaValorAReceber(List<Venda> listaVenda, Cliente cliente) {
-        double valorReceber = 0;
-        Map mapProduto = new HashMap();
+        double valorReceber = 0;        
 
         for (Venda vendaLocal : listaVenda) {            
-            if ((cliente == vendaLocal.getCliente())) {
+            if (cliente == vendaLocal.getCliente()) {
                 valorReceber = vendaLocal.valorPago().doubleValue();
             }
         }

@@ -170,27 +170,27 @@ public class AplVenda {
      * @return VendaLocal - Objeto Venda
      */
     private Venda criaVendaFiado(Scanner sc, int clienteArquivo) {
-        Venda VendaLocal = new Venda();
+        Venda vendaLocal = new Venda();
         List<Item> listaItem = new ArrayList();
         int quantidade = 0;
 
         try {
             Cliente cliente = (Cliente) mapaCliente.get(clienteArquivo);
-            VendaLocal.setCliente(cliente);
-            VendaLocal.setDataVenda(dateFormat.parse(sc.next()));
+            vendaLocal.setCliente(cliente);
+            vendaLocal.setDataVenda(dateFormat.parse(sc.next()));
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
             quantidade = Integer.parseInt(sc.next());
             produto.setEstoqueAtual(produto.getEstoqueAtual()- quantidade);
             Item item = new Item(produto,quantidade);
             listaItem.add(item);
-            VendaLocal.setListaItens(listaItem);
-            VendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
+            vendaLocal.setListaItens(listaItem);
+            vendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return VendaLocal;
+        return vendaLocal;
     }
 
     /**
@@ -203,25 +203,25 @@ public class AplVenda {
      * @return VendaLocal - Objeto Venda
      */
     private Venda criaVendaNaoFiado(Scanner sc, String dataVenda) {
-        Venda VendaLocal = new Venda();
+        Venda vendaLocal = new Venda();
         List<Item> listaItem = new ArrayList();
         int quantidade;
 
         try {
-            VendaLocal.setDataVenda(dateFormat.parse(dataVenda));
+            vendaLocal.setDataVenda(dateFormat.parse(dataVenda));
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));            
             quantidade = Integer.parseInt(sc.next());
             produto.setEstoqueAtual(produto.getEstoqueAtual()- quantidade);
             Item item = new Item(produto,quantidade);
             listaItem.add(item);
-            VendaLocal.setListaItens(listaItem);
-            VendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
+            vendaLocal.setListaItens(listaItem);
+            vendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return VendaLocal;
+        return vendaLocal;
     }
 
     /**

@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author aleao
  */
-public class Compra implements IConta, Serializable,Comparator {
+public class Compra implements IConta,Comparator {
 
     private int notaFiscal;
     private Fornecedor fornecedor;

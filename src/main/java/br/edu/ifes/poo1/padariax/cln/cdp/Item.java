@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author aleao
  */
-public class Item implements Serializable{
+public class Item {
     private Produto produto;
     private int quantidade;
     

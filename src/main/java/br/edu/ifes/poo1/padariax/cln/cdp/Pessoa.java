@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author aleao
  */
-public abstract class Pessoa implements Serializable,Comparable{
+public abstract class Pessoa implements Comparable{
     private int codigo;
     private String nome;
     private String endereco;

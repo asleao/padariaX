@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @author aleao
  */
-public class Fornecedor extends Pessoa implements IPessoaJuridica,Serializable,Comparable{
+public class Fornecedor extends Pessoa implements IPessoaJuridica,Comparable{
     private String pessoaContato;
     private String cnpj;
 

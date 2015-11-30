@@ -17,7 +17,7 @@ import java.util.Locale;
  *
  * @author aleao
  */
-public class Venda implements IConta, Serializable{
+public class Venda implements IConta{
 
     private Date dataVenda;
     private Cliente cliente;

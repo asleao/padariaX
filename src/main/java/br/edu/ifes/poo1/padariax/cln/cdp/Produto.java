@@ -12,7 +12,7 @@ import java.util.Comparator;
  *
  * @author aleao
  */
-public class Produto implements Serializable, Comparator {
+public class Produto implements  Comparator {
 
     private int codigo;
     private String descricao;

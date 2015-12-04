@@ -6,7 +6,6 @@
 package br.edu.ifes.poo1.padariax.cln.cdp.relatorios;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
-import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import java.math.BigDecimal;
 
 /**

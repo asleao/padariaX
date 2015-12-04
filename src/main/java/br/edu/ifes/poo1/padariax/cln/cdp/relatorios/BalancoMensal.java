@@ -13,12 +13,25 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
  */
 public class BalancoMensal implements Comparable<BalancoMensal> {
 
+    private String cabecalho;
     private Produto produto;
     private String observacao;
+
+    public BalancoMensal() {
+        this.cabecalho = "Código;Produto;Quantidade em estoque;Observações";
+    }
 
     public BalancoMensal(Produto produto, String observacao) {
         this.produto = produto;
         this.observacao = observacao;
+    }
+
+    public String getCabecalho() {
+        return cabecalho;
+    }
+
+    public void setCabecalho(String cabecalho) {
+        this.cabecalho = cabecalho;
     }
 
     public Produto getProduto() {
@@ -37,7 +50,6 @@ public class BalancoMensal implements Comparable<BalancoMensal> {
         this.observacao = observacao;
     }
 
-   
     @Override
     public int compareTo(BalancoMensal balanco) {
         return this.produto.getDescricao().compareTo(((BalancoMensal) balanco).getProduto().getDescricao());
@@ -46,6 +58,6 @@ public class BalancoMensal implements Comparable<BalancoMensal> {
     @Override
     public String toString() {
         return produto.getCodigo() + ";" + produto.getDescricao() + ";"
-                    + produto.getEstoqueAtual() + ";" + observacao;
+                + produto.getEstoqueAtual() + ";" + observacao;
     }
 }

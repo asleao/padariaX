@@ -6,12 +6,12 @@
 package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.ParseException;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,8 +41,8 @@ public class Main {
         AplCompra aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor), aplProduto.cadastroProduto(arquivoProduto));
         Map mapaCompras = aplCompra.cadastroCompra(arquivoCompras);
 
-        try {
-            util.exportar(aplRelatorio.aPagarFornecedor(mapaCompras), destinoCompras);
+        try {           
+            util.exportar(aplRelatorio.aPagarFornecedor(mapaCompras), destinoCompras,new APagarFornecedor().getCabecalho());
         } catch (Exception e) {
             e.printStackTrace();
         }

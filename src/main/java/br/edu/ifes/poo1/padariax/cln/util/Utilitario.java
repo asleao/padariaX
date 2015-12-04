@@ -6,7 +6,10 @@
 package br.edu.ifes.poo1.padariax.cln.util;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -51,7 +54,7 @@ public class Utilitario {
      * @param listaObjeto
      */
     public void imprime(Collection<?> listaObjeto) {
-        
+
         for (Object obj : listaObjeto) {
             System.out.println(obj.toString());
         }
@@ -60,10 +63,20 @@ public class Utilitario {
     /**
      * Funcao responsavel por escrever uma lista de String em um arquivo em
      * determinado local.
+     *
      * @param lista
-     * @param destino     
+     * @param destino
+     * @param cabecalho
+     * @throws java.io.FileNotFoundException
      */
-    public void exportar(List<String> lista, Arquivo destino) {
-       //Implementar metodo.
+    public void exportar(List<?> lista, Arquivo destino, String cabecalho) throws FileNotFoundException {
+        File file = new File(destino.toString());
+        try (PrintWriter printWriter = new PrintWriter(file)) {
+            printWriter.println(cabecalho);
+
+            for (Object linha : lista) {
+                printWriter.println(linha);
+            }
+        }
     }
 }

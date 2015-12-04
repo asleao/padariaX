@@ -5,8 +5,6 @@
  */
 package br.edu.ifes.poo1.padariax.cln.cdp;
 
-import java.util.Comparator;
-
 /**
  *
  * @author aleao

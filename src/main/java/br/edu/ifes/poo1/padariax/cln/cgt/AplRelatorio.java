@@ -12,6 +12,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.AReceberCliente;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.BalancoMensal;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroMeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroProduto;
 import java.math.BigDecimal;
@@ -140,7 +141,7 @@ public class AplRelatorio {
      * @return 
      */
     public List<String> balancoMensal(List<Venda> listaVendas, List<Compra> listaCompras, List<Produto> listaProduto) {
-        List<String> listaBalanco = new ArrayList();
+        List<BalancoMensal> listaBalanco = new ArrayList();
 
         for (Produto produto : listaProduto) {
             String observacoes = "";
@@ -153,11 +154,14 @@ public class AplRelatorio {
             if (produto.getEstoqueAtual() < produto.getEstoqueMinimo()) {
                 observacoes = "COMPRAR MAIS";
             }
-
-            listaBalanco.add(produto.getCodigo() + ";" + produto.getDescricao() + ";"
-                    + produto.getEstoqueAtual() + ";" + observacoes);
+                        
+            listaBalanco.add(new BalancoMensal(produto, observacoes));
         }
-
-        return listaBalanco;
+        
+        Collections.sort(listaBalanco);
+        List<String> listaEstoque = new ArrayList(listaBalanco);        
+       
+        
+        return listaEstoque;
     }
 }

@@ -54,7 +54,7 @@ public class VendasLucroProduto implements Comparable<VendasLucroProduto> {
 
     /**
      * Este método compara o lucro em ordem decrescente. Caso eles sejam iguais,
-     * prevalece ele ordena os 2 pelo código do produto.    
+     * ele ordena pelo código do produto de forma crescente.    
      *
      * @param venda
      * @return

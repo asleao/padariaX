@@ -12,6 +12,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.AReceberCliente;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroMeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroProduto;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -115,13 +116,16 @@ public class AplRelatorio {
      * @return
      */
     public List<String> vendasLucroPorMeioPagamento(List<Venda> listaVendas) {
-        List<String> listaLucro = new ArrayList();
+        
 
+        List<VendasLucroMeioPagamento> listaVendaLucroMeioPagamento = new ArrayList();
+        
         for (MeioPagamento meio : MeioPagamento.values()) {
-            listaLucro.add(meio + "; R$" + new BigDecimal(aplVenda.receitaBrutaPorMeioPagamento(listaVendas, meio)).setScale(2, BigDecimal.ROUND_DOWN)
-                    + "; R$" + new BigDecimal(aplVenda.lucroPorMeioPagamento(listaVendas, meio)).setScale(2, BigDecimal.ROUND_DOWN));
+            listaVendaLucroMeioPagamento.add(new VendasLucroMeioPagamento(meio,aplVenda.receitaBrutaPorMeioPagamento(listaVendas, meio), aplVenda.lucroPorMeioPagamento(listaVendas, meio)));
         }
 
+        Collections.sort(listaVendaLucroMeioPagamento);       
+        List<String> listaLucro = new ArrayList(listaVendaLucroMeioPagamento);
         return listaLucro;
     }
 

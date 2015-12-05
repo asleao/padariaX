@@ -14,12 +14,13 @@ import java.math.BigDecimal;
  */
 public class VendasLucroProduto implements Comparable<VendasLucroProduto> {
 
+    private String cabecalho;
     private Produto produto;
     private Double receitaBruta;
     private Double lucro;
 
     public VendasLucroProduto() {
-
+        this.cabecalho = "Código;Produto;Receita bruta;Lucro";
     }
 
     public VendasLucroProduto(Produto produto, Double receitaBruta, Double lucro) {
@@ -28,6 +29,14 @@ public class VendasLucroProduto implements Comparable<VendasLucroProduto> {
         this.lucro = lucro;
     }
 
+    public String getCabecalho() {
+        return cabecalho;
+    }
+
+    public void setCabecalho(String cabecalho) {
+        this.cabecalho = cabecalho;
+    }
+    
     public Produto getProduto() {
         return produto;
     }
@@ -72,8 +81,8 @@ public class VendasLucroProduto implements Comparable<VendasLucroProduto> {
 
     @Override
     public String toString() {
-        return this.produto.toString() + ";R$ " + new BigDecimal(this.receitaBruta).setScale(2, BigDecimal.ROUND_DOWN).toString().replace(".", ",")
-                + ";R$ " + new BigDecimal(this.lucro).setScale(2, BigDecimal.ROUND_DOWN).toString().replace(".", ",");
+        return this.produto.toString() + ";R$ " + new BigDecimal(this.receitaBruta).setScale(2, BigDecimal.ROUND_UP).toString().replace(".", ",")
+                + ";R$ " + new BigDecimal(this.lucro).setScale(2, BigDecimal.ROUND_UP).toString().replace(".", ",");
     }
    
 }

@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.util.List;
 import java.util.Map;
@@ -50,9 +51,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         try {
             menu(sc);
+            gerarRelatorios(sc);
         } catch (Exception e) {
         }
-        
 
     }
 
@@ -95,7 +96,7 @@ public class Main {
                         break;
                     case "vendas.csv":
                         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente),
-                                                aplProduto.cadastroProduto(arquivoProdutos));
+                                aplProduto.cadastroProduto(arquivoProdutos));
                         arquivoVendas = new Arquivo(caminho, "vendas.csv");
                         listaVendas = aplVenda.cadastroVenda(arquivoVendas);
                         break;
@@ -110,7 +111,52 @@ public class Main {
             e.printStackTrace();
             System.out.println("Erro de I/O.");
         }
+    }
 
+    private static void gerarRelatorios(Scanner sc) { 
+        System.out.println("Relatórios:");
+        System.out.println("1 - Total a pagar por fornecedor");
+        System.out.println("2 - Total a receber por cliente");
+        System.out.println("3 - Vendas e lucro por produto");
+        System.out.println("4 - Vendas e lucro por forma de pagamento");
+        System.out.println("5 - Gerar todos relatórios");
+        System.out.println("6 - Sair");
+        System.out.println("Escolha uma opção: ");
+        String opc = sc.nextLine();
+
+        try {
+
+            switch (opc) {
+                case "1":                    
+                    System.out.println("Informe o caminho em que o relatório será salvo: ");
+                    String caminho = sc.nextLine();
+                    System.out.println("Gerando relatório...");
+                    List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(mapaCompras);
+                    util.exportar(listaTotalPagar, new Arquivo(caminho, "apagar.csv"), new APagarFornecedor().getCabecalho());
+                    System.out.println("Relatório gerado com sucesso!");
+                    gerarRelatorios(sc);
+                    break;
+                case "2":
+
+                    break;
+                case "3":
+
+                    break;
+                case "4":
+
+                    break;
+                case "5":
+
+                    break;
+                case "6":
+                    break;
+                default:
+                    System.out.println("Opção inexistente.");
+                    throw new Exception("Erro de I/O");
+            }
+
+        } catch (Exception e) {
+        }
     }
 
 }

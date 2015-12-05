@@ -8,7 +8,9 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.AReceberCliente;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -113,7 +115,7 @@ public class Main {
         }
     }
 
-    private static void gerarRelatorios(Scanner sc) { 
+    private static void gerarRelatorios(Scanner sc) {
         System.out.println("Relatórios:");
         System.out.println("1 - Total a pagar por fornecedor");
         System.out.println("2 - Total a receber por cliente");
@@ -123,13 +125,14 @@ public class Main {
         System.out.println("6 - Sair");
         System.out.println("Escolha uma opção: ");
         String opc = sc.nextLine();
+        String caminho;
 
         try {
 
             switch (opc) {
-                case "1":                    
+                case "1":
                     System.out.println("Informe o caminho em que o relatório será salvo: ");
-                    String caminho = sc.nextLine();
+                    caminho = sc.nextLine();
                     System.out.println("Gerando relatório...");
                     List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(mapaCompras);
                     util.exportar(listaTotalPagar, new Arquivo(caminho, "apagar.csv"), new APagarFornecedor().getCabecalho());
@@ -137,7 +140,13 @@ public class Main {
                     gerarRelatorios(sc);
                     break;
                 case "2":
-
+                    System.out.println("Informe o caminho em que o relatório será salvo: ");
+                    caminho = sc.nextLine();
+                    System.out.println("Gerando relatório...");
+                    List<String> listaTotalReceber = aplRelatorio.aReceberPorCliente(listaVendas,new ArrayList(mapaCliente.values()));
+                    util.exportar(listaTotalReceber, new Arquivo(caminho, "areceber.csv"), new AReceberCliente().getCabecalho());
+                    System.out.println("Relatório gerado com sucesso!");
+                    gerarRelatorios(sc);
                     break;
                 case "3":
 
@@ -149,6 +158,7 @@ public class Main {
 
                     break;
                 case "6":
+                    System.out.println("Saindo...");
                     break;
                 default:
                     System.out.println("Opção inexistente.");

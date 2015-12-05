@@ -15,7 +15,6 @@ import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.AReceberCliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.BalancoMensal;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroMeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroProduto;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

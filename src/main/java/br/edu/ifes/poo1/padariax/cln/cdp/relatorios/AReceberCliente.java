@@ -14,12 +14,25 @@ import java.math.BigDecimal;
  */
 public class AReceberCliente implements Comparable<AReceberCliente> {
 
+    private String cabecalho;
     private Cliente cliente;
     private BigDecimal totalPagar;
+
+    public AReceberCliente() {
+        this.cabecalho = "Cliente;Tipo;CPF/CNPJ;Telefone;Data de cadastro;Total a pagar";
+    }
 
     public AReceberCliente(Cliente cliente, BigDecimal totalPagar) {
         this.cliente = cliente;
         this.totalPagar = totalPagar;
+    }
+
+    public String getCabecalho() {
+        return cabecalho;
+    }
+
+    public void setCabecalho(String cabecalho) {
+        this.cabecalho = cabecalho;
     }
 
     public Cliente getCliente() {
@@ -45,6 +58,6 @@ public class AReceberCliente implements Comparable<AReceberCliente> {
 
     @Override
     public String toString() {
-        return this.cliente.toString() + ";R$ " + this.totalPagar.toString().replace(".", ",");
+        return this.cliente.toString() + ";R$ " + this.totalPagar.setScale(2, BigDecimal.ROUND_UP).toString().replace(".", ",");
     }
 }

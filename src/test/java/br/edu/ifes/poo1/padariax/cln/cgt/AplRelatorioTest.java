@@ -116,7 +116,7 @@ public class AplRelatorioTest {
         List<String> listaTotalLucro = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
 
         Collections.sort(listaTotalLucro);
-//        util.imprime(listaTotalLucro);
+        util.imprime(listaTotalLucro);
         
         assertNotNull(listaTotalLucro);
 
@@ -138,7 +138,7 @@ public class AplRelatorioTest {
 
         Collections.sort(listaBalanco);
         
-        util.imprime(listaBalanco);
+//        util.imprime(listaBalanco);
         assertNotNull(listaBalanco);
 
     }

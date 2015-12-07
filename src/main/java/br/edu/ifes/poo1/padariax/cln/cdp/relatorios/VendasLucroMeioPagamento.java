@@ -14,12 +14,13 @@ import java.math.BigDecimal;
  */
 public class VendasLucroMeioPagamento implements Comparable<VendasLucroMeioPagamento> {
 
+    private String cabecalho;
     private MeioPagamento meioPagamento;
     private Double receitaBruta;
     private Double lucro;
 
     public VendasLucroMeioPagamento() {
-
+        this.cabecalho = "Modo de pagamento;Receita bruta;Lucro";
     }
 
     public VendasLucroMeioPagamento(MeioPagamento meioPagamento, Double receitaBruta, Double lucro) {
@@ -28,6 +29,14 @@ public class VendasLucroMeioPagamento implements Comparable<VendasLucroMeioPagam
         this.lucro = lucro;
     }
 
+    public String getCabecalho() {
+        return cabecalho;
+    }
+
+    public void setCabecalho(String cabecalho) {
+        this.cabecalho = cabecalho;
+    }
+    
     public MeioPagamento getMeioPagamento() {
         return meioPagamento;
     }
@@ -64,7 +73,7 @@ public class VendasLucroMeioPagamento implements Comparable<VendasLucroMeioPagam
         int resultado = Double.compare(venda.getLucro(), this.getLucro());
 
         if (resultado == 0) {
-            resultado = venda.getMeioPagamento().compareTo(this.meioPagamento);
+            resultado = this.meioPagamento.name().compareTo(venda.getMeioPagamento().name());
         } 
 
         return resultado;

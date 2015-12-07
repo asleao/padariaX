@@ -9,6 +9,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.AReceberCliente;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroMeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroProduto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.util.ArrayList;
@@ -122,7 +123,7 @@ public class Main {
         System.out.println("2 - Total a receber por cliente");
         System.out.println("3 - Vendas e lucro por produto");
         System.out.println("4 - Vendas e lucro por forma de pagamento");
-        System.out.println("5 - Gerar todos relatórios");
+        System.out.println("5 - Estado do estoque");
         System.out.println("6 - Sair");
         System.out.println("Escolha uma opção: ");
         String opc = sc.nextLine();
@@ -159,7 +160,13 @@ public class Main {
                     gerarRelatorios(sc);
                     break;
                 case "4":
-
+                    System.out.println("Informe o caminho em que o relatório será salvo: ");
+                    caminho = sc.nextLine();
+                    System.out.println("Gerando relatório...");
+                    List<String> listaTotalPagamento = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
+                    util.exportar(listaTotalPagamento, new Arquivo(caminho, "vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());
+                    System.out.println("Relatório gerado com sucesso!");
+                    gerarRelatorios(sc);
                     break;
                 case "5":
 

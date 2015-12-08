@@ -9,6 +9,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.AReceberCliente;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.BalancoMensal;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroMeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroProduto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
@@ -168,8 +169,14 @@ public class Main {
                     System.out.println("Relatório gerado com sucesso!");
                     gerarRelatorios(sc);
                     break;
-                case "5":
-
+                case "5":                   
+                    System.out.println("Informe o caminho em que o relatório será salvo: ");
+                    caminho = sc.nextLine();
+                    System.out.println("Gerando relatório...");                     
+                    List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas,new ArrayList(mapaCompras.values()),new ArrayList(mapaProduto.values()));
+                    util.exportar(listaBalanco, new Arquivo(caminho, "estoque.csv"), new BalancoMensal().getCabecalho());
+                    System.out.println("Relatório gerado com sucesso!");
+                    gerarRelatorios(sc);
                     break;
                 case "6":
                     System.out.println("Saindo...");

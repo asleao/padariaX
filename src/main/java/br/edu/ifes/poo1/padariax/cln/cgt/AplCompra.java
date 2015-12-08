@@ -93,7 +93,7 @@ public class AplCompra {
             compraLocal.setDataCompra(dateFormat.parse(sc.next()));
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
             quantidade = Integer.parseInt(sc.next());
-            produto.setEstoqueAtual(produto.getEstoqueAtual() + quantidade);
+//            produto.setEstoqueAtual(produto.getEstoqueAtual() + quantidade);
             Item item = new Item(produto, quantidade);
             listaItem.add(item);
             compraLocal.setListaItens(listaItem);

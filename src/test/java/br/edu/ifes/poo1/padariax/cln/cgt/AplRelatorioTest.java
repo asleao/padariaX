@@ -116,7 +116,7 @@ public class AplRelatorioTest {
         List<String> listaTotalLucro = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
 
         Collections.sort(listaTotalLucro);
-        util.imprime(listaTotalLucro);
+//        util.imprime(listaTotalLucro);
         
         assertNotNull(listaTotalLucro);
 
@@ -133,12 +133,12 @@ public class AplRelatorioTest {
         Map mapaCompras = aplCompra.cadastroCompra(arquivoCompra);
         List<Compra> listaCompras = new ArrayList(mapaCompras.values());
         List<Venda> listaVendas = aplVenda.cadastroVenda(arquivoVenda);
-
+       
         List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas,listaCompras,listaProduto);
 
         Collections.sort(listaBalanco);
         
-//        util.imprime(listaBalanco);
+        util.imprime(listaBalanco);
         assertNotNull(listaBalanco);
 
     }

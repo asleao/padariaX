@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
+import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.MeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
@@ -15,10 +16,13 @@ import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.AReceberCliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.BalancoMensal;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroMeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroProduto;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  *
@@ -43,13 +47,26 @@ public class AplRelatorio {
      */
     public List<String> aPagarFornecedor(Map mapaCompras) {
         List<APagarFornecedor> listaAPagar = new ArrayList();
+        HashMap<Fornecedor,BigDecimal> mapaFornecedor = new HashMap();
 
         List<Compra> listaCompras = new ArrayList(mapaCompras.values());
 
         for (Compra compra : listaCompras) {
-            listaAPagar.add(new APagarFornecedor(compra.getFornecedor(), compra.valorPago()));
+            if (mapaFornecedor.containsKey(compra.getFornecedor())) {
+                BigDecimal valorPago = (BigDecimal)mapaFornecedor.get(compra.getFornecedor());
+                
+                BigDecimal valorCompra = new BigDecimal(valorPago.doubleValue() +compra.valorPago().doubleValue());
+                
+                mapaFornecedor.put(compra.getFornecedor(), valorCompra);
+            } else {
+                mapaFornecedor.put(compra.getFornecedor(), compra.valorPago());
+            }
         }
 
+        for(Entry<Fornecedor,BigDecimal> entry:mapaFornecedor.entrySet()){
+            listaAPagar.add(new APagarFornecedor(entry.getKey(),entry.getValue()));
+        }
+        
         Collections.sort(listaAPagar);
 
         List<String> listaTotalPagar = new ArrayList(listaAPagar);
@@ -88,11 +105,9 @@ public class AplRelatorio {
      * @return listaLucro
      */
     public List<String> vendasLucroPorProduto(List<Venda> listaVendas, List<Produto> listaProduto) {
-        
-        
+
         List<VendasLucroProduto> listaVendaLucroProduto = new ArrayList();
-        
-        
+
         for (Produto produto : listaProduto) {
             int quantidadeVendida = aplVenda.retornaQuantidadeProdutoVendida(listaVendas, produto);
             double receitaBruta = quantidadeVendida * produto.valorVenda();
@@ -101,10 +116,10 @@ public class AplRelatorio {
             listaVendaLucroProduto.add(new VendasLucroProduto(produto, receitaBruta, lucro));
         }
 
-        Collections.sort(listaVendaLucroProduto);        
-        
+        Collections.sort(listaVendaLucroProduto);
+
         List<String> listaLucro = new ArrayList(listaVendaLucroProduto);
-        
+
         return listaLucro;
     }
 
@@ -116,31 +131,31 @@ public class AplRelatorio {
      * @return
      */
     public List<String> vendasLucroPorMeioPagamento(List<Venda> listaVendas) {
-        
 
         List<VendasLucroMeioPagamento> listaVendaLucroMeioPagamento = new ArrayList();
-        
+
         for (MeioPagamento meio : MeioPagamento.values()) {
-            listaVendaLucroMeioPagamento.add(new VendasLucroMeioPagamento(meio,aplVenda.receitaBrutaPorMeioPagamento(listaVendas, meio), aplVenda.lucroPorMeioPagamento(listaVendas, meio)));
+            listaVendaLucroMeioPagamento.add(new VendasLucroMeioPagamento(meio, aplVenda.receitaBrutaPorMeioPagamento(listaVendas, meio), aplVenda.lucroPorMeioPagamento(listaVendas, meio)));
         }
 
-        Collections.sort(listaVendaLucroMeioPagamento);       
+        Collections.sort(listaVendaLucroMeioPagamento);
         List<String> listaLucro = new ArrayList(listaVendaLucroMeioPagamento);
         return listaLucro;
     }
 
     /**
      * Função reponsável por realizar um balanço do estoque. Para cada produto,
-     * ele mostra a quantidade restante no estoque, após as vendas dos mês, e caso
-     * o produto fique abaixo da quantidade mínima estabelecida, o campo de observa-
-     * ções é preenchido com "COMPRAR MAIS".     
+     * ele mostra a quantidade restante no estoque, após as vendas dos mês, e
+     * caso o produto fique abaixo da quantidade mínima estabelecida, o campo de
+     * observa- ções é preenchido com "COMPRAR MAIS".
+     *
      * @param listaVendas
      * @param listaCompras
      * @param listaProduto
-     * @return 
+     * @return
      */
     public List<String> balancoMensal(List<Venda> listaVendas, List<Compra> listaCompras, List<Produto> listaProduto) {
-        List<BalancoMensal> listaBalanco = new ArrayList();
+        List<BalancoMensal> listaBalanco = new ArrayList();        
 
         for (Produto produto : listaProduto) {
             String observacoes = "";
@@ -153,14 +168,13 @@ public class AplRelatorio {
             if (produto.getEstoqueAtual() < produto.getEstoqueMinimo()) {
                 observacoes = "COMPRAR MAIS";
             }
-                        
+
             listaBalanco.add(new BalancoMensal(produto, observacoes));
         }
-        
+
         Collections.sort(listaBalanco);
-        List<String> listaEstoque = new ArrayList(listaBalanco);        
-       
-        
+        List<String> listaEstoque = new ArrayList(listaBalanco);
+
         return listaEstoque;
     }
 }

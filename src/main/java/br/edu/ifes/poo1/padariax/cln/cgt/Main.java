@@ -215,8 +215,7 @@ public class Main {
                 destino = fileChooser.getSelectedFile().getPath() + "/";
                 System.out.println(destino);
                 System.out.println("Gerando relatório...");  
-//                listaVendas = importaVenda("/home/aleao/Dropbox/IFES/Materias/POO1/2015-2/Trabalho Pratico/POO1_Trab1_Testes/05/in/");
-               
+                listaVendas = importaVenda(arquivoVendas.getCaminho());               
                 List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas, new ArrayList(mapaCompras.values()), new ArrayList(mapaProduto.values()));
                 util.exportar(listaBalanco, new Arquivo(destino, "estoque.csv"), new BalancoMensal().getCabecalho());
                 System.out.println("Relatório gerado com sucesso!");
@@ -228,7 +227,7 @@ public class Main {
                 destino = fileChooser.getSelectedFile().getPath() + "/";
                 System.out.println(destino);
                 System.out.println("Gerando relatórios...");
-                List<Venda> listaVendaBalanco = listaVendas;
+                listaVendas = importaVenda(arquivoVendas.getCaminho()); 
                 List<String> listaAPagar = aplRelatorio.aPagarFornecedor(mapaCompras);
                 util.exportar(listaAPagar, new Arquivo(destino, "apagar.csv"), new APagarFornecedor().getCabecalho());
                 List<String> listaAReceber = aplRelatorio.aReceberPorCliente(listaVendas, new ArrayList(mapaCliente.values()));
@@ -237,7 +236,7 @@ public class Main {
                 util.exportar(listaLucroProduto, new Arquivo(destino, "vendasprod.csv"), new VendasLucroProduto().getCabecalho());
                 List<String> listaLucroPagamento = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);                               
                 util.exportar(listaLucroPagamento, new Arquivo(destino, "vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());                
-                List<String> listaBalancoMensal = aplRelatorio.balancoMensal(listaVendaBalanco, new ArrayList(mapaCompras.values()), new ArrayList(mapaProduto.values()));
+                List<String> listaBalancoMensal = aplRelatorio.balancoMensal(listaVendas, new ArrayList(mapaCompras.values()), new ArrayList(mapaProduto.values()));
                 util.exportar(listaBalancoMensal, new Arquivo(destino, "estoque.csv"), new BalancoMensal().getCabecalho());
                 System.out.println("Relatórios gerados com sucesso!");
                 gerarRelatorios(sc, fileChooser);

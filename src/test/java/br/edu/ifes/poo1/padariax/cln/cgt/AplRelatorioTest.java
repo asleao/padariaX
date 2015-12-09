@@ -63,32 +63,27 @@ public class AplRelatorioTest {
     public void testTotalPagarFornecedor() {
         List<String> listaArquivo = util.importar(arquivoCompra);
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor), aplProduto.cadastroProduto(arquivoProduto));
-        Map mapaCompra = aplCompra.cadastroCompra(arquivoCompra);
+        List<Compra> listaCompra = aplCompra.cadastroCompra(arquivoCompra);
 
-        List<Compra> lista = new ArrayList(mapaCompra.keySet());        
-        util.imprime(lista);
-        
-        List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(mapaCompra);
+        List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(listaCompra);
 
-//        util.imprime(listaTotalPagar);
+        util.imprime(listaTotalPagar);
         assertNotNull(listaTotalPagar);
 
     }
 
     @Test
     public void testTotalReceberPorCliente() {
-        
+
         Map mapaCliente = aplCliente.cadastroCliente(arquivoCliente);
         List<Cliente> listaCliente = new ArrayList(mapaCliente.values());
         aplVenda = new AplVenda(mapaCliente, aplProduto.cadastroProduto(arquivoProduto));
-        
+
         List<Venda> listaVendas = aplVenda.cadastroVenda(arquivoVenda);
-        
-        
-        List<String> listaTotalReceber = aplRelatorio.aReceberPorCliente(listaVendas,listaCliente);
+
+        List<String> listaTotalReceber = aplRelatorio.aReceberPorCliente(listaVendas, listaCliente);
 
 //        util.imprime(listaTotalReceber);
-        
         assertNotNull(listaTotalReceber);
 
     }
@@ -107,7 +102,7 @@ public class AplRelatorioTest {
 
         Collections.sort(listaTotalLucro);
 //        util.imprime(listaTotalLucro);
-        
+
         assertNotNull(listaTotalLucro);
 
     }
@@ -123,27 +118,26 @@ public class AplRelatorioTest {
 
         Collections.sort(listaTotalLucro);
 //        util.imprime(listaTotalLucro);
-        
+
         assertNotNull(listaTotalLucro);
 
     }
 
     @Test
     public void testBalancoMensal() {
-         Map mapaProduto = aplProduto.cadastroProduto(arquivoProduto);
+        Map mapaProduto = aplProduto.cadastroProduto(arquivoProduto);
         List<Produto> listaProduto = new ArrayList(mapaProduto.values());
 
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor), aplProduto.cadastroProduto(arquivoProduto));
 
-        Map mapaCompras = aplCompra.cadastroCompra(arquivoCompra);
-        List<Compra> listaCompras = new ArrayList(mapaCompras.values());
+        List<Compra> listaCompras = aplCompra.cadastroCompra(arquivoCompra);
         List<Venda> listaVendas = aplVenda.cadastroVenda(arquivoVenda);
-       
-        List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas,listaCompras,listaProduto);
+
+        List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas, listaCompras, listaProduto);
 
         Collections.sort(listaBalanco);
-        
+
 //        util.imprime(listaBalanco);
         assertNotNull(listaBalanco);
 

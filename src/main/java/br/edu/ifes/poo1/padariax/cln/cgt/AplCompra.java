@@ -26,7 +26,8 @@ import java.util.Scanner;
 public class AplCompra {
 
     private Utilitario util;
-    private Map mapaCompra;    
+    private Map mapaCompraIgual;    
+    private Map mapaCompraDiferente;    
     private DateFormat dateFormat;
     private Map mapaFornecedor;
     private Map mapaProduto;
@@ -36,21 +37,28 @@ public class AplCompra {
 
     public AplCompra(Map mapaFornecedor, Map mapaProduto) {
         this.util = new Utilitario();
-        this.mapaCompra = new HashMap();
+        this.mapaCompraIgual = new HashMap();
+        this.mapaCompraDiferente = new HashMap();
         this.dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         this.mapaFornecedor = mapaFornecedor;
         this.mapaProduto = mapaProduto;
     }
 
     /**
-     * Função responsável por transformar as linhas lidas do arquivo em uma Map
-     * de Compra.
+     * Metodo responsável por transformar as linhas lidas do arquivo em um List
+     * de Compra. Este quebra cada linha em tokens utilizando o delimitador ";".
+     * Existem dois objetos Map: 
+     * - mapaCompraIgual: Armazena todas as notas fiscais que sao unicas.
+     * - mapaCompraDiferente: Podem existir notas fiscais que possuem mesmo numero
+     * porem tem fornecedores diferentes. Este Map armazena todas as notas que possuem
+     * mesmo numero no mapaCompraIgual porem com fornecedores diferentes.
+     * No final da importacao os dois Map sao transformados em objetos List<Compra>
+     * e mesclados.
      *
      * @param file - Caminho do arquivo
      * @return listaCliente - Map de compras
-     * @throws ParseException
      */
-    public Map cadastroCompra(Arquivo file) {
+    public List<Compra> cadastroCompra(Arquivo file) {
         List<String> listaImportada = util.importar(file);
 
         for (String linha : listaImportada) {
@@ -58,30 +66,65 @@ public class AplCompra {
             sc.useDelimiter(";");
             int notaFiscal = Integer.parseInt(sc.next());
 
-            if (mapaCompra.containsKey(notaFiscal)) {
-                Compra compraExistente = (Compra) mapaCompra.get(notaFiscal);
+            if (mapaCompraIgual.containsKey(notaFiscal)) {
+                Compra compraExistente = (Compra) mapaCompraIgual.get(notaFiscal);
 
-//                Pattern pattern = Pattern.compile("^.[0-9]+;[0-9]+;[0-9]+/[0-9]+/[0-9]+;");
-//                sc.skip(pattern);
-                sc.next();
-                sc.next();
+                int codigoFornecedor = Integer.parseInt(sc.next());
 
-                Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
-                Item item = new Item(produto, Integer.parseInt(sc.next()));
+                if (codigoFornecedor != compraExistente.getFornecedor().getCodigo()) {
+                    if (mapaCompraDiferente.containsKey(notaFiscal)) {
+                        Compra compraExistenteDif = (Compra) mapaCompraDiferente.get(notaFiscal);
 
-                compraExistente.getListaItens().add(item);
-                mapaCompra.put(compraExistente.getNotaFiscal(), compraExistente);
+                        sc.next();
 
+                        Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
+                        Item item = new Item(produto, Integer.parseInt(sc.next()));
+
+                        compraExistenteDif.getListaItens().add(item);
+                        mapaCompraDiferente.put(compraExistenteDif.getNotaFiscal(), compraExistenteDif);
+                    } else {
+                        Compra compraDif = criaCompra(sc, notaFiscal, codigoFornecedor);
+                        mapaCompraDiferente.put(compraDif.getNotaFiscal(), compraDif);
+                    }
+                } else {
+                    sc.next();
+
+                    Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
+                    Item item = new Item(produto, Integer.parseInt(sc.next()));
+
+                    compraExistente.getListaItens().add(item);
+                    mapaCompraIgual.put(compraExistente.getNotaFiscal(), compraExistente);
+                }
             } else {
                 Compra compraNova = criaCompra(sc, notaFiscal);
-                mapaCompra.put(compraNova.getNotaFiscal(), compraNova);
+                mapaCompraIgual.put(compraNova.getNotaFiscal(), compraNova);
             }
 
         }
 
-        return mapaCompra;
+        List<Compra> listaCompra= transformaMap2List(mapaCompraIgual,mapaCompraDiferente);
+
+        return listaCompra;
     }
 
+    /**
+     * Metodo responsavel em transformar 2 Map em List e uni-los.
+     * @return 
+     */
+    private List<Compra> transformaMap2List(Map mapa1, Map mapa2) {
+        List<Compra> listaCompra= new ArrayList(mapa1.values());
+        List<Compra> listaDiferente = new ArrayList(mapa2.values());
+        listaCompra.addAll(listaDiferente);
+        return listaCompra;
+    }
+    
+    /**
+     * Metodo responsavel por criar um objeto compra com os tokens
+     * lidos de cada linha do arquivo de compras importado.
+     * @param sc
+     * @param notaFiscal
+     * @return 
+     */
     public Compra criaCompra(Scanner sc, int notaFiscal) {
         Compra compraLocal = new Compra();
         List<Item> listaItem = new ArrayList();
@@ -104,6 +147,15 @@ public class AplCompra {
         return compraLocal;
     }
     
+    /**
+     * Este metodo e uma sobrecarga do acima. Ele foi nescessario pois pode existir
+     * a possibilidade de se importar compras com notas fiscais iguais e fornecedores
+     * diferentes.
+     * @param sc
+     * @param notaFiscal
+     * @param codigoFornecedor
+     * @return 
+     */    
      public Compra criaCompra(Scanner sc, int notaFiscal, int codigoFornecedor) {
         Compra compraLocal = new Compra();
         List<Item> listaItem = new ArrayList();
@@ -128,7 +180,7 @@ public class AplCompra {
     
 
     /**
-     * Funcao responsavel por informar a quantidade de comprada passando um
+     * Metodo responsavel por informar a quantidade de comprada passando um
      * produto como parametro.
      */
     public int retornaQuantidadeProdutoComprada(List<Compra> listaCompra, Produto produto) {

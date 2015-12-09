@@ -45,11 +45,11 @@ public class AplRelatorio {
      * @param mapaCompras
      * @return listaTotalPagar
      */
-    public List<String> aPagarFornecedor(Map mapaCompras) {
+    public List<String> aPagarFornecedor(List<Compra> listaCompras) {
         List<APagarFornecedor> listaAPagar = new ArrayList();
         HashMap<Fornecedor,BigDecimal> mapaFornecedor = new HashMap();
 
-        List<Compra> listaCompras = new ArrayList(mapaCompras.values());
+//        List<Compra> listaCompras = new ArrayList(mapaCompras.values());
         
         for (Compra compra : listaCompras) {
             if (mapaFornecedor.containsKey(compra.getFornecedor())) {

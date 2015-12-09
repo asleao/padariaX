@@ -11,6 +11,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Item;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +36,9 @@ public class AplCompraTest {
 
     @Before
     public void setUp() {
-        this.arquivoFornecedor = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_4/", "fornecedores.csv");
-        this.arquivoProduto = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_4/", "produtos.csv");
-        this.arquivoCompra = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_4/", "compras.csv");
+        this.arquivoFornecedor = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_5/", "fornecedores.csv");
+        this.arquivoProduto = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_5/", "produtos.csv");
+        this.arquivoCompra = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_5/", "compras.csv");
         this.util = new Utilitario();
         this.aplFornecedor = new AplFornecedor();
         this.aplProduto = new AplProduto();
@@ -95,15 +96,13 @@ public class AplCompraTest {
 
         }
 
+        List<Compra> listaCompra= new ArrayList(mapaCompra.values());
+        List<Compra> listaDiferente = new ArrayList(mapaCompraDiferente.values());
+        listaCompra.addAll(listaDiferente);
         
-//        Collections.sort(listaCompra);    
-        List<String> lista1 = aplRelatorio.aPagarFornecedor(mapaCompra);
-//        util.imprime(lista1);        
-        List<String> lista2 = aplRelatorio.aPagarFornecedor(mapaCompraDiferente);
-        lista1.addAll(lista2);
-//        util.imprime(lista2);
-        List<String> lista3 = new ArrayList(mapaCompra.values());
-        util.imprime(lista1);
+       List<String> lista = aplRelatorio.aPagarFornecedor(listaCompra);
+        
+        util.imprime(lista);
 //        Assert.assertNotNull(listaCompra);
 //        Assert.assertEquals(4, listaCompra.size());
     }

@@ -62,19 +62,21 @@ public class AplVenda {
 
         for (String linha : listaImportada) {
             Scanner sc = new Scanner(linha);
-            sc.useDelimiter(";");
-            String registro = sc.next();
-            int cliente;
+            if (!linha.equals("")) {
+                sc.useDelimiter(";");
+                String registro = sc.next();
+                int cliente;
 
-            if (ehData(registro)) {
-                importaVendaNaoFiado(sc, registro);
-            } else {
-                cliente = Integer.parseInt(registro);
-                importaVendaFiado(cliente, sc);
-            }
+                if (ehData(registro)) {
+                    importaVendaNaoFiado(sc, registro);
+                } else {
+                    cliente = Integer.parseInt(registro);
+                    importaVendaFiado(cliente, sc);
+                }
 
-            if (ehUltimoRegistro(sc)) {
-                listaVenda = vendasCadastradas(mapaVenda, listaVendaNaoFiado);
+                if (ehUltimoRegistro(sc)) {
+                    listaVenda = vendasCadastradas(mapaVenda, listaVendaNaoFiado);
+                }
             }
         }
 
@@ -123,7 +125,7 @@ public class AplVenda {
      * @param sc
      * @throws NumberFormatException
      */
-    private void importaVendaFiado(int cliente, Scanner sc)  {
+    private void importaVendaFiado(int cliente, Scanner sc) {
         if (mapaVenda.containsKey(cliente)) {
 
             Venda vendaExistente = (Venda) mapaVenda.get(cliente);
@@ -182,7 +184,7 @@ public class AplVenda {
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
             quantidade = Integer.parseInt(sc.next());
 //            produto.setEstoqueAtual(produto.getEstoqueAtual()- quantidade);
-            Item item = new Item(produto,quantidade);
+            Item item = new Item(produto, quantidade);
             listaItem.add(item);
             vendaLocal.setListaItens(listaItem);
             vendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
@@ -210,10 +212,10 @@ public class AplVenda {
 
         try {
             vendaLocal.setDataVenda(dateFormat.parse(dataVenda));
-            Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));            
+            Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
             quantidade = Integer.parseInt(sc.next());
 //            produto.setEstoqueAtual(produto.getEstoqueAtual()- quantidade);
-            Item item = new Item(produto,quantidade);
+            Item item = new Item(produto, quantidade);
             listaItem.add(item);
             vendaLocal.setListaItens(listaItem);
             vendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
@@ -228,9 +230,10 @@ public class AplVenda {
     /**
      * Funcao responsavel por informar a quantidade de vendida passando um
      * produto como parametro.
+     *
      * @param listaVendas
      * @param produto
-     * @return 
+     * @return
      */
     public int retornaQuantidadeProdutoVendida(List<Venda> listaVendas, Produto produto) {
         int quantidadeVendida = 0;
@@ -255,65 +258,68 @@ public class AplVenda {
     }
 
     /**
-     * Funcao responsavel por informar a receita bruta de vendida passando um meio
-     * de pagamento como parametro.
+     * Funcao responsavel por informar a receita bruta de vendida passando um
+     * meio de pagamento como parametro.
+     *
      * @param listaVendas
      * @param meioPagamento
-     * @return 
+     * @return
      */
     public double receitaBrutaPorMeioPagamento(List<Venda> listaVendas, MeioPagamento meioPagamento) {
         double receitaBruta = 0;
         Map mapProduto = new HashMap();
-        
+
         for (Venda venda : listaVendas) {
             if (meioPagamento.equals(venda.getMeioPagamento())) {
-                for (Item item : venda.getListaItens()) {                     
-                        receitaBruta += item.getQuantidade()*item.getProduto().valorVenda();
-                        mapProduto.put(item.getProduto().getCodigo(), receitaBruta);
-                    
+                for (Item item : venda.getListaItens()) {
+                    receitaBruta += item.getQuantidade() * item.getProduto().valorVenda();
+                    mapProduto.put(item.getProduto().getCodigo(), receitaBruta);
+
                 }
             }
         }
 
         return receitaBruta;
     }
-    
+
     /**
-     * Funcao responsavel por informar a lucro vendido passando um meio
-     * de pagamento como parametro.
+     * Funcao responsavel por informar a lucro vendido passando um meio de
+     * pagamento como parametro.
+     *
      * @param listaVendas
      * @param meioPagamento
-     * @return 
+     * @return
      */
     public double lucroPorMeioPagamento(List<Venda> listaVendas, MeioPagamento meioPagamento) {
         double lucro = 0;
         Map mapProduto = new HashMap();
-        
+
         for (Venda venda : listaVendas) {
             if (meioPagamento.equals(venda.getMeioPagamento())) {
-                for (Item item : venda.getListaItens()) {                     
-                        lucro += item.getQuantidade()*item.getProduto().getValorCusto();
-                        mapProduto.put(item.getProduto().getCodigo(), lucro);                    
+                for (Item item : venda.getListaItens()) {
+                    lucro += item.getQuantidade() * item.getProduto().getValorCusto();
+                    mapProduto.put(item.getProduto().getCodigo(), lucro);
                 }
             }
         }
-            
-        double receitaBruta = receitaBrutaPorMeioPagamento(listaVendas,meioPagamento);
-                
+
+        double receitaBruta = receitaBrutaPorMeioPagamento(listaVendas, meioPagamento);
+
         return receitaBruta - lucro;
     }
-    
+
     /**
      * Funcao responsavel por retornar valor a Receber passando um objeto
      * cliente como parametro.
+     *
      * @param listaVenda
      * @param cliente
-     * @return 
+     * @return
      */
     public BigDecimal retornaValorAReceber(List<Venda> listaVenda, Cliente cliente) {
-        double valorReceber = 0;        
+        double valorReceber = 0;
 
-        for (Venda vendaLocal : listaVenda) {            
+        for (Venda vendaLocal : listaVenda) {
             if (cliente == vendaLocal.getCliente()) {
                 valorReceber = vendaLocal.valorPago().doubleValue();
             }

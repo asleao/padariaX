@@ -50,7 +50,7 @@ public class AplRelatorio {
         HashMap<Fornecedor,BigDecimal> mapaFornecedor = new HashMap();
 
         List<Compra> listaCompras = new ArrayList(mapaCompras.values());
-
+        
         for (Compra compra : listaCompras) {
             if (mapaFornecedor.containsKey(compra.getFornecedor())) {
                 BigDecimal valorPago = (BigDecimal)mapaFornecedor.get(compra.getFornecedor());

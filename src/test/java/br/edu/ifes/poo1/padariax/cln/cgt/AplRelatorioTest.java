@@ -8,9 +8,12 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
+import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
+import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,11 +44,11 @@ public class AplRelatorioTest {
 
     @Before
     public void setUp() {
-        this.arquivoCliente = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "clientes.csv");
-        this.arquivoFornecedor = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "fornecedores.csv");
-        this.arquivoProduto = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "produtos.csv");
-        this.arquivoCompra = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "compras.csv");
-        this.arquivoVenda = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_1/", "vendas.csv");
+        this.arquivoCliente = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_4/", "clientes.csv");
+        this.arquivoFornecedor = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_4/", "fornecedores.csv");
+        this.arquivoProduto = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_4/", "produtos.csv");
+        this.arquivoCompra = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_4/", "compras.csv");
+        this.arquivoVenda = new Arquivo("./src/test/java/br/edu/ifes/poo1/padariax/arquivos/teste_4/", "vendas.csv");
         this.util = new Utilitario();
         this.aplFornecedor = new AplFornecedor();
         this.aplProduto = new AplProduto();
@@ -62,6 +65,9 @@ public class AplRelatorioTest {
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor), aplProduto.cadastroProduto(arquivoProduto));
         Map mapaCompra = aplCompra.cadastroCompra(arquivoCompra);
 
+        List<Compra> lista = new ArrayList(mapaCompra.keySet());        
+        util.imprime(lista);
+        
         List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(mapaCompra);
 
 //        util.imprime(listaTotalPagar);
@@ -138,7 +144,7 @@ public class AplRelatorioTest {
 
         Collections.sort(listaBalanco);
         
-        util.imprime(listaBalanco);
+//        util.imprime(listaBalanco);
         assertNotNull(listaBalanco);
 
     }

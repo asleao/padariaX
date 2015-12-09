@@ -82,7 +82,7 @@ public class AplCompra {
         return mapaCompra;
     }
 
-    private Compra criaCompra(Scanner sc, int notaFiscal) {
+    public Compra criaCompra(Scanner sc, int notaFiscal) {
         Compra compraLocal = new Compra();
         List<Item> listaItem = new ArrayList();
         int quantidade;
@@ -93,7 +93,6 @@ public class AplCompra {
             compraLocal.setDataCompra(dateFormat.parse(sc.next()));
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
             quantidade = Integer.parseInt(sc.next());
-//            produto.setEstoqueAtual(produto.getEstoqueAtual() + quantidade);
             Item item = new Item(produto, quantidade);
             listaItem.add(item);
             compraLocal.setListaItens(listaItem);
@@ -104,6 +103,29 @@ public class AplCompra {
 
         return compraLocal;
     }
+    
+     public Compra criaCompra(Scanner sc, int notaFiscal, int codigoFornecedor) {
+        Compra compraLocal = new Compra();
+        List<Item> listaItem = new ArrayList();
+        int quantidade;
+        try {
+            compraLocal.setNotaFiscal(notaFiscal);
+            Fornecedor fornecedor = (Fornecedor) mapaFornecedor.get(codigoFornecedor);
+            compraLocal.setFornecedor(fornecedor);
+            compraLocal.setDataCompra(dateFormat.parse(sc.next()));
+            Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
+            quantidade = Integer.parseInt(sc.next());
+            Item item = new Item(produto, quantidade);
+            listaItem.add(item);
+            compraLocal.setListaItens(listaItem);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return compraLocal;
+    }
+    
 
     /**
      * Funcao responsavel por informar a quantidade de comprada passando um

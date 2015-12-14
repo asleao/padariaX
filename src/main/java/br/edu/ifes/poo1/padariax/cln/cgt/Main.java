@@ -78,33 +78,38 @@ public class Main {
      */
     public static void menu(Scanner sc, JFileChooser fileChooser) throws Exception {
         System.out.println("Informe o caminho dos arquivos de importação: ");
-        fileChooser.showOpenDialog(null);
-        String caminho = fileChooser.getSelectedFile().getPath() + "/";
-        System.out.println(caminho);
-        String arquivos = "clientes.csv,fornecedores.csv,produtos.csv,compras.csv,vendas.csv";
+        int status = fileChooser.showOpenDialog(null);
+        if (status == JFileChooser.APPROVE_OPTION) {
+            String caminho = fileChooser.getSelectedFile().getPath() + "/";
+            System.out.println(caminho);
+            String arquivos = "clientes.csv,fornecedores.csv,produtos.csv,compras.csv,vendas.csv";
 
-        Scanner linha = new Scanner(arquivos);
-        linha.useDelimiter(",");
+            Scanner linha = new Scanner(arquivos);
+            linha.useDelimiter(",");
 
-        while (linha.hasNext()) {
-            String opc = linha.next();
-            switch (opc) {
-                case "clientes.csv":
-                    importaCliente(caminho);
-                    break;
-                case "fornecedores.csv":
-                    importaFornecedor(caminho);
-                    break;
-                case "produtos.csv":
-                    importaProduto(caminho);
-                    break;
-                case "compras.csv":
-                    importaCompra(caminho);
-                    break;
-                case "vendas.csv":
-                    importaVenda(caminho);
-                    break;
+            while (linha.hasNext()) {
+                String opc = linha.next();
+                switch (opc) {
+                    case "clientes.csv":
+                        importaCliente(caminho);
+                        break;
+                    case "fornecedores.csv":
+                        importaFornecedor(caminho);
+                        break;
+                    case "produtos.csv":
+                        importaProduto(caminho);
+                        break;
+                    case "compras.csv":
+                        importaCompra(caminho);
+                        break;
+                    case "vendas.csv":
+                        importaVenda(caminho);
+                        break;
+                }
             }
+        } else {
+            System.out.println("Saindo...");
+            System.exit(0);
         }
 
     }
@@ -135,7 +140,7 @@ public class Main {
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente),
                 aplProduto.cadastroProduto(arquivoProdutos));
         arquivoVendas = new Arquivo(caminho, "vendas.csv");
-        return listaVendas = aplVenda.cadastroVenda(arquivoVendas);        
+        return listaVendas = aplVenda.cadastroVenda(arquivoVendas);
     }
 
     /**
@@ -214,8 +219,8 @@ public class Main {
                 fileChooser.showSaveDialog(null);
                 destino = fileChooser.getSelectedFile().getPath() + "/";
                 System.out.println(destino);
-                System.out.println("Gerando relatório...");  
-                listaVendas = importaVenda(arquivoVendas.getCaminho());               
+                System.out.println("Gerando relatório...");
+                listaVendas = importaVenda(arquivoVendas.getCaminho());
                 List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas, listaCompras, new ArrayList(mapaProduto.values()));
                 util.exportar(listaBalanco, new Arquivo(destino, "estoque.csv"), new BalancoMensal().getCabecalho());
                 System.out.println("Relatório gerado com sucesso!");
@@ -227,15 +232,15 @@ public class Main {
                 destino = fileChooser.getSelectedFile().getPath() + "/";
                 System.out.println(destino);
                 System.out.println("Gerando relatórios...");
-                listaVendas = importaVenda(arquivoVendas.getCaminho()); 
+                listaVendas = importaVenda(arquivoVendas.getCaminho());
                 List<String> listaAPagar = aplRelatorio.aPagarFornecedor(listaCompras);
                 util.exportar(listaAPagar, new Arquivo(destino, "apagar.csv"), new APagarFornecedor().getCabecalho());
                 List<String> listaAReceber = aplRelatorio.aReceberPorCliente(listaVendas, new ArrayList(mapaCliente.values()));
                 util.exportar(listaAReceber, new Arquivo(destino, "areceber.csv"), new AReceberCliente().getCabecalho());
                 List<String> listaLucroProduto = aplRelatorio.vendasLucroPorProduto(listaVendas, new ArrayList(mapaProduto.values()));
                 util.exportar(listaLucroProduto, new Arquivo(destino, "vendasprod.csv"), new VendasLucroProduto().getCabecalho());
-                List<String> listaLucroPagamento = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);                               
-                util.exportar(listaLucroPagamento, new Arquivo(destino, "vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());                
+                List<String> listaLucroPagamento = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
+                util.exportar(listaLucroPagamento, new Arquivo(destino, "vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());
                 List<String> listaBalancoMensal = aplRelatorio.balancoMensal(listaVendas, listaCompras, new ArrayList(mapaProduto.values()));
                 util.exportar(listaBalancoMensal, new Arquivo(destino, "estoque.csv"), new BalancoMensal().getCabecalho());
                 System.out.println("Relatórios gerados com sucesso!");

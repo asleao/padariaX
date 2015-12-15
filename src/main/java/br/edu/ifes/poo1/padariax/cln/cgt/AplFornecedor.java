@@ -28,8 +28,7 @@ public class AplFornecedor {
     }
 
     /**
-     * Função responsável por transformar as linhas lidas do arquivo em uma
-     * lista de Fornecedores.
+     * Função responsável por transformar as linhas lidas do arquivo em Map de Fornecedores.
      *
      * @param file - caminnho do arquivo
      * @return listaFornecedor - Lista de Fornecedores
@@ -45,6 +44,11 @@ public class AplFornecedor {
         return mapaFornecedor;
     }
 
+    /**
+     * Função responsável por criar um objeto fornecedor.
+     * @param linha
+     * @return 
+     */
     private Fornecedor criaFornecedor(String linha) {
         Fornecedor fornecedor = new Fornecedor();
 

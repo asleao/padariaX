@@ -44,7 +44,6 @@ public class AplCliente {
      *
      * @param file - Caminho do arquivo
      * @return listaCliente - mapa de clientes
-     * @throws ParseException
      */
     public Map cadastroCliente(Arquivo file) {
         List<String> listaImportada = util.importar(file);
@@ -61,7 +60,7 @@ public class AplCliente {
                     cliente = criaPessoaJuridica(sc);
                     mapaCliente.put(cliente.getCodigo(), cliente);
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | ParseException e) {
                 e.printStackTrace();
             }
         }
@@ -76,20 +75,17 @@ public class AplCliente {
      * @param sdf
      * @return
      */
-    private PessoaJuridica criaPessoaJuridica(Scanner sc) {
+    private PessoaJuridica criaPessoaJuridica(Scanner sc) throws ParseException {
         PessoaJuridica pessoaJuridica = new PessoaJuridica();
-        try {
-            pessoaJuridica.setCodigo(Integer.parseInt(sc.next()));
-            pessoaJuridica.setNome(sc.next());
-            pessoaJuridica.setEndereco(sc.next());
-            pessoaJuridica.setTelefone(sc.next());
-            pessoaJuridica.setDataCadastro(dateFormat.parse(sc.next()));
-            pessoaJuridica.setTipo(TipoCliente.valueOf(sc.next()));
-            pessoaJuridica.setCnpj(sc.next());
-            pessoaJuridica.setInscricaoEstadual(Integer.parseInt(sc.next()));
-        } catch (NumberFormatException | ParseException e) {
-            e.printStackTrace();
-        }
+
+        pessoaJuridica.setCodigo(Integer.parseInt(sc.next()));
+        pessoaJuridica.setNome(sc.next());
+        pessoaJuridica.setEndereco(sc.next());
+        pessoaJuridica.setTelefone(sc.next());
+        pessoaJuridica.setDataCadastro(dateFormat.parse(sc.next()));
+        pessoaJuridica.setTipo(TipoCliente.valueOf(sc.next()));
+        pessoaJuridica.setCnpj(sc.next());
+        pessoaJuridica.setInscricaoEstadual(Integer.parseInt(sc.next()));
 
         return pessoaJuridica;
     }
@@ -102,19 +98,16 @@ public class AplCliente {
      * @param sdf
      * @return
      */
-    private PessoaFisica criaPessoaFisica(Scanner sc) {
+    private PessoaFisica criaPessoaFisica(Scanner sc) throws ParseException {
         PessoaFisica pessoaFisica = new PessoaFisica();
-        try {
-            pessoaFisica.setCodigo(Integer.parseInt(sc.next()));
-            pessoaFisica.setNome(sc.next());
-            pessoaFisica.setEndereco(sc.next());
-            pessoaFisica.setTelefone(sc.next());
-            pessoaFisica.setDataCadastro(dateFormat.parse(sc.next()));
-            pessoaFisica.setTipo(TipoCliente.valueOf(sc.next()));
-            pessoaFisica.setCpf(sc.next());
-        } catch (NumberFormatException | ParseException e) {
-            e.printStackTrace();
-        }
+
+        pessoaFisica.setCodigo(Integer.parseInt(sc.next()));
+        pessoaFisica.setNome(sc.next());
+        pessoaFisica.setEndereco(sc.next());
+        pessoaFisica.setTelefone(sc.next());
+        pessoaFisica.setDataCadastro(dateFormat.parse(sc.next()));
+        pessoaFisica.setTipo(TipoCliente.valueOf(sc.next()));
+        pessoaFisica.setCpf(sc.next());
 
         return pessoaFisica;
     }

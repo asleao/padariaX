@@ -53,7 +53,7 @@ public class AplProduto {
     /**
      * Função responsável por criar um objeto Produto.
      *
-     * @param linha
+     * @param sc
      * @return
      */
     private Produto criaProduto(Scanner sc) {

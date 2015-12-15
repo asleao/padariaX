@@ -29,7 +29,8 @@ public class AplFornecedor {
     }
 
     /**
-     * Função responsável por transformar as linhas lidas do arquivo em Map de Fornecedores.
+     * Função responsável por transformar as linhas lidas do arquivo em Map de
+     * Fornecedores.
      *
      * @param file - caminnho do arquivo
      * @return listaFornecedor - Lista de Fornecedores
@@ -39,8 +40,11 @@ public class AplFornecedor {
         List<String> listaImportada = aplArquivo.importar(file);
 
         for (String linha : listaImportada) {
-            Fornecedor fornecedor = criaFornecedor(linha);
-            mapaFornecedor.put(fornecedor.getCodigo(), fornecedor);
+            try (Scanner sc = new Scanner(linha)) {
+                sc.useDelimiter(";");
+                Fornecedor fornecedor = criaFornecedor(sc);
+                mapaFornecedor.put(fornecedor.getCodigo(), fornecedor);
+            }
         }
 
         return mapaFornecedor;
@@ -48,26 +52,21 @@ public class AplFornecedor {
 
     /**
      * Função responsável por criar um objeto fornecedor.
-     * @param linha
-     * @return 
+     *
+     * @param sc
+     * @return
      */
-    private Fornecedor criaFornecedor(String linha) {
+    private Fornecedor criaFornecedor(Scanner sc) {
         Fornecedor fornecedor = new Fornecedor();
 
-        try (Scanner sc = new Scanner(linha)) {
+        fornecedor.setCodigo(Integer.parseInt(sc.next()));
+        fornecedor.setNome(sc.next());
+        fornecedor.setEndereco(sc.next());
+        fornecedor.setTelefone(sc.next());
+        fornecedor.setCnpj(sc.next());
+        fornecedor.setPessoaContato(sc.next());
 
-            sc.useDelimiter(";");
-
-            fornecedor.setCodigo(Integer.parseInt(sc.next()));
-            fornecedor.setNome(sc.next());
-            fornecedor.setEndereco(sc.next());
-            fornecedor.setTelefone(sc.next());
-            fornecedor.setCnpj(sc.next());
-            fornecedor.setPessoaContato(sc.next());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return fornecedor;
     }
-    
+
 }

@@ -46,25 +46,23 @@ public class AplCliente {
      * @param file - Caminho do arquivo
      * @return listaCliente - mapa de clientes
      * @throws java.io.IOException
+     * @throws java.text.ParseException
      */
-    public Map cadastroCliente(Arquivo file) throws IOException {
+    public Map cadastroCliente(Arquivo file) throws IOException, ParseException {
         List<String> listaImportada = util.importar(file);
 
         for (String linha : listaImportada) {
             Scanner sc = new Scanner(linha);
             sc.useDelimiter(";");
 
-            try {
-                if (ehPessoaFisica(linha)) {
-                    cliente = criaPessoaFisica(sc);
-                    mapaCliente.put(cliente.getCodigo(), cliente);
-                } else {
-                    cliente = criaPessoaJuridica(sc);
-                    mapaCliente.put(cliente.getCodigo(), cliente);
-                }
-            } catch (NumberFormatException | ParseException e) {
-                e.printStackTrace();
+            if (ehPessoaFisica(linha)) {
+                cliente = criaPessoaFisica(sc);
+                mapaCliente.put(cliente.getCodigo(), cliente);
+            } else {
+                cliente = criaPessoaJuridica(sc);
+                mapaCliente.put(cliente.getCodigo(), cliente);
             }
+
         }
         return mapaCliente;
     }

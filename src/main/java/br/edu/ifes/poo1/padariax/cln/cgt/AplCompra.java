@@ -59,54 +59,50 @@ public class AplCompra {
      * @param file - Caminho do arquivo
      * @return listaCliente - Map de compras
      * @throws java.io.IOException
+     * @throws java.text.ParseException
      */
-    public List<Compra> cadastroCompra(Arquivo file) throws IOException {
+    public List<Compra> cadastroCompra(Arquivo file) throws IOException, ParseException {
         List<String> listaImportada = util.importar(file);
 
-        try {
-            for (String linha : listaImportada) {
-                Scanner sc = new Scanner(linha);
-                sc.useDelimiter(";");
-                int notaFiscal = Integer.parseInt(sc.next());
+        for (String linha : listaImportada) {
+            Scanner sc = new Scanner(linha);
+            sc.useDelimiter(";");
+            int notaFiscal = Integer.parseInt(sc.next());
 
-                if (mapaCompraIgual.containsKey(notaFiscal)) {
-                    Compra compraExistente = (Compra) mapaCompraIgual.get(notaFiscal);
+            if (mapaCompraIgual.containsKey(notaFiscal)) {
+                Compra compraExistente = (Compra) mapaCompraIgual.get(notaFiscal);
 
-                    int codigoFornecedor = Integer.parseInt(sc.next());
+                int codigoFornecedor = Integer.parseInt(sc.next());
 
-                    if (codigoFornecedor != compraExistente.getFornecedor().getCodigo()) {
-                        if (mapaCompraDiferente.containsKey(notaFiscal)) {
-                            Compra compraExistenteDif = (Compra) mapaCompraDiferente.get(notaFiscal);
+                if (codigoFornecedor != compraExistente.getFornecedor().getCodigo()) {
+                    if (mapaCompraDiferente.containsKey(notaFiscal)) {
+                        Compra compraExistenteDif = (Compra) mapaCompraDiferente.get(notaFiscal);
 
-                            sc.next();
-
-                            Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
-                            Item item = new Item(produto, Integer.parseInt(sc.next()));
-
-                            compraExistenteDif.getListaItens().add(item);
-                            mapaCompraDiferente.put(compraExistenteDif.getNotaFiscal(), compraExistenteDif);
-                        } else {
-                            Compra compraDif = criaCompra(sc, notaFiscal, codigoFornecedor);
-                            mapaCompraDiferente.put(compraDif.getNotaFiscal(), compraDif);
-                        }
-                    } else {
                         sc.next();
 
                         Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
                         Item item = new Item(produto, Integer.parseInt(sc.next()));
 
-                        compraExistente.getListaItens().add(item);
-                        mapaCompraIgual.put(compraExistente.getNotaFiscal(), compraExistente);
+                        compraExistenteDif.getListaItens().add(item);
+                        mapaCompraDiferente.put(compraExistenteDif.getNotaFiscal(), compraExistenteDif);
+                    } else {
+                        Compra compraDif = criaCompra(sc, notaFiscal, codigoFornecedor);
+                        mapaCompraDiferente.put(compraDif.getNotaFiscal(), compraDif);
                     }
                 } else {
-                    Compra compraNova = criaCompra(sc, notaFiscal);
-                    mapaCompraIgual.put(compraNova.getNotaFiscal(), compraNova);
-                }
+                    sc.next();
 
+                    Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
+                    Item item = new Item(produto, Integer.parseInt(sc.next()));
+
+                    compraExistente.getListaItens().add(item);
+                    mapaCompraIgual.put(compraExistente.getNotaFiscal(), compraExistente);
+                }
+            } else {
+                Compra compraNova = criaCompra(sc, notaFiscal);
+                mapaCompraIgual.put(compraNova.getNotaFiscal(), compraNova);
             }
 
-        } catch (ParseException parce) {
-            parce.printStackTrace();
         }
 
         List<Compra> listaCompra = transformaMap2List(mapaCompraIgual, mapaCompraDiferente);
@@ -184,9 +180,10 @@ public class AplCompra {
     /**
      * Metodo responsavel por informar a quantidade de comprada passando um
      * produto como parametro.
+     *
      * @param listaCompra
      * @param produto
-     * @return 
+     * @return
      */
     public int retornaQuantidadeProdutoComprada(List<Compra> listaCompra, Produto produto) {
         int quantidadeComprada = 0;

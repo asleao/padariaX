@@ -17,10 +17,13 @@ import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
@@ -75,6 +78,8 @@ public class Main {
         } catch (IOException ex) {
             ex.printStackTrace();
             System.out.println(ERRO);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
         }
 
     }
@@ -86,7 +91,7 @@ public class Main {
      * @param fileChooser - Objeto JFileChooser.          
      * @throws java.io.IOException          
      */
-    public static void menu(JFileChooser fileChooser) throws IOException {
+    public static void menu(JFileChooser fileChooser) throws IOException, ParseException {
         System.out.println(CAMINHOENTRADA);
         int status = fileChooser.showOpenDialog(null);
         if (status == JFileChooser.APPROVE_OPTION) {
@@ -133,7 +138,7 @@ public class Main {
      * @param caminho
      * @return
      */
-    private static Map importaCliente(String caminho) throws IOException {
+    private static Map importaCliente(String caminho) throws IOException, ParseException {
         arquivoCliente = new Arquivo(caminho, "clientes.csv");
         mapaCliente = aplCliente.cadastroCliente(arquivoCliente);
         return mapaCliente;
@@ -170,7 +175,7 @@ public class Main {
      * @param caminho
      * @return
      */
-    private static List<Compra> importaCompra(String caminho) throws IOException {
+    private static List<Compra> importaCompra(String caminho) throws IOException, ParseException {
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor),
                 aplProduto.cadastroProduto(arquivoProdutos));
         arquivoCompras = new Arquivo(caminho, "compras.csv");
@@ -184,7 +189,7 @@ public class Main {
      * @param caminho
      * @return
      */
-    private static List<Venda> importaVenda(String caminho) throws IOException {
+    private static List<Venda> importaVenda(String caminho) throws IOException, ParseException {
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente),
                 aplProduto.cadastroProduto(arquivoProdutos));
         arquivoVendas = new Arquivo(caminho, "vendas.csv");
@@ -202,7 +207,7 @@ public class Main {
      * @param fileChooser - Objeto JFileChooser.
      * @throws Exception
      */
-    private static void gerarRelatorios(Scanner sc, JFileChooser fileChooser) throws FileNotFoundException, IOException {
+    private static void gerarRelatorios(Scanner sc, JFileChooser fileChooser) throws FileNotFoundException, IOException, ParseException {
         System.out.println("Relatórios:");
         System.out.println("1 - Total a pagar por fornecedor");
         System.out.println("2 - Total a receber por cliente");

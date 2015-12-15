@@ -59,31 +59,30 @@ public class AplVenda {
      * @param file - Caminho do arquivo
      * @return listaCliente - List de Vendas
      * @throws java.io.IOException
+     * @throws java.text.ParseException
      */
-    public List<Venda> cadastroVenda(Arquivo file) throws IOException {
-        try {
-            List<String> listaImportada = util.importar(file);
+    public List<Venda> cadastroVenda(Arquivo file) throws IOException, ParseException {
 
-            for (String linha : listaImportada) {
-                Scanner sc = new Scanner(linha);
-                if (!linha.equals("")) {
-                    sc.useDelimiter(";");
-                    String registro = sc.next();
-                    int cliente;
+        List<String> listaImportada = util.importar(file);
 
-                    if (ehData(registro)) {
-                        importaVendaNaoFiado(sc, registro);
-                    } else {
-                        cliente = Integer.parseInt(registro);
-                        importaVendaFiado(cliente, sc);
-                    }
+        for (String linha : listaImportada) {
+            Scanner sc = new Scanner(linha);
+            if (!linha.equals("")) {
+                sc.useDelimiter(";");
+                String registro = sc.next();
+                int cliente;
+
+                if (ehData(registro)) {
+                    importaVendaNaoFiado(sc, registro);
+                } else {
+                    cliente = Integer.parseInt(registro);
+                    importaVendaFiado(cliente, sc);
                 }
             }
-            
-            listaVenda = vendasCadastradas(mapaVenda, listaVendaNaoFiado);
-        } catch (ParseException p) {
-            p.printStackTrace();
         }
+
+        listaVenda = vendasCadastradas(mapaVenda, listaVendaNaoFiado);
+
         return listaVenda;
     }
 
@@ -139,8 +138,8 @@ public class AplVenda {
     }
 
     /**
-     * Função responsável por unir um Map de um List de vendas e retornar uma lista
-     * com todas vendas importadas do arquivo.
+     * Função responsável por unir um Map de um List de vendas e retornar uma
+     * lista com todas vendas importadas do arquivo.
      *
      * @param mapaVendasFiado
      * @param listaVendasNaoFiado

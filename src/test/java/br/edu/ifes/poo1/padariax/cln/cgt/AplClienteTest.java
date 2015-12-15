@@ -7,6 +7,8 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import org.junit.Before;
@@ -39,7 +41,7 @@ public class AplClienteTest {
      * Test of cadastroCliente method, of class AplCliente.
      */
     @Test
-    public void testCadastroCliente() {
+    public void testCadastroCliente() throws IOException, ParseException {
         List<String> listaArquivo = util.importar(arquivo);
         Map mapaCliente = aplCliente.cadastroCliente(arquivo);
 

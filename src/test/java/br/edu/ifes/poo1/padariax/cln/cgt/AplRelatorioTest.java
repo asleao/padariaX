@@ -11,6 +11,8 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +59,7 @@ public class AplRelatorioTest {
      * Test of totalPagarFornecedor method, of class AplRelatorio.
      */
     @Test
-    public void testTotalPagarFornecedor() {
+    public void testTotalPagarFornecedor() throws IOException, ParseException {
         List<String> listaArquivo = util.importar(arquivoCompra);
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor), aplProduto.cadastroProduto(arquivoProduto));
         List<Compra> listaCompra = aplCompra.cadastroCompra(arquivoCompra);
@@ -70,7 +72,7 @@ public class AplRelatorioTest {
     }
 
     @Test
-    public void testTotalReceberPorCliente() {
+    public void testTotalReceberPorCliente() throws IOException, ParseException {
 
         Map mapaCliente = aplCliente.cadastroCliente(arquivoCliente);
         List<Cliente> listaCliente = new ArrayList(mapaCliente.values());
@@ -86,7 +88,7 @@ public class AplRelatorioTest {
     }
 
     @Test
-    public void testVendasLucroPorProduto() {
+    public void testVendasLucroPorProduto() throws IOException, ParseException {
 
         Map mapaProduto = aplProduto.cadastroProduto(arquivoProduto);
         List<Produto> listaProduto = new ArrayList(mapaProduto.values());
@@ -105,7 +107,7 @@ public class AplRelatorioTest {
     }
 
     @Test
-    public void testVendasLucroPorMeioPagamento() {
+    public void testVendasLucroPorMeioPagamento() throws IOException, ParseException {
 
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente), aplProduto.cadastroProduto(arquivoProduto));
 
@@ -121,7 +123,7 @@ public class AplRelatorioTest {
     }
 
     @Test
-    public void testBalancoMensal() {
+    public void testBalancoMensal() throws IOException, ParseException {
         Map mapaProduto = aplProduto.cadastroProduto(arquivoProduto);
         List<Produto> listaProduto = new ArrayList(mapaProduto.values());
 

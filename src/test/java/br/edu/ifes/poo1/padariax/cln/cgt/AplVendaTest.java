@@ -8,6 +8,8 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,7 +40,7 @@ public class AplVendaTest {
     }
     
     @Test
-    public void testCadastroVenda() { 
+    public void testCadastroVenda() throws IOException, ParseException { 
         List<String> listaArquivo = util.importar(arquivoVenda);
         
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente),

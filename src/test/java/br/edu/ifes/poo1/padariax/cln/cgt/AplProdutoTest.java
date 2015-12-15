@@ -8,6 +8,7 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +35,7 @@ public class AplProdutoTest {
     }
 
     @Test
-    public void testCadastroProduto() {
+    public void testCadastroProduto() throws IOException {
         List<String> listaArquivo = util.importar(arquivo);
         Map mapaProduto = aplProduto.cadastroProduto(arquivo);
         

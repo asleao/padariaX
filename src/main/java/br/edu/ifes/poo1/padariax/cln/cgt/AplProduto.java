@@ -41,33 +41,30 @@ public class AplProduto {
         List<String> listaImportada = aplArquivo.importar(file);
 
         for (String linha : listaImportada) {
-            produto = criaProduto(linha);
-            mapaProduto.put(produto.getCodigo(), produto);
+            try (Scanner sc = new Scanner(linha)) {
+                sc.useDelimiter(";");
+                produto = criaProduto(sc);
+                mapaProduto.put(produto.getCodigo(), produto);
+            }
         }
         return mapaProduto;
     }
 
     /**
      * Função responsável por criar um objeto Produto.
+     *
      * @param linha
-     * @return 
+     * @return
      */
-    private Produto criaProduto(String linha) {
+    private Produto criaProduto(Scanner sc) {
         Produto produtoLocal = new Produto();
-        try (Scanner sc = new Scanner(linha)) {
 
-            sc.useDelimiter(";");
-
-            produtoLocal.setCodigo(Integer.parseInt(sc.next()));
-            produtoLocal.setDescricao(sc.next());
-            produtoLocal.setEstoqueMinimo(Integer.parseInt(sc.next()));
-            produtoLocal.setEstoqueAtual(Integer.parseInt(sc.next()));
-            produtoLocal.setValorCusto(Double.parseDouble(sc.next().replace(",", ".")));
-            produtoLocal.setPercentualLucro(Integer.parseInt(sc.next()));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        produtoLocal.setCodigo(Integer.parseInt(sc.next()));
+        produtoLocal.setDescricao(sc.next());
+        produtoLocal.setEstoqueMinimo(Integer.parseInt(sc.next()));
+        produtoLocal.setEstoqueAtual(Integer.parseInt(sc.next()));
+        produtoLocal.setValorCusto(Double.parseDouble(sc.next().replace(",", ".")));
+        produtoLocal.setPercentualLucro(Integer.parseInt(sc.next()));
 
         return produtoLocal;
     }

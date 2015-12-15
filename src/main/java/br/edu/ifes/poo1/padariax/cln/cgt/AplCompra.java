@@ -65,46 +65,46 @@ public class AplCompra {
         List<String> listaImportada = util.importar(file);
 
         for (String linha : listaImportada) {
-            Scanner sc = new Scanner(linha);
-            sc.useDelimiter(";");
-            int notaFiscal = Integer.parseInt(sc.next());
+            try (Scanner sc = new Scanner(linha)) {
+                sc.useDelimiter(";");
+                int notaFiscal = Integer.parseInt(sc.next());
 
-            if (mapaCompraIgual.containsKey(notaFiscal)) {
-                Compra compraExistente = (Compra) mapaCompraIgual.get(notaFiscal);
+                if (mapaCompraIgual.containsKey(notaFiscal)) {
+                    Compra compraExistente = (Compra) mapaCompraIgual.get(notaFiscal);
 
-                int codigoFornecedor = Integer.parseInt(sc.next());
+                    int codigoFornecedor = Integer.parseInt(sc.next());
 
-                if (codigoFornecedor != compraExistente.getFornecedor().getCodigo()) {
-                    if (mapaCompraDiferente.containsKey(notaFiscal)) {
-                        Compra compraExistenteDif = (Compra) mapaCompraDiferente.get(notaFiscal);
+                    if (codigoFornecedor != compraExistente.getFornecedor().getCodigo()) {
+                        if (mapaCompraDiferente.containsKey(notaFiscal)) {
+                            Compra compraExistenteDif = (Compra) mapaCompraDiferente.get(notaFiscal);
 
+                            sc.next();
+
+                            Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
+                            Item item = new Item(produto, Integer.parseInt(sc.next()));
+
+                            compraExistenteDif.getListaItens().add(item);
+                            mapaCompraDiferente.put(compraExistenteDif.getNotaFiscal(), compraExistenteDif);
+                        } else {
+                            Compra compraDif = criaCompra(sc, notaFiscal, codigoFornecedor);
+                            mapaCompraDiferente.put(compraDif.getNotaFiscal(), compraDif);
+                        }
+                    } else {
                         sc.next();
 
                         Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
                         Item item = new Item(produto, Integer.parseInt(sc.next()));
 
-                        compraExistenteDif.getListaItens().add(item);
-                        mapaCompraDiferente.put(compraExistenteDif.getNotaFiscal(), compraExistenteDif);
-                    } else {
-                        Compra compraDif = criaCompra(sc, notaFiscal, codigoFornecedor);
-                        mapaCompraDiferente.put(compraDif.getNotaFiscal(), compraDif);
+                        compraExistente.getListaItens().add(item);
+                        mapaCompraIgual.put(compraExistente.getNotaFiscal(), compraExistente);
                     }
                 } else {
-                    sc.next();
-
-                    Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
-                    Item item = new Item(produto, Integer.parseInt(sc.next()));
-
-                    compraExistente.getListaItens().add(item);
-                    mapaCompraIgual.put(compraExistente.getNotaFiscal(), compraExistente);
+                    Compra compraNova = criaCompra(sc, notaFiscal);
+                    mapaCompraIgual.put(compraNova.getNotaFiscal(), compraNova);
                 }
-            } else {
-                Compra compraNova = criaCompra(sc, notaFiscal);
-                mapaCompraIgual.put(compraNova.getNotaFiscal(), compraNova);
+
             }
-
         }
-
         List<Compra> listaCompra = transformaMap2List(mapaCompraIgual, mapaCompraDiferente);
         return listaCompra;
     }

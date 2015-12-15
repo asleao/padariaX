@@ -45,6 +45,11 @@ public class AplProduto {
         return mapaProduto;
     }
 
+    /**
+     * Função responsável por criar um objeto Produto.
+     * @param linha
+     * @return 
+     */
     private Produto criaProduto(String linha) {
         Produto produtoLocal = new Produto();
         try (Scanner sc = new Scanner(linha)) {

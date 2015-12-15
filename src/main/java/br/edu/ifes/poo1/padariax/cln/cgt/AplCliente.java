@@ -52,15 +52,16 @@ public class AplCliente {
         List<String> listaImportada = util.importar(file);
 
         for (String linha : listaImportada) {
-            Scanner sc = new Scanner(linha);
-            sc.useDelimiter(";");
+            try (Scanner sc = new Scanner(linha)) {
+                sc.useDelimiter(";");
 
-            if (ehPessoaFisica(linha)) {
-                cliente = criaPessoaFisica(sc);
-                mapaCliente.put(cliente.getCodigo(), cliente);
-            } else {
-                cliente = criaPessoaJuridica(sc);
-                mapaCliente.put(cliente.getCodigo(), cliente);
+                if (ehPessoaFisica(linha)) {
+                    cliente = criaPessoaFisica(sc);
+                    mapaCliente.put(cliente.getCodigo(), cliente);
+                } else {
+                    cliente = criaPessoaJuridica(sc);
+                    mapaCliente.put(cliente.getCodigo(), cliente);
+                }
             }
 
         }

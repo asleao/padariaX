@@ -16,14 +16,11 @@ import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroProduto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
@@ -90,6 +87,7 @@ public class Main {
      *
      * @param fileChooser - Objeto JFileChooser.          
      * @throws java.io.IOException          
+     * @throws java.text.ParseException          
      */
     public static void menu(JFileChooser fileChooser) throws IOException, ParseException {
         System.out.println(CAMINHOENTRADA);
@@ -204,8 +202,7 @@ public class Main {
      * pasta o programa exibe lanca uma excecao e encerrado.
      *
      * @param sc - Objeto Scanner.
-     * @param fileChooser - Objeto JFileChooser.
-     * @throws Exception
+     * @param fileChooser - Objeto JFileChooser.     
      */
     private static void gerarRelatorios(Scanner sc, JFileChooser fileChooser) throws FileNotFoundException, IOException, ParseException {
         System.out.println("Relatórios:");

@@ -127,24 +127,49 @@ public class Main {
 
     }
 
+    /**
+     * Método responsável por importar o arquivo de clientes para um Map.
+     *
+     * @param caminho
+     * @return
+     */
     private static Map importaCliente(String caminho) {
         arquivoCliente = new Arquivo(caminho, "clientes.csv");
         mapaCliente = aplCliente.cadastroCliente(arquivoCliente);
         return mapaCliente;
     }
 
+    /**
+     * Método responsável por importar o arquivo de fornecedores para um Map.
+     *
+     * @param caminho
+     * @return
+     */
     private static Map importaFornecedor(String caminho) {
         arquivoFornecedor = new Arquivo(caminho, "fornecedores.csv");
         mapaFornecedor = aplFornecedor.cadastroFornecedor(arquivoFornecedor);
         return mapaFornecedor;
     }
 
+    /**
+     * Método responsável por importar o arquivo de produtos para um Map.
+     *
+     * @param caminho
+     * @return
+     */
     private static Map importaProduto(String caminho) {
         arquivoProdutos = new Arquivo(caminho, "produtos.csv");
         mapaProduto = aplProduto.cadastroProduto(arquivoProdutos);
         return mapaProduto;
     }
 
+    /**
+     * Método responsável por importar o arquivo de compras para um
+     * List<Compra>.
+     *
+     * @param caminho
+     * @return
+     */
     private static List<Compra> importaCompra(String caminho) {
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor),
                 aplProduto.cadastroProduto(arquivoProdutos));
@@ -153,6 +178,12 @@ public class Main {
         return listaCompras;
     }
 
+    /**
+     * Método responsável por importar o arquivo de vendas para um List<Venda>.
+     *
+     * @param caminho
+     * @return
+     */
     private static List<Venda> importaVenda(String caminho) {
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente),
                 aplProduto.cadastroProduto(arquivoProdutos));
@@ -165,8 +196,7 @@ public class Main {
      * Metodo responsavel por exibir um menu para a escolha da geracao dos
      * relatorios. Ao escolher o relatorio desejado, pergunta-se aonde o mesmo
      * devera ser salvo. Caso o usuario nao tenha permissao para escrever na
-     * pasta o programa exibe lanca uma excecao e encerrado. Cada relatorio e
-     * exportado individualmente.
+     * pasta o programa exibe lanca uma excecao e encerrado.
      *
      * @param sc - Objeto Scanner.
      * @param fileChooser - Objeto JFileChooser.

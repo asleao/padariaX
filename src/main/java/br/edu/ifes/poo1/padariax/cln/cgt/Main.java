@@ -14,6 +14,8 @@ import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.BalancoMensal;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroMeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroProduto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +44,13 @@ public class Main {
     private static Arquivo arquivoCompras;
     private static Arquivo arquivoVendas;
     private static Arquivo arquivoProdutos;
-    private static Utilitario util;
+    private static Utilitario util;   
+    private static final String GERANDO = "Gerando relatório...";
+    private static final String SUCESSO = "Relatório gerado com sucesso!";
+    private static final String CANCELADO = "Relatório cancelado...";
+    private static final String INEXISTENTE = "Opção inexistente...";
+    private static final String ENCERRANDO = "Saindo...";
+    private static final String ERRO = "Erro de I/O.";
 
     /**
      * @param args the command line arguments
@@ -59,12 +67,16 @@ public class Main {
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         try (Scanner sc = new Scanner(System.in)) {
-            menu(sc, fileChooser);
+            menu(fileChooser);
             gerarRelatorios(sc, fileChooser);
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("Erro de I/O.");
+            System.out.println(ERRO);
+        }catch (IOException ex) {
+            ex.printStackTrace();
+            System.out.println(ERRO);
         }
+        
 
     }
 
@@ -72,11 +84,11 @@ public class Main {
      * Metodo responsavel por perguntar o caminho onde se econtram os arquivos
      * de importacao e importa-los para dentro de uma Colecao(List e Map).
      *
-     * @param sc - Objeto Scanner.
      * @param fileChooser - Objeto JFileChooser.
-     * @throws Exception
+     * @throws java.io.FileNotFoundException
+     * @throws java.nio.file.NoSuchFileException
      */
-    public static void menu(Scanner sc, JFileChooser fileChooser) throws Exception {
+    public static void menu(JFileChooser fileChooser) throws IOException {
         System.out.println("Informe o caminho dos arquivos de importação: ");
         int status = fileChooser.showOpenDialog(null);
         if (status == JFileChooser.APPROVE_OPTION) {
@@ -105,10 +117,13 @@ public class Main {
                     case "vendas.csv":
                         importaVenda(caminho);
                         break;
+                    default:
+                        System.out.println("Arquivo" + opc + " não faz parte do escopo do sistema.");
+                        break;
                 }
             }
         } else {
-            System.out.println("Saindo...");
+            System.out.println(ENCERRANDO);
             System.exit(0);
         }
 
@@ -116,31 +131,36 @@ public class Main {
 
     private static Map importaCliente(String caminho) {
         arquivoCliente = new Arquivo(caminho, "clientes.csv");
-        return mapaCliente = aplCliente.cadastroCliente(arquivoCliente);
+        mapaCliente = aplCliente.cadastroCliente(arquivoCliente);
+        return mapaCliente;
     }
 
     private static Map importaFornecedor(String caminho) {
         arquivoFornecedor = new Arquivo(caminho, "fornecedores.csv");
-        return mapaFornecedor = aplFornecedor.cadastroFornecedor(arquivoFornecedor);
+        mapaFornecedor = aplFornecedor.cadastroFornecedor(arquivoFornecedor);
+        return mapaFornecedor;
     }
 
     private static Map importaProduto(String caminho) {
         arquivoProdutos = new Arquivo(caminho, "produtos.csv");
-        return mapaProduto = aplProduto.cadastroProduto(arquivoProdutos);
+        mapaProduto = aplProduto.cadastroProduto(arquivoProdutos);
+        return mapaProduto;
     }
 
     private static List<Compra> importaCompra(String caminho) {
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor),
                 aplProduto.cadastroProduto(arquivoProdutos));
         arquivoCompras = new Arquivo(caminho, "compras.csv");
-        return listaCompras = aplCompra.cadastroCompra(arquivoCompras);
+        listaCompras = aplCompra.cadastroCompra(arquivoCompras);
+        return listaCompras;
     }
 
     private static List<Venda> importaVenda(String caminho) {
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente),
                 aplProduto.cadastroProduto(arquivoProdutos));
         arquivoVendas = new Arquivo(caminho, "vendas.csv");
-        return listaVendas = aplVenda.cadastroVenda(arquivoVendas);
+        listaVendas = aplVenda.cadastroVenda(arquivoVendas);
+        return listaVendas;
     }
 
     /**
@@ -154,7 +174,7 @@ public class Main {
      * @param fileChooser - Objeto JFileChooser.
      * @throws Exception
      */
-    private static void gerarRelatorios(Scanner sc, JFileChooser fileChooser) throws Exception {
+    private static void gerarRelatorios(Scanner sc, JFileChooser fileChooser) throws FileNotFoundException {
         System.out.println("Relatórios:");
         System.out.println("1 - Total a pagar por fornecedor");
         System.out.println("2 - Total a receber por cliente");
@@ -168,7 +188,7 @@ public class Main {
         String opc = sc.nextLine();
 
         String destino;
-        int status = 0;
+        int status;
 
         switch (opc) {
             case "1":
@@ -177,13 +197,13 @@ public class Main {
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
                     System.out.println(destino);
-                    System.out.println("Gerando relatório...");
+                    System.out.println(GERANDO);
                     List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(listaCompras);
                     util.exportar(listaTotalPagar, new Arquivo(destino, "apagar.csv"), new APagarFornecedor().getCabecalho());
-                    System.out.println("Relatório gerado com sucesso!");
+                    System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
-                    System.out.println("Cancelado...");
+                    System.out.println(CANCELADO);
                     gerarRelatorios(sc, fileChooser);
                 }
                 break;
@@ -193,13 +213,13 @@ public class Main {
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
                     System.out.println(destino);
-                    System.out.println("Gerando relatório...");
+                    System.out.println(GERANDO);
                     List<String> listaTotalReceber = aplRelatorio.aReceberPorCliente(listaVendas, new ArrayList(mapaCliente.values()));
                     util.exportar(listaTotalReceber, new Arquivo(destino, "areceber.csv"), new AReceberCliente().getCabecalho());
-                    System.out.println("Relatório gerado com sucesso!");
+                    System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
-                    System.out.println("Cancelado...");
+                    System.out.println(CANCELADO);
                     gerarRelatorios(sc, fileChooser);
                 }
                 break;
@@ -209,13 +229,13 @@ public class Main {
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
                     System.out.println(destino);
-                    System.out.println("Gerando relatório...");
+                    System.out.println(GERANDO);
                     List<String> listaTotalLucro = aplRelatorio.vendasLucroPorProduto(listaVendas, new ArrayList(mapaProduto.values()));
                     util.exportar(listaTotalLucro, new Arquivo(destino, "vendasprod.csv"), new VendasLucroProduto().getCabecalho());
-                    System.out.println("Relatório gerado com sucesso!");
+                    System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
-                    System.out.println("Cancelado...");
+                    System.out.println(CANCELADO);
                     gerarRelatorios(sc, fileChooser);
                 }
                 break;
@@ -225,13 +245,13 @@ public class Main {
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
                     System.out.println(destino);
-                    System.out.println("Gerando relatório...");
+                    System.out.println(GERANDO);
                     List<String> listaTotalPagamento = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
                     util.exportar(listaTotalPagamento, new Arquivo(destino, "vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());
-                    System.out.println("Relatório gerado com sucesso!");
+                    System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
-                    System.out.println("Cancelado...");
+                    System.out.println(CANCELADO);
                     gerarRelatorios(sc, fileChooser);
                 }
                 break;
@@ -241,14 +261,14 @@ public class Main {
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
                     System.out.println(destino);
-                    System.out.println("Gerando relatório...");
+                    System.out.println(GERANDO);
                     listaVendas = importaVenda(arquivoVendas.getCaminho());
                     List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas, listaCompras, new ArrayList(mapaProduto.values()));
                     util.exportar(listaBalanco, new Arquivo(destino, "estoque.csv"), new BalancoMensal().getCabecalho());
-                    System.out.println("Relatório gerado com sucesso!");
+                    System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
-                    System.out.println("Cancelado...");
+                    System.out.println(CANCELADO);
                     gerarRelatorios(sc, fileChooser);
                 }
                 break;
@@ -258,7 +278,7 @@ public class Main {
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
                     System.out.println(destino);
-                    System.out.println("Gerando relatórios...");
+                    System.out.println(GERANDO);
                     listaVendas = importaVenda(arquivoVendas.getCaminho());
                     List<String> listaAPagar = aplRelatorio.aPagarFornecedor(listaCompras);
                     util.exportar(listaAPagar, new Arquivo(destino, "apagar.csv"), new APagarFornecedor().getCabecalho());
@@ -270,18 +290,18 @@ public class Main {
                     util.exportar(listaLucroPagamento, new Arquivo(destino, "vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());
                     List<String> listaBalancoMensal = aplRelatorio.balancoMensal(listaVendas, listaCompras, new ArrayList(mapaProduto.values()));
                     util.exportar(listaBalancoMensal, new Arquivo(destino, "estoque.csv"), new BalancoMensal().getCabecalho());
-                    System.out.println("Relatórios gerados com sucesso!");
+                    System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
-                    System.out.println("Cancelado...");
+                    System.out.println(CANCELADO);
                     gerarRelatorios(sc, fileChooser);
                 }
                 break;
             case "7":
-                System.out.println("Saindo...");
+                System.out.println(ENCERRANDO);
                 break;
             default:
-                System.out.println("Opção inexistente.");
+                System.out.println(INEXISTENTE);
                 break;
         }
     }

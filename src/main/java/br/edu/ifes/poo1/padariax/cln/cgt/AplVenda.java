@@ -14,6 +14,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,28 +59,31 @@ public class AplVenda {
      * @return listaCliente - List de Vendas
      */
     public List<Venda> cadastroVenda(Arquivo file) {
-        List<String> listaImportada = util.importar(file);
+        try {
+            List<String> listaImportada = util.importar(file);
 
-        for (String linha : listaImportada) {
-            Scanner sc = new Scanner(linha);
-            if (!linha.equals("")) {
-                sc.useDelimiter(";");
-                String registro = sc.next();
-                int cliente;
+            for (String linha : listaImportada) {
+                Scanner sc = new Scanner(linha);
+                if (!linha.equals("")) {
+                    sc.useDelimiter(";");
+                    String registro = sc.next();
+                    int cliente;
 
-                if (ehData(registro)) {
-                    importaVendaNaoFiado(sc, registro);
-                } else {
-                    cliente = Integer.parseInt(registro);
-                    importaVendaFiado(cliente, sc);
-                }
+                    if (ehData(registro)) {
+                        importaVendaNaoFiado(sc, registro);
+                    } else {
+                        cliente = Integer.parseInt(registro);
+                        importaVendaFiado(cliente, sc);
+                    }
 
-                if (ehUltimoRegistro(sc)) {
-                    listaVenda = vendasCadastradas(mapaVenda, listaVendaNaoFiado);
+                    if (ehUltimoRegistro(sc)) {
+                        listaVenda = vendasCadastradas(mapaVenda, listaVendaNaoFiado);
+                    }
                 }
             }
+        } catch (ParseException p){
+            p.printStackTrace();
         }
-
         return listaVenda;
     }
 
@@ -112,7 +116,7 @@ public class AplVenda {
      * @param sc
      * @param registro
      */
-    private void importaVendaNaoFiado(Scanner sc, String registro) {
+    private void importaVendaNaoFiado(Scanner sc, String registro) throws ParseException {
         Venda vendaNova = criaVendaNaoFiado(sc, registro);
         listaVendaNaoFiado.add(vendaNova);
     }
@@ -125,13 +129,12 @@ public class AplVenda {
      * @param sc
      * @throws NumberFormatException
      */
-    private void importaVendaFiado(int cliente, Scanner sc) {
+    private void importaVendaFiado(int cliente, Scanner sc) throws ParseException {
+
         if (mapaVenda.containsKey(cliente)) {
 
             Venda vendaExistente = (Venda) mapaVenda.get(cliente);
 
-//                Pattern pattern = Pattern.compile("^.[0-9]+;[0-9]+;[0-9]+/[0-9]+/[0-9]+;");
-//                sc.skip(pattern);
             sc.next();
 
             Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
@@ -172,26 +175,20 @@ public class AplVenda {
      * @param clienteArquivo - Código do cliente lido do arquivo.
      * @return VendaLocal - Objeto Venda
      */
-    private Venda criaVendaFiado(Scanner sc, int clienteArquivo) {
+    private Venda criaVendaFiado(Scanner sc, int clienteArquivo) throws ParseException {
         Venda vendaLocal = new Venda();
         List<Item> listaItem = new ArrayList();
         int quantidade = 0;
 
-        try {
-            Cliente cliente = (Cliente) mapaCliente.get(clienteArquivo);
-            vendaLocal.setCliente(cliente);
-            vendaLocal.setDataVenda(dateFormat.parse(sc.next()));
-            Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
-            quantidade = Integer.parseInt(sc.next());
-//            produto.setEstoqueAtual(produto.getEstoqueAtual()- quantidade);
-            Item item = new Item(produto, quantidade);
-            listaItem.add(item);
-            vendaLocal.setListaItens(listaItem);
-            vendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Cliente cliente = (Cliente) mapaCliente.get(clienteArquivo);
+        vendaLocal.setCliente(cliente);
+        vendaLocal.setDataVenda(dateFormat.parse(sc.next()));
+        Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
+        quantidade = Integer.parseInt(sc.next());
+        Item item = new Item(produto, quantidade);
+        listaItem.add(item);
+        vendaLocal.setListaItens(listaItem);
+        vendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
 
         return vendaLocal;
     }
@@ -205,24 +202,18 @@ public class AplVenda {
      * @param dataVenda - Data da venda lida do arquivo.
      * @return VendaLocal - Objeto Venda
      */
-    private Venda criaVendaNaoFiado(Scanner sc, String dataVenda) {
+    private Venda criaVendaNaoFiado(Scanner sc, String dataVenda) throws ParseException {
         Venda vendaLocal = new Venda();
         List<Item> listaItem = new ArrayList();
         int quantidade;
 
-        try {
-            vendaLocal.setDataVenda(dateFormat.parse(dataVenda));
-            Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
-            quantidade = Integer.parseInt(sc.next());
-//            produto.setEstoqueAtual(produto.getEstoqueAtual()- quantidade);
-            Item item = new Item(produto, quantidade);
-            listaItem.add(item);
-            vendaLocal.setListaItens(listaItem);
-            vendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        vendaLocal.setDataVenda(dateFormat.parse(dataVenda));
+        Produto produto = (Produto) mapaProduto.get(Integer.parseInt(sc.next()));
+        quantidade = Integer.parseInt(sc.next());
+        Item item = new Item(produto, quantidade);
+        listaItem.add(item);
+        vendaLocal.setListaItens(listaItem);
+        vendaLocal.setMeioPagamento(MeioPagamento.valueOf(sc.next()));
 
         return vendaLocal;
     }

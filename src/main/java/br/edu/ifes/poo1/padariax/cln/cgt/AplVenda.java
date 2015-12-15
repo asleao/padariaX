@@ -75,27 +75,14 @@ public class AplVenda {
                         cliente = Integer.parseInt(registro);
                         importaVendaFiado(cliente, sc);
                     }
-
-                    if (ehUltimoRegistro(sc)) {
-                        listaVenda = vendasCadastradas(mapaVenda, listaVendaNaoFiado);
-                    }
                 }
             }
-        } catch (ParseException p){
+            
+            listaVenda = vendasCadastradas(mapaVenda, listaVendaNaoFiado);
+        } catch (ParseException p) {
             p.printStackTrace();
         }
         return listaVenda;
-    }
-
-    /**
-     * Função responsável por verificar se o scanner encontra-se no último
-     * registro do arquivo.
-     *
-     * @param sc
-     * @return
-     */
-    private static boolean ehUltimoRegistro(Scanner sc) {
-        return !sc.hasNext();
     }
 
     /**
@@ -150,9 +137,8 @@ public class AplVenda {
     }
 
     /**
-     * Função responsável por retornar uma lista com todas vendas importadas do
-     * arquivo.
-     *
+     * Função responsável por unir um Map de um List de vendas e retornar uma lista
+     * com todas vendas importadas do arquivo.
      *
      * @param mapaVendasFiado
      * @param listaVendasNaoFiado

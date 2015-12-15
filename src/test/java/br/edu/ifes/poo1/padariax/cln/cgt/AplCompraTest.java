@@ -10,8 +10,8 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
 import br.edu.ifes.poo1.padariax.cln.cdp.Item;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +45,7 @@ public class AplCompraTest {
     }
 
     @Test
-    public void testCadastroCompra() {
+    public void testCadastroCompra() throws ParseException {
         List<String> listaArquivo = util.importar(arquivoCompra);
         AplRelatorio aplRelatorio = new AplRelatorio();
         Map mapaProduto = aplProduto.cadastroProduto(arquivoProduto);
@@ -102,7 +102,7 @@ public class AplCompraTest {
         
        List<String> lista = aplRelatorio.aPagarFornecedor(listaCompra);
         
-        util.imprime(lista);
+//        util.imprime(lista);
 //        Assert.assertNotNull(listaCompra);
 //        Assert.assertEquals(4, listaCompra.size());
     }

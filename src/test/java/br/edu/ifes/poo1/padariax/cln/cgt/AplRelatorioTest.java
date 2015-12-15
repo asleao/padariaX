@@ -8,12 +8,9 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Cliente;
 import br.edu.ifes.poo1.padariax.cln.cdp.Compra;
-import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
-import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.APagarFornecedor;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -67,7 +64,7 @@ public class AplRelatorioTest {
 
         List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(listaCompra);
 
-        util.imprime(listaTotalPagar);
+//        util.imprime(listaTotalPagar);
         assertNotNull(listaTotalPagar);
 
     }

@@ -40,7 +40,7 @@ public class AplProdutoTest {
         
         List<Produto> listaProduto = ordenaMap(mapaProduto);
         
-        util.imprime(listaProduto);
+//        util.imprime(listaProduto);
 
         assertEquals(mapaProduto.size(), listaArquivo.size());
     }

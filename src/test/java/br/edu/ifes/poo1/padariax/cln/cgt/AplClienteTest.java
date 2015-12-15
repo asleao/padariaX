@@ -43,7 +43,7 @@ public class AplClienteTest {
         List<String> listaArquivo = util.importar(arquivo);
         Map mapaCliente = aplCliente.cadastroCliente(arquivo);
 
-        util.imprime(mapaCliente.values());
+//        util.imprime(mapaCliente.values());
 
         assertEquals(mapaCliente.size(), listaArquivo.size());
     }

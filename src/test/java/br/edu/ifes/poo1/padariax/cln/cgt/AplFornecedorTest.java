@@ -39,9 +39,8 @@ public class AplFornecedorTest {
         Map mapaFornecedor = aplFornecedor.cadastroFornecedor(arquivo);
 
         List<Fornecedor> listaFornecedor = ordenaMap(mapaFornecedor);
-        util.imprime(mapaFornecedor.values());
+//        util.imprime(mapaFornecedor.values());
 
-//        aplFornecedor.buscaFornecedor(1);
         assertEquals(mapaFornecedor.size(), listaArquivo.size());
     }
 

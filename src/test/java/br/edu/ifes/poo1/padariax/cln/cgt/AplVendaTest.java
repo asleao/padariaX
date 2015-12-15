@@ -46,7 +46,7 @@ public class AplVendaTest {
         
         List<Venda>  todasVendas = aplVenda.cadastroVenda(arquivoVenda);
 
-        imprimeVenda(todasVendas);
+//        imprimeVenda(todasVendas);
         
         Assert.assertNotNull(todasVendas);        
     }

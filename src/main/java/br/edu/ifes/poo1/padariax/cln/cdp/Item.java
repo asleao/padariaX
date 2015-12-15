@@ -48,7 +48,11 @@ public class Item {
     public double valorCompraItem(){               
         return  this.getQuantidade()*this.getProduto().getValorCusto();
     } 
-    
+    /**
+     * Função responsável por retornar o valor de venda do produto.
+     * Ela multiplica a quantidade pelo seu valor de venda.
+     * @return 
+     */
     public double valorVendaItem(){          
         return  this.getQuantidade()*this.produto.valorVenda();
     } 

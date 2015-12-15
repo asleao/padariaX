@@ -16,6 +16,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.relatorios.VendasLucroProduto;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -82,9 +83,8 @@ public class Main {
      * Metodo responsavel por perguntar o caminho onde se econtram os arquivos
      * de importacao e importa-los para dentro de uma Colecao(List e Map).
      *
-     * @param fileChooser - Objeto JFileChooser.
-     * @throws java.io.FileNotFoundException
-     * @throws java.nio.file.NoSuchFileException
+     * @param fileChooser - Objeto JFileChooser.          
+     * @throws java.io.IOException          
      */
     public static void menu(JFileChooser fileChooser) throws IOException {
         System.out.println(CAMINHOENTRADA);

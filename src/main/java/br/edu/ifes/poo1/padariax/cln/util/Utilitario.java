@@ -29,8 +29,9 @@ public class Utilitario {
      *
      * @param file - Arquivo com o nome e caminho
      * @return listaImportada - Lista com as linhas do arquivo
+     * @throws java.io.IOException
      */
-    public List<String> importar(Arquivo file) {
+    public List<String> importar(Arquivo file) throws IOException {
         List<String> listaImportada = new ArrayList<>();
 
         Path path = Paths.get(file.toString());
@@ -40,9 +41,7 @@ public class Utilitario {
             while (scanner.hasNextLine()) {
                 listaImportada.add(scanner.nextLine());
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        } 
 
         return listaImportada;
     }

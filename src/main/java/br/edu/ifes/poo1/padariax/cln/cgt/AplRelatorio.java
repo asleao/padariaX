@@ -41,14 +41,12 @@ public class AplRelatorio {
      * Função responsável por criar ler uma lista de compras e listar o total a
      * ser pago agrupando por fornecedor.
      *
-     * @param mapaCompras
+     * @param listaCompras
      * @return listaTotalPagar
      */
     public List<String> aPagarFornecedor(List<Compra> listaCompras) {
         List<APagarFornecedor> listaAPagar = new ArrayList();
         HashMap<Fornecedor,BigDecimal> mapaFornecedor = new HashMap();
-
-//        List<Compra> listaCompras = new ArrayList(mapaCompras.values());
         
         for (Compra compra : listaCompras) {
             if (mapaFornecedor.containsKey(compra.getFornecedor())) {
@@ -146,7 +144,7 @@ public class AplRelatorio {
      * Função reponsável por realizar um balanço do estoque. Para cada produto,
      * ele mostra a quantidade restante no estoque, após as vendas dos mês, e
      * caso o produto fique abaixo da quantidade mínima estabelecida, o campo de
-     * observa- ções é preenchido com "COMPRAR MAIS".
+     * observações é preenchido com "COMPRAR MAIS".
      *
      * @param listaVendas
      * @param listaCompras

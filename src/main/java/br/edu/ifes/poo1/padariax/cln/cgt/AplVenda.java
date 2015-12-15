@@ -66,17 +66,18 @@ public class AplVenda {
         List<String> listaImportada = util.importar(file);
 
         for (String linha : listaImportada) {
-            Scanner sc = new Scanner(linha);
-            if (!linha.equals("")) {
-                sc.useDelimiter(";");
-                String registro = sc.next();
-                int cliente;
+            try (Scanner sc = new Scanner(linha)) {
+                if (!linha.equals("")) {
+                    sc.useDelimiter(";");
+                    String registro = sc.next();
+                    int cliente;
 
-                if (ehData(registro)) {
-                    importaVendaNaoFiado(sc, registro);
-                } else {
-                    cliente = Integer.parseInt(registro);
-                    importaVendaFiado(cliente, sc);
+                    if (ehData(registro)) {
+                        importaVendaNaoFiado(sc, registro);
+                    } else {
+                        cliente = Integer.parseInt(registro);
+                        importaVendaFiado(cliente, sc);
+                    }
                 }
             }
         }

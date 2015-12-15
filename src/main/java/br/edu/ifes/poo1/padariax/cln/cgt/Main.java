@@ -133,7 +133,7 @@ public class Main {
      * @param caminho
      * @return
      */
-    private static Map importaCliente(String caminho) {
+    private static Map importaCliente(String caminho) throws IOException {
         arquivoCliente = new Arquivo(caminho, "clientes.csv");
         mapaCliente = aplCliente.cadastroCliente(arquivoCliente);
         return mapaCliente;
@@ -145,7 +145,7 @@ public class Main {
      * @param caminho
      * @return
      */
-    private static Map importaFornecedor(String caminho) {
+    private static Map importaFornecedor(String caminho) throws IOException {
         arquivoFornecedor = new Arquivo(caminho, "fornecedores.csv");
         mapaFornecedor = aplFornecedor.cadastroFornecedor(arquivoFornecedor);
         return mapaFornecedor;
@@ -157,7 +157,7 @@ public class Main {
      * @param caminho
      * @return
      */
-    private static Map importaProduto(String caminho) {
+    private static Map importaProduto(String caminho) throws IOException {
         arquivoProdutos = new Arquivo(caminho, "produtos.csv");
         mapaProduto = aplProduto.cadastroProduto(arquivoProdutos);
         return mapaProduto;
@@ -170,7 +170,7 @@ public class Main {
      * @param caminho
      * @return
      */
-    private static List<Compra> importaCompra(String caminho) {
+    private static List<Compra> importaCompra(String caminho) throws IOException {
         aplCompra = new AplCompra(aplFornecedor.cadastroFornecedor(arquivoFornecedor),
                 aplProduto.cadastroProduto(arquivoProdutos));
         arquivoCompras = new Arquivo(caminho, "compras.csv");
@@ -184,7 +184,7 @@ public class Main {
      * @param caminho
      * @return
      */
-    private static List<Venda> importaVenda(String caminho) {
+    private static List<Venda> importaVenda(String caminho) throws IOException {
         aplVenda = new AplVenda(aplCliente.cadastroCliente(arquivoCliente),
                 aplProduto.cadastroProduto(arquivoProdutos));
         arquivoVendas = new Arquivo(caminho, "vendas.csv");
@@ -202,7 +202,7 @@ public class Main {
      * @param fileChooser - Objeto JFileChooser.
      * @throws Exception
      */
-    private static void gerarRelatorios(Scanner sc, JFileChooser fileChooser) throws FileNotFoundException {
+    private static void gerarRelatorios(Scanner sc, JFileChooser fileChooser) throws FileNotFoundException, IOException {
         System.out.println("Relatórios:");
         System.out.println("1 - Total a pagar por fornecedor");
         System.out.println("2 - Total a receber por cliente");

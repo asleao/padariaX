@@ -11,6 +11,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Item;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -57,8 +58,9 @@ public class AplCompra {
      *
      * @param file - Caminho do arquivo
      * @return listaCliente - Map de compras
+     * @throws java.io.IOException
      */
-    public List<Compra> cadastroCompra(Arquivo file) {
+    public List<Compra> cadastroCompra(Arquivo file) throws IOException {
         List<String> listaImportada = util.importar(file);
 
         try {

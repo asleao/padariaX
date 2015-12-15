@@ -8,6 +8,7 @@ package br.edu.ifes.poo1.padariax.cln.cgt;
 import br.edu.ifes.poo1.padariax.cln.cdp.Arquivo;
 import br.edu.ifes.poo1.padariax.cln.cdp.Fornecedor;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,9 @@ public class AplFornecedor {
      *
      * @param file - caminnho do arquivo
      * @return listaFornecedor - Lista de Fornecedores
+     * @throws java.io.IOException
      */
-    public Map cadastroFornecedor(Arquivo file) {
+    public Map cadastroFornecedor(Arquivo file) throws IOException {
         List<String> listaImportada = aplArquivo.importar(file);
 
         for (String linha : listaImportada) {

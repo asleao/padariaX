@@ -11,6 +11,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.PessoaFisica;
 import br.edu.ifes.poo1.padariax.cln.cdp.PessoaJuridica;
 import br.edu.ifes.poo1.padariax.cln.cdp.TipoCliente;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -44,8 +45,9 @@ public class AplCliente {
      *
      * @param file - Caminho do arquivo
      * @return listaCliente - mapa de clientes
+     * @throws java.io.IOException
      */
-    public Map cadastroCliente(Arquivo file) {
+    public Map cadastroCliente(Arquivo file) throws IOException {
         List<String> listaImportada = util.importar(file);
 
         for (String linha : listaImportada) {

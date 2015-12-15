@@ -12,6 +12,7 @@ import br.edu.ifes.poo1.padariax.cln.cdp.MeioPagamento;
 import br.edu.ifes.poo1.padariax.cln.cdp.Produto;
 import br.edu.ifes.poo1.padariax.cln.cdp.Venda;
 import br.edu.ifes.poo1.padariax.cln.util.Utilitario;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -57,8 +58,9 @@ public class AplVenda {
      *
      * @param file - Caminho do arquivo
      * @return listaCliente - List de Vendas
+     * @throws java.io.IOException
      */
-    public List<Venda> cadastroVenda(Arquivo file) {
+    public List<Venda> cadastroVenda(Arquivo file) throws IOException {
         try {
             List<String> listaImportada = util.importar(file);
 

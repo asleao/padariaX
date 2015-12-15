@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 /**
@@ -53,7 +52,7 @@ public class AplRelatorio {
         
         for (Compra compra : listaCompras) {
             if (mapaFornecedor.containsKey(compra.getFornecedor())) {
-                BigDecimal valorPago = (BigDecimal)mapaFornecedor.get(compra.getFornecedor());
+                BigDecimal valorPago = mapaFornecedor.get(compra.getFornecedor());
                 
                 BigDecimal valorCompra = new BigDecimal(valorPago.doubleValue() +compra.valorPago().doubleValue());
                 

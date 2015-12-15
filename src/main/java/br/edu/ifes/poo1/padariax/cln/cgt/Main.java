@@ -44,7 +44,9 @@ public class Main {
     private static Arquivo arquivoCompras;
     private static Arquivo arquivoVendas;
     private static Arquivo arquivoProdutos;
-    private static Utilitario util;   
+    private static Utilitario util;
+    private static final String CAMINHOENTRADA = "Informe o caminho dos arquivos de importação: ";
+    private static final String CAMINHOSAIDA = "Informe o caminho em que o relatório será salvo: ";
     private static final String GERANDO = "Gerando relatório...";
     private static final String SUCESSO = "Relatório gerado com sucesso!";
     private static final String CANCELADO = "Relatório cancelado...";
@@ -69,14 +71,10 @@ public class Main {
         try (Scanner sc = new Scanner(System.in)) {
             menu(fileChooser);
             gerarRelatorios(sc, fileChooser);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(ERRO);
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
             System.out.println(ERRO);
         }
-        
 
     }
 
@@ -89,7 +87,7 @@ public class Main {
      * @throws java.nio.file.NoSuchFileException
      */
     public static void menu(JFileChooser fileChooser) throws IOException {
-        System.out.println("Informe o caminho dos arquivos de importação: ");
+        System.out.println(CAMINHOENTRADA);
         int status = fileChooser.showOpenDialog(null);
         if (status == JFileChooser.APPROVE_OPTION) {
             String caminho = fileChooser.getSelectedFile().getPath() + "/";
@@ -192,7 +190,7 @@ public class Main {
 
         switch (opc) {
             case "1":
-                System.out.println("Informe o caminho em que o relatório será salvo: ");
+                System.out.println(CAMINHOSAIDA);
                 status = fileChooser.showSaveDialog(null);
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
@@ -208,7 +206,7 @@ public class Main {
                 }
                 break;
             case "2":
-                System.out.println("Informe o caminho em que o relatório será salvo: ");
+                System.out.println(CAMINHOSAIDA);
                 status = fileChooser.showSaveDialog(null);
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
@@ -224,7 +222,7 @@ public class Main {
                 }
                 break;
             case "3":
-                System.out.println("Informe o caminho em que o relatório será salvo: ");
+                System.out.println(CAMINHOSAIDA);
                 status = fileChooser.showSaveDialog(null);
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
@@ -240,7 +238,7 @@ public class Main {
                 }
                 break;
             case "4":
-                System.out.println("Informe o caminho em que o relatório será salvo: ");
+                System.out.println(CAMINHOSAIDA);
                 status = fileChooser.showSaveDialog(null);
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
@@ -256,7 +254,7 @@ public class Main {
                 }
                 break;
             case "5":
-                System.out.println("Informe o caminho em que o relatório será salvo: ");
+                System.out.println(CAMINHOSAIDA);
                 status = fileChooser.showSaveDialog(null);
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";
@@ -273,7 +271,7 @@ public class Main {
                 }
                 break;
             case "6":
-                System.out.println("Informe o caminho em que o relatório será salvo: ");
+                System.out.println(CAMINHOSAIDA);
                 status = fileChooser.showSaveDialog(null);
                 if (status == JFileChooser.APPROVE_OPTION) {
                     destino = fileChooser.getSelectedFile().getPath() + "/";

@@ -52,7 +52,7 @@ public class BalancoMensal implements Comparable<BalancoMensal> {
 
     @Override
     public int compareTo(BalancoMensal balanco) {
-        return this.produto.getDescricao().compareTo(((BalancoMensal) balanco).getProduto().getDescricao());
+        return this.produto.getDescricao().compareTo(balanco.getProduto().getDescricao());
     }
 
     @Override

@@ -53,7 +53,7 @@ public class AReceberCliente implements Comparable<AReceberCliente> {
 
     @Override
     public int compareTo(AReceberCliente obj) {
-        return this.cliente.getNome().compareTo(((AReceberCliente) obj).getCliente().getNome());
+        return this.cliente.getNome().compareTo(obj.getCliente().getNome());
     }
 
     @Override

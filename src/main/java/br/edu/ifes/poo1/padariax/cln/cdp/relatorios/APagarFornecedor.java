@@ -53,7 +53,7 @@ public class APagarFornecedor implements Comparable<APagarFornecedor> {
 
     @Override
     public int compareTo(APagarFornecedor obj) {
-        return this.fornecedor.getNome().compareTo(((APagarFornecedor) obj).getFornecedor().getNome());
+        return this.fornecedor.getNome().compareTo(obj.getFornecedor().getNome());
     }
 
     @Override

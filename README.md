@@ -12,7 +12,7 @@ Este repositório contém um sistema de padaria que foi implementado como trabal
 
 Baixe o projeto clicando em **"Download Zip"** ou, caso possua o git instalado, utilize o comando:
 
-`https://github.com/asleao/padariaX.git`
+`git clone https://github.com/asleao/padariaX.git`
 
 ### Execução:
 

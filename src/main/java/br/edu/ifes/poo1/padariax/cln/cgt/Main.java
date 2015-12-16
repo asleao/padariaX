@@ -230,7 +230,7 @@ public class Main {
                     System.out.println(destino);
                     System.out.println(GERANDO);
                     List<String> listaTotalPagar = aplRelatorio.aPagarFornecedor(listaCompras);
-                    util.exportar(listaTotalPagar, new Arquivo(destino, "apagar.csv"), new APagarFornecedor().getCabecalho());
+                    util.exportar(listaTotalPagar, new Arquivo(destino, "1-apagar.csv"), new APagarFornecedor().getCabecalho());
                     System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
@@ -246,7 +246,7 @@ public class Main {
                     System.out.println(destino);
                     System.out.println(GERANDO);
                     List<String> listaTotalReceber = aplRelatorio.aReceberPorCliente(listaVendas, new ArrayList(mapaCliente.values()));
-                    util.exportar(listaTotalReceber, new Arquivo(destino, "areceber.csv"), new AReceberCliente().getCabecalho());
+                    util.exportar(listaTotalReceber, new Arquivo(destino, "2-areceber.csv"), new AReceberCliente().getCabecalho());
                     System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
@@ -262,7 +262,7 @@ public class Main {
                     System.out.println(destino);
                     System.out.println(GERANDO);
                     List<String> listaTotalLucro = aplRelatorio.vendasLucroPorProduto(listaVendas, new ArrayList(mapaProduto.values()));
-                    util.exportar(listaTotalLucro, new Arquivo(destino, "vendasprod.csv"), new VendasLucroProduto().getCabecalho());
+                    util.exportar(listaTotalLucro, new Arquivo(destino, "3-vendasprod.csv"), new VendasLucroProduto().getCabecalho());
                     System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
@@ -278,7 +278,7 @@ public class Main {
                     System.out.println(destino);
                     System.out.println(GERANDO);
                     List<String> listaTotalPagamento = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
-                    util.exportar(listaTotalPagamento, new Arquivo(destino, "vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());
+                    util.exportar(listaTotalPagamento, new Arquivo(destino, "4-vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());
                     System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
@@ -295,7 +295,7 @@ public class Main {
                     System.out.println(GERANDO);
                     listaVendas = importaVenda(arquivoVendas.getCaminho());
                     List<String> listaBalanco = aplRelatorio.balancoMensal(listaVendas, listaCompras, new ArrayList(mapaProduto.values()));
-                    util.exportar(listaBalanco, new Arquivo(destino, "estoque.csv"), new BalancoMensal().getCabecalho());
+                    util.exportar(listaBalanco, new Arquivo(destino, "5-estoque.csv"), new BalancoMensal().getCabecalho());
                     System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {
@@ -312,15 +312,15 @@ public class Main {
                     System.out.println(GERANDO);
                     listaVendas = importaVenda(arquivoVendas.getCaminho());
                     List<String> listaAPagar = aplRelatorio.aPagarFornecedor(listaCompras);
-                    util.exportar(listaAPagar, new Arquivo(destino, "apagar.csv"), new APagarFornecedor().getCabecalho());
+                    util.exportar(listaAPagar, new Arquivo(destino, "1-apagar.csv"), new APagarFornecedor().getCabecalho());
                     List<String> listaAReceber = aplRelatorio.aReceberPorCliente(listaVendas, new ArrayList(mapaCliente.values()));
-                    util.exportar(listaAReceber, new Arquivo(destino, "areceber.csv"), new AReceberCliente().getCabecalho());
+                    util.exportar(listaAReceber, new Arquivo(destino, "2-areceber.csv"), new AReceberCliente().getCabecalho());
                     List<String> listaLucroProduto = aplRelatorio.vendasLucroPorProduto(listaVendas, new ArrayList(mapaProduto.values()));
-                    util.exportar(listaLucroProduto, new Arquivo(destino, "vendasprod.csv"), new VendasLucroProduto().getCabecalho());
+                    util.exportar(listaLucroProduto, new Arquivo(destino, "3-vendasprod.csv"), new VendasLucroProduto().getCabecalho());
                     List<String> listaLucroPagamento = aplRelatorio.vendasLucroPorMeioPagamento(listaVendas);
-                    util.exportar(listaLucroPagamento, new Arquivo(destino, "vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());
+                    util.exportar(listaLucroPagamento, new Arquivo(destino, "4-vendaspgto.csv"), new VendasLucroMeioPagamento().getCabecalho());
                     List<String> listaBalancoMensal = aplRelatorio.balancoMensal(listaVendas, listaCompras, new ArrayList(mapaProduto.values()));
-                    util.exportar(listaBalancoMensal, new Arquivo(destino, "estoque.csv"), new BalancoMensal().getCabecalho());
+                    util.exportar(listaBalancoMensal, new Arquivo(destino, "5-estoque.csv"), new BalancoMensal().getCabecalho());
                     System.out.println(SUCESSO);
                     gerarRelatorios(sc, fileChooser);
                 } else {

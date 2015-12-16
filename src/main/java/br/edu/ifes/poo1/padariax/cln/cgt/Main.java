@@ -85,9 +85,9 @@ public class Main {
      * Metodo responsavel por perguntar o caminho onde se econtram os arquivos
      * de importacao e importa-los para dentro de uma Colecao(List e Map).
      *
-     * @param fileChooser - Objeto JFileChooser.          
-     * @throws java.io.IOException          
-     * @throws java.text.ParseException          
+     * @param fileChooser - Objeto JFileChooser.
+     * @throws java.io.IOException
+     * @throws java.text.ParseException
      */
     public static void menu(JFileChooser fileChooser) throws IOException, ParseException {
         System.out.println(CAMINHOENTRADA);
@@ -97,30 +97,31 @@ public class Main {
             System.out.println(caminho);
             String arquivos = "clientes.csv,fornecedores.csv,produtos.csv,compras.csv,vendas.csv";
 
-            Scanner linha = new Scanner(arquivos);
-            linha.useDelimiter(",");
+            try (Scanner linha = new Scanner(arquivos)) {
+                linha.useDelimiter(",");
 
-            while (linha.hasNext()) {
-                String opc = linha.next();
-                switch (opc) {
-                    case "clientes.csv":
-                        importaCliente(caminho);
-                        break;
-                    case "fornecedores.csv":
-                        importaFornecedor(caminho);
-                        break;
-                    case "produtos.csv":
-                        importaProduto(caminho);
-                        break;
-                    case "compras.csv":
-                        importaCompra(caminho);
-                        break;
-                    case "vendas.csv":
-                        importaVenda(caminho);
-                        break;
-                    default:
-                        System.out.println("Arquivo" + opc + " não faz parte do escopo do sistema.");
-                        break;
+                while (linha.hasNext()) {
+                    String opc = linha.next();
+                    switch (opc) {
+                        case "clientes.csv":
+                            importaCliente(caminho);
+                            break;
+                        case "fornecedores.csv":
+                            importaFornecedor(caminho);
+                            break;
+                        case "produtos.csv":
+                            importaProduto(caminho);
+                            break;
+                        case "compras.csv":
+                            importaCompra(caminho);
+                            break;
+                        case "vendas.csv":
+                            importaVenda(caminho);
+                            break;
+                        default:
+                            System.out.println("Arquivo" + opc + " não faz parte do escopo do sistema.");
+                            break;
+                    }
                 }
             }
         } else {
@@ -202,7 +203,7 @@ public class Main {
      * pasta o programa exibe lanca uma excecao e encerrado.
      *
      * @param sc - Objeto Scanner.
-     * @param fileChooser - Objeto JFileChooser.     
+     * @param fileChooser - Objeto JFileChooser.
      */
     private static void gerarRelatorios(Scanner sc, JFileChooser fileChooser) throws FileNotFoundException, IOException, ParseException {
         System.out.println("Relatórios:");

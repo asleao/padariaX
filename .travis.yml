@@ -3,11 +3,7 @@ jdk:
   - oraclejdk8
 
 addons:
-  sonarqube:
-    token:
-      secure: "krLqwJzDQBplxLmqN9dNI7J1OvW7K4YU4E/mRlBJ67LnbbsTzICFM7MTJx+4JIWKp5JHr0Ck6jeDSqUFRJgBVCBVPmhSrz8Ycfokio+7di/ARYqgjcEBKRqhei8QglVGSvK9NRc8IOtbl87h/zqlGmd2MSj5EOkbGXCTB/UEG7Ma1C9tjGYy3XzoHxhE2azaoQSpx2coNQzKxQlNqz/EBsw6s2r0txAfeT4J2rd6zapZH0uYTLVK1UVi6udWoxQCHX/FIqsMHq6irtAJP2uJrx+aHN9vxdrWwvWz1z0HE/foCz/PAJ9THGP/Zpi4QUuMjli8/Ig3+LwhtEmnQS9cHnLs5Elx6+U1GFXSDfkdoA2Beyn5CWnzhkE3xqExP80NmZRKhUgwRBsv7R48pSPmVzfgXp4moXKm9gWDXE2xE8uyr3yhI02YKRm08pBCW95ITq7Kngwbp5v8OTWzPcZCiPhZUiYkWjuY2KWTuGcm/9G6qb4NrEgmjHqUWtLYEz4rvcjc/B0B9Z4ZBfyyOTbQcvOISwjSkA6Qu4PXUXaMJHnE6439lXpX3QuRYEG0yC4IIEIJ2SRAuolh/hI4Ys6RSsUfhzYMWGoGD82BV20UTS/Oug6DdvkamoizxkVhIr7Kc7kCJQTOFt8UCW+KTgnZ7s+KrfsTRZIXajfJy/macPI="
-
+  sonarqube: true
     
 script:
-  - mvn test -B
-  - sonar-scanner
+  - mvn clean install sonar:sonar -Dsonar.login=4dcfbfb69c7387450880bc44c1670984326a14e2

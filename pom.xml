@@ -6,6 +6,13 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
+	<maven.test.skip>true</maven.test.skip>
+        <!--- Configuracao do Sonar-->
+        <sonar.host.url>https://sonarqube.com</sonar.host.url>
+		<sonar.login>4dcfbfb69c7387450880bc44c1670984326a14e2</sonar.login>    
+        <!-- Codificacao -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>    
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>

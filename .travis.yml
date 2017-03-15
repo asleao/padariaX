@@ -6,4 +6,4 @@ addons:
   sonarqube: true
     
 script:
-  - mvn clean install sonar:sonar -DskipTests -Dsonar.login=4dcfbfb69c7387450880bc44c1670984326a14e2
+  - mvn clean install sonar:sonar -Dsonar.login=4dcfbfb69c7387450880bc44c1670984326a14e2

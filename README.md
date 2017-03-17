@@ -1,8 +1,10 @@
-#**Bem vindo!** 
+# **Bem vindo!** 
+
+[![Build Status](https://travis-ci.org/asleao/padariaX.svg?branch=master)](https://travis-ci.org/asleao/padariaX)
 
 Este repositório contém um sistema de padaria que foi implementado como trabalho da disciplina de Programação Orientada a Objetos 1. 
 
-###**Pré-requisitos:**
+### **Pré-requisitos:**
 
 * Jdk >= 1.8
 * Maven >= 2

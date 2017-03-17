@@ -5,7 +5,7 @@ jdk:
 addons:
   sonarqube:
       organization: "asleao-github"
-      token: j/yIZQv1Q9JsNr6XW2tBRYzaOcoZKnw0I0ux4D6a4JiyJPL7746/aVMq7F6xUpxLQGhyLbuak5U1YKiEQvhd5GzsnPi0Fd/cCSt6mLbO15TDWR1+wsKnRScmXVzVeFkW765sHaVbJu3XgGIc1lClronIfqrB3K7v/wwOTzUMByzMQqKue4ypwMxmdUwIn9woeLlt+k/rHJUZaOpb+nk48DA14H3k2wvhWG4Q6ySLFx7YkY6nOyZFcWJuAgRlpSrAiP7qcEIpyPdLHUriUQW4FY4XbGa4ULPZSF5AXdzQXi3h1w5VGghaWuKHshTBI19OmgREOJzrNOum93rWp7TO0Rg12gf7i1RrKA5pmvFF/F4A7pIOU+Y4Z9n0vLS81MPfWfrtWyg8Mn0vA2wZIXvoLCE91hn684I34FZ8ZDlaFK6tPgNY8Ey9IB0hEj3vtUtfsSvz1NstgNyo7UyMaH5fN9cOgxbNAkfE33pBVRSOPtJsN4lLkeC/wWdOUA3SLEExPzU5MQmIaUc2R5LXeTTAyqnTytb0xVBJt48UPBlsxlFEVsNMBqMiZa9CfhwsRoHVq7wp621X4COnXH+NfCP4dMe+NmgLRT5hb0hm6xSZcagueKbe1unwuzGN8g22yNBjQqqbTUIelZ6S4U1Hn5cg/t6LkdIAazS5jVWqv594Z2k=
+      token: $SONAR_TOKEN
      
 script:
 - mvn test -B
